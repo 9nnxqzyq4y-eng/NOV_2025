@@ -43,12 +43,12 @@ class StandaloneAIEngine:
     without requiring external API access. Provides production-ready outputs with
     domain expertise in El Salvador MYPE lending.
     """
-    
+
     def __init__(self):
         self.personalities = self._load_personalities()
         self.knowledge_base = self._load_knowledge_base()
         self.response_templates = self._load_response_templates()
-        
+
     def _load_personalities(self) -> Dict[str, AgentPersonality]:
         """Load all 15 AI persona definitions"""
         return {
@@ -73,7 +73,7 @@ class StandaloneAIEngine:
                     "Require human sign-off for portfolio-level recommendations"
                 ]
             ),
-            
+
             # 2. CHIEF RISK OFFICER AI - C-Level Risk
             "risk_cro": AgentPersonality(
                 name="Ricardo",
@@ -118,7 +118,7 @@ class StandaloneAIEngine:
                     "Reject changes that introduce un-gated costs (e.g., uncontrolled API calls)."
                 ]
             ),
-            
+
             # 3. RISK MANAGER AI - Manager Level
             "risk_manager": AgentPersonality(
                 name="María",
@@ -140,7 +140,7 @@ class StandaloneAIEngine:
                     "Require valid contact info for tasks"
                 ]
             ),
-            
+
             # 4. COLLECTIONS COACH AI - Collections Lead
             "collections": AgentPersonality(
                 name="Carmen",
@@ -162,7 +162,7 @@ class StandaloneAIEngine:
                     "Limit settlements to configured thresholds"
                 ]
             ),
-            
+
             # 5. GROWTH STRATEGIST AI - Head of Growth
             "growth": AgentPersonality(
                 name="Diego",
@@ -183,7 +183,7 @@ class StandaloneAIEngine:
                     "Do not propose spend increases when churn > threshold"
                 ]
             ),
-            
+
             # 6. COMMERCIAL MANAGER AI - Commercial Manager
             "commercial": AgentPersonality(
                 name="Alejandra",
@@ -204,7 +204,7 @@ class StandaloneAIEngine:
                     "Escalate credit increases if POD>50%"
                 ]
             ),
-            
+
             # 7. KAM ASSISTANT AI - Key Account Manager Co-Pilot
             "kam": AgentPersonality(
                 name="Luis",
@@ -225,7 +225,7 @@ class StandaloneAIEngine:
                     "Require human confirmation before sending communications"
                 ]
             ),
-            
+
             # 8. FINANCIAL ANALYST AI - Portfolio Finance Analyst
             "financial": AgentPersonality(
                 name="Ana",
@@ -246,7 +246,7 @@ class StandaloneAIEngine:
                     "Pause if financials missing or quality_score < 70"
                 ]
             ),
-            
+
             # 9. DATA QUALITY GUARDIAN AI - Data Steward
             "quality": AgentPersonality(
                 name="Patricia",
@@ -267,7 +267,7 @@ class StandaloneAIEngine:
                     "Block critical analyses if quality_score < threshold"
                 ]
             ),
-            
+
             # 10. MODELING & MLOPS AI - ModelOps Engineer
             "mlops": AgentPersonality(
                 name="Roberto",
@@ -289,7 +289,7 @@ class StandaloneAIEngine:
                     "Do not auto-promote if AUC < threshold"
                 ]
             ),
-            
+
             # 11. VISUAL DESIGNER AI - Dashboard UX Lead
             "designer": AgentPersonality(
                 name="Isabella",
@@ -311,7 +311,7 @@ class StandaloneAIEngine:
                     "Require human review for new templates"
                 ]
             ),
-            
+
             # 12. INTEGRATIONS ORCHESTRATOR AI - Integrations Lead
             "integrations": AgentPersonality(
                 name="Miguel",
@@ -333,7 +333,7 @@ class StandaloneAIEngine:
                     "Never send PII in Slack"
                 ]
             ),
-            
+
             # 13. COMPLIANCE & AUDIT AI - Compliance Officer
             "compliance": AgentPersonality(
                 name="Gabriela",
@@ -354,7 +354,7 @@ class StandaloneAIEngine:
                     "Auto-block unredacted PII exports"
                 ]
             ),
-            
+
             # 14. PRODUCT FORECASTER AI - Forecasting & Scenario Planner
             "forecaster": AgentPersonality(
                 name="Carlos",
@@ -375,7 +375,7 @@ class StandaloneAIEngine:
                     "Mark low-confidence if window insufficient or drift high"
                 ]
             ),
-            
+
             # 15. ADVISOR (HITL) AI - Decision Support Moderator
             "advisor": AgentPersonality(
                 name="Elena",
@@ -397,7 +397,7 @@ class StandaloneAIEngine:
                 ]
             ),
         }
-    
+
     def _load_knowledge_base(self) -> Dict[str, Any]:
         """Load El Salvador MYPE lending domain knowledge"""
         return {
@@ -473,9 +473,15 @@ class StandaloneAIEngine:
                     "dpd_90": 0.50,
                     "dpd_120": 1.00
                 }
+            },
+            "channel_economics": {
+                "KAM": {"cac": 1500, "ltv": 12000, "ratio": 8.0},
+                "Digital": {"cac": 300, "ltv": 2400, "ratio": 8.0},
+                "Embedded": {"cac": 250, "ltv": 2000, "ratio": 8.0},
+                "Partner": {"cac": 500, "ltv": 5000, "ratio": 10.0}
             }
         }
-    
+
     def _load_response_templates(self) -> Dict[str, Dict]:
         """Load response structure templates for each persona"""
         return {
@@ -505,27 +511,27 @@ class StandaloneAIEngine:
                 "blocking": True
             }
         }
-    
+
     def generate_response(self, agent_id: str, context: Dict, data: Dict) -> str:
         """
         Generate intelligent response for specified agent
-        
+
         Args:
             agent_id: Agent identifier (e.g., 'executive-summary-ai-001')
             context: Request context with task details
             data: Input data for analysis
-            
+
         Returns:
             Formatted response string with agent's analysis
         """
         # Extract agent type from ID
         agent_type = self._extract_agent_type(agent_id)
-        
+
         # Get personality
         personality = self.personalities.get(agent_type)
         if not personality:
             return self._fallback_response(agent_id, context)
-        
+
         # Route to appropriate generator
         if agent_type == "executive":
             return self._generate_executive_summary(personality, data)
@@ -563,7 +569,7 @@ class StandaloneAIEngine:
             return self._generate_decision_memo(personality, data)
         else:
             return self._fallback_response(agent_id, context)
-    
+
     def _extract_agent_type(self, agent_id: str) -> str:
         """Extract agent type from full agent ID"""
         agent_id_lower = agent_id.lower()
@@ -583,7 +589,7 @@ class StandaloneAIEngine:
             if keyword in agent_id_lower:
                 return agent_type
         return "unknown"
-    
+
     def _generate_executive_summary(self, personality: AgentPersonality, data: Dict) -> str:
         """Generate executive summary (Sofia)"""
         kpis = data.get("kpis", {})
@@ -592,8 +598,8 @@ class StandaloneAIEngine:
         default_rate = kpis.get("default_rate", 0.021)
         npa = kpis.get("npa", 0.032)
         growth = kpis.get("growth_mom", 0.128)
-        
-        summary = """# Executive Portfolio Summary
+
+        summary = f"""# Executive Portfolio Summary
 *{personality.signature_phrases[0]}*
 
 ## Key Metrics (as of {datetime.now().strftime('%Y-%m-%d')})
@@ -619,17 +625,17 @@ class StandaloneAIEngine:
 *Recommended backends: {', '.join(personality.preferred_backends)}*
 """
         return summary
-    
+
     def _generate_risk_cro_report(self, personality: AgentPersonality, data: Dict) -> str:
         """Generate CRO risk assessment (Ricardo)"""
         portfolio = data.get("portfolio", {})
         par30 = portfolio.get("par30", 0.085)
         concentration = portfolio.get("concentration", 0.382)
         avg_pod = portfolio.get("avg_pod", 0.18)
-        
+
         risk_score = self._calculate_risk_score(data)
-        
-        report = """# Chief Risk Officer Assessment
+
+        report = f"""# Chief Risk Officer Assessment
 *{personality.signature_phrases[1]}*
 
 ## Portfolio Risk Score: {risk_score:.1f}/100 {'🟢 ACCEPTABLE' if risk_score > 70 else '🔴 ELEVATED'}
@@ -664,7 +670,7 @@ TOTAL:     ${self._calc_provision(par30, 'total', data):,.0f}
 *Safety rule: Blocking if POD model not validated*
 """
         return report
-    
+
     def _generate_cfo_report(self, personality: AgentPersonality, data: Dict) -> str:
         """Generate CFO financial discipline report (ABACO_CFO_AI)"""
         findings: List[Dict[str, Any]] = data.get("findings", [])
@@ -708,8 +714,8 @@ TOTAL:     ${self._calc_provision(par30, 'total', data):,.0f}
         cases_90 = dpd_cases.get("over_90", 47)
         cases_60 = dpd_cases.get("60_90", 32)
         cases_30 = dpd_cases.get("30_60", 58)
-        
-        report = """# Risk Manager Daily Report
+
+        report = f"""# Risk Manager Daily Report
 *{personality.signature_phrases[0]}*
 
 ## Collections Priority Queue (Generated {datetime.now().strftime('%H:%M')})
@@ -744,15 +750,15 @@ Preventive outreach:
 *Next update: {(datetime.now() + timedelta(hours=24)).strftime('%Y-%m-%d %H:%M')}*
 """
         return report
-    
+
     def _generate_collections_plan(self, personality: AgentPersonality, data: Dict) -> str:
         """Generate bilingual collections remediation plan (Carmen)"""
         customer = data.get("customer", {})
         dpd = customer.get("dpd", 45)
         balance = customer.get("balance", 5000)
         payment_history = customer.get("payment_history", "positive hasta marzo 2025")
-        
-        plan = """# Plan de Cobranza / Collections Remediation Plan
+
+        plan = f"""# Plan de Cobranza / Collections Remediation Plan
 *{personality.signature_phrases[0]}*
 
 ## Customer Situation Analysis
@@ -815,7 +821,7 @@ Can we schedule the first payment for next [Day]?"
 *Human approval required for settlement offers >20% of balance*
 """
         return plan
-    
+
     def _generate_growth_strategy(self, personality: AgentPersonality, data: Dict) -> str:
         """Generate growth strategy recommendations (Diego)"""
         channels: Dict[str, int] = data.get("channels", {})
@@ -823,10 +829,10 @@ Can we schedule the first payment for next [Day]?"
         digital_volume = channels.get("Digital", 120)
         embedded_volume = channels.get("Embedded", 60)
         partner_volume = channels.get("Partner", 15)
-        
+
         economics = self.knowledge_base["channel_economics"]
-        
-        strategy = """# Growth & Commercial Strategy
+
+        strategy = f"""# Growth & Commercial Strategy
 *{personality.signature_phrases[0]}*
 
 ## Channel Performance Analysis
@@ -888,17 +894,17 @@ Partner:  {partner_volume} clients  |  CAC: ${economics['Partner']['cac']:,}  | 
 *Safety rule: No spend increases proposed (current churn within acceptable range)*
 """
         return strategy
-    
+
     def _generate_quality_report(self, personality: AgentPersonality, data: Dict) -> str:
         """Generate data quality audit report (Patricia)"""
         quality_metrics: Dict[str, float] = data.get("quality", {})
         null_pct = quality_metrics.get("null_pct", 0.082)
         duplicate_pct = quality_metrics.get("duplicate_pct", 0.003)
         schema_drift = quality_metrics.get("schema_drift", 0.0)
-        
+
         quality_score = max(0, 100 - (null_pct * 500) - (duplicate_pct * 1000) - (schema_drift * 200))
-        
-        report = """# Data Quality Audit Report
+
+        report = f"""# Data Quality Audit Report
 *{personality.signature_phrases[2]}*
 
 ## Quality Score: {quality_score:.1f}/100 {'🟢 APPROVED' if quality_score >= 70 else '🔴 BLOCKED'}
@@ -946,33 +952,95 @@ collateral_value:   {100 - null_pct*300:.1f}% complete  {'⚠️ BLOCKING' if nu
         return report
 
     # Placeholder methods for remaining generators
-    def _generate_commercial_report(self, personality: AgentPersonality, data: Dict) -> str:
-        return f"# Commercial Manager Report\n*{personality.signature_phrases[0]}*\n\n[Commercial insights generated by {personality.name}]\n\n*Preferred backends: {', '.join(personality.preferred_backends)}*"  # type: ignore
-    
+    def _generate_commercial_report(
+        self, personality: AgentPersonality, data: Dict
+    ) -> str:
+        backends = ", ".join(personality.preferred_backends)
+        return (
+            f"# Commercial Manager Report\n"
+            f"*{personality.signature_phrases[0]}*\n\n"
+            f"[Commercial insights generated by {personality.name}]\n\n"
+            f"*Preferred backends: {backends}*"
+        )
+
     def _generate_kam_brief(self, personality: AgentPersonality, data: Dict) -> str:
-        return f"# KAM Assistant Brief\n*{personality.signature_phrases[0]}*\n\n[KAM meeting brief generated by {personality.name}]\n\n*Preferred backends: {', '.join(personality.preferred_backends)}*"
-    
-    def _generate_financial_analysis(self, personality: AgentPersonality, data: Dict) -> str:
-        return f"# Financial Analysis\n*{personality.signature_phrases[0]}*\n\n[Financial projections generated by {personality.name}]\n\n*Preferred backends: {', '.join(personality.preferred_backends)}*"
-    
+        backends = ", ".join(personality.preferred_backends)
+        return (
+            f"# KAM Assistant Brief\n"
+            f"*{personality.signature_phrases[0]}*\n\n"
+            f"[KAM meeting brief generated by {personality.name}]\n\n"
+            f"*Preferred backends: {backends}*"
+        )
+
+    def _generate_financial_analysis(
+        self, personality: AgentPersonality, data: Dict
+    ) -> str:
+        backends = ", ".join(personality.preferred_backends)
+        return (
+            f"# Financial Analysis\n"
+            f"*{personality.signature_phrases[0]}*\n\n"
+            f"[Financial projections generated by {personality.name}]\n\n"
+            f"*Preferred backends: {backends}*"
+        )
+
     def _generate_mlops_report(self, personality: AgentPersonality, data: Dict) -> str:
-        return f"# MLOps Model Report\n*{personality.signature_phrases[0]}*\n\n[Model validation generated by {personality.name}]\n\n*Preferred backends: {', '.join(personality.preferred_backends)}*"
-    
+        backends = ", ".join(personality.preferred_backends)
+        return (
+            f"# MLOps Model Report\n"
+            f"*{personality.signature_phrases[0]}*\n\n"
+            f"[Model validation generated by {personality.name}]\n\n"
+            f"*Preferred backends: {backends}*"
+        )
+
     def _generate_design_spec(self, personality: AgentPersonality, data: Dict) -> str:
-        return f"# Visual Design Spec\n*{personality.signature_phrases[0]}*\n\n[Design templates generated by {personality.name}]\n\n*Preferred backends: {', '.join(personality.preferred_backends)}*"
-    
-    def _generate_integration_status(self, personality: AgentPersonality, data: Dict) -> str:
-        return f"# Integration Status\n*{personality.signature_phrases[0]}*\n\n[Integration health generated by {personality.name}]\n\n*Preferred backends: {', '.join(personality.preferred_backends)}*"
-    
-    def _generate_compliance_audit(self, personality: AgentPersonality, data: Dict) -> str:
-        return f"# Compliance Audit\n*{personality.signature_phrases[0]}*\n\n[Compliance report generated by {personality.name}]\n\n*Preferred backends: {', '.join(personality.preferred_backends)}*"
-    
+        backends = ", ".join(personality.preferred_backends)
+        return (
+            f"# Visual Design Spec\n"
+            f"*{personality.signature_phrases[0]}*\n\n"
+            f"[Design templates generated by {personality.name}]\n\n"
+            f"*Preferred backends: {backends}*"
+        )
+
+    def _generate_integration_status(
+        self, personality: AgentPersonality, data: Dict
+    ) -> str:
+        backends = ", ".join(personality.preferred_backends)
+        return (
+            f"# Integration Status\n"
+            f"*{personality.signature_phrases[0]}*\n\n"
+            f"[Integration health generated by {personality.name}]\n\n"
+            f"*Preferred backends: {backends}*"
+        )
+
+    def _generate_compliance_audit(
+        self, personality: AgentPersonality, data: Dict
+    ) -> str:
+        backends = ", ".join(personality.preferred_backends)
+        return (
+            f"# Compliance Audit\n"
+            f"*{personality.signature_phrases[0]}*\n\n"
+            f"[Compliance report generated by {personality.name}]\n\n"
+            f"*Preferred backends: {backends}*"
+        )
+
     def _generate_forecast(self, personality: AgentPersonality, data: Dict) -> str:
-        return f"# 14-Month Forecast\n*{personality.signature_phrases[0]}*\n\n[Forecast scenarios generated by {personality.name}]\n\n*Preferred backends: {', '.join(personality.preferred_backends)}*"
-    
+        backends = ", ".join(personality.preferred_backends)
+        return (
+            f"# 14-Month Forecast\n"
+            f"*{personality.signature_phrases[0]}*\n\n"
+            f"[Forecast scenarios generated by {personality.name}]\n\n"
+            f"*Preferred backends: {backends}*"
+        )
+
     def _generate_decision_memo(self, personality: AgentPersonality, data: Dict) -> str:
-        return f"# Decision Memo\n*{personality.signature_phrases[0]}*\n\n[Decision synthesis generated by {personality.name}]\n\n*Preferred backends: {', '.join(personality.preferred_backends)}*"
-    
+        backends = ", ".join(personality.preferred_backends)
+        return (
+            f"# Decision Memo\n"
+            f"*{personality.signature_phrases[0]}*\n\n"
+            f"[Decision synthesis generated by {personality.name}]\n\n"
+            f"*Preferred backends: {backends}*"
+        )
+
     # Helper methods
     def _calculate_trends(self, data: Dict) -> str:
         """Build concise trend signals from KPI inputs."""
@@ -1010,45 +1078,45 @@ collateral_value:   {100 - null_pct*300:.1f}% complete  {'⚠️ BLOCKING' if nu
             logging.debug("Unable to interpret 'default_trend' in _calculate_trends: %r", default_trend)
 
         return "\n".join(trends) if trends else "Stable performance across key metrics"
-    
+
     def _identify_critical_flags(self, data: Dict) -> str:
         kpis = data.get("kpis", {})
         portfolio = data.get("portfolio", {})
-        
+
         flags = []
         if portfolio.get("concentration", 0.35) > 0.35:
             flags.append("⚠️ Credit concentration exceeds 35% regulatory limit")
         if kpis.get("npa", 0.03) > 0.05:
             flags.append("⚠️ NPA elevated above 5% threshold")
-        
+
         return "\n".join(flags) if flags else "✅ No critical flags detected"
-    
+
     def _get_immediate_action(self, data: Dict) -> str:
         portfolio = data.get("portfolio", {})
         if portfolio.get("concentration", 0.35) > 0.35:
             return "Diversify top client concentration within 30 days"
         return "Continue current monitoring protocols"
-    
+
     def _calculate_risk_score(self, data: Dict) -> float:
         portfolio = data.get("portfolio", {})
         default_rate = data.get("kpis", {}).get("default_rate", 0.021)
         par30 = portfolio.get("par30", 0.085)
         concentration = portfolio.get("concentration", 0.35)
-        
+
         # Composite risk score (0-100, higher is better)
         scores = [max(0, 100 - (default_rate * 1000))]  # Default impact
         scores.append(max(0, 100 - (par30 * 200)))  # PAR impact
         scores.append(max(0, 100 - (max(0, concentration - 0.35) * 500)))  # Concentration penalty
-        
+
         return sum(scores) / len(scores)
-    
+
     def _calc_high_risk_pct(self, data: Dict) -> float:
         return data.get("portfolio", {}).get("high_risk_pct", 15.2)
-    
+
     def _calc_provision(self, par30: float, category: str, data: Dict) -> float:
         tpv = data.get("kpis", {}).get("tpv", 2450000)
         rates = self.knowledge_base["compliance"]["bcr_provisioning_rates"]
-        
+
         if category == "total":
             return (tpv * 0.60 * rates["current"]) + \
                    (tpv * 0.25 * rates["dpd_30"]) + \
@@ -1056,7 +1124,7 @@ collateral_value:   {100 - null_pct*300:.1f}% complete  {'⚠️ BLOCKING' if nu
                    (tpv * 0.05 * rates["dpd_90"])
         else:
             return tpv * 0.25 * rates.get(category, 0.01)
-    
+
     def _fallback_response(self, agent_id: str, context: Dict) -> str:
         """Generic fallback for unknown agents"""
         return f"[Standalone AI]: Analysis for {agent_id} in progress. Specialized handler not yet configured."
@@ -1064,8 +1132,10 @@ collateral_value:   {100 - null_pct*300:.1f}% complete  {'⚠️ BLOCKING' if nu
 # Singleton pattern
 _engine_instance = None
 
+
 def get_ai_engine() -> StandaloneAIEngine:
     """Get singleton instance of AI engine"""
     global _engine_instance
     if _engine_instance is None:
-        return StandaloneAIEngine()
+        _engine_instance = StandaloneAIEngine()
+    return _engine_instance
