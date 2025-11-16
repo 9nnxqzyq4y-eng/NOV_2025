@@ -1,0 +1,45 @@
+{
+  "folders": [
+    {
+      "name": "Next.js + Supabase",
+      "path": ".",
+    },
+  ],
+  "settings": {
+    // === Project-Specific Settings ===
+    // It's a good practice to define formatter settings for consistency
+    "[python]": {
+      "editor.defaultFormatter": "ms-python.black-formatter",
+      "editor.formatOnSave": true
+    },
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    },
+    "files.associations": {
+      "*.yml": "yaml",
+      "*.yaml": "yaml",
+      "nextjs-supabase.code-workspace": "jsonc",
+    },
+    "yaml.validate": true,
+    "yaml.schemas": {
+      "https://json.schemastore.org/github-workflow.json": ".github/workflows/*.{yml,yaml}",
+    },
+  },
+  "extensions": {
+    "recommendations": [
+      "github.copilot",
+      "github.copilot-chat",
+      "github.vscode-pull-request-github",
+      "ms-vscode.vscode-typescript-next",
+      "esbenp.prettier-vscode",
+      "ms-vscode.vscode-json",
+      "bradlc.vscode-tailwindcss",
+      "github.vscode-github-actions",
+      "redhat.vscode-yaml",
+      "ms-vscode.remote-repositories",
+      "ms-python.python",
+      "ms-python.black-formatter"
+    ],
+  },
+}

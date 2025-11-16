@@ -1,0 +1,79 @@
+{
+  "folders": [
+    {
+      "name": "Next.js + Supabase",
+      "path": ".",
+    },
+  ],
+  "settings": {
+    "git.path": "/usr/bin/git",
+    "git.enabled": true,
+    "git.autoRepositoryDetection": true,
+    "git.detectSubmodules": false,
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false,
+    "git.autofetch": false,
+    "typescript.preferences.npmLocation": "/usr/local/bin/npm",
+    "typescript.npm": "/usr/local/bin/npm",
+    "npm.packageManager": "npm",
+    "npm.executable": "/usr/local/bin/npm",
+    "terminal.integrated.env.osx": {
+      "PATH": "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${env:PATH}",
+      "NODE_PATH": "/usr/local/lib/node_modules",
+      "GIT_EXEC_PATH": "/usr/bin",
+    // === Project-Specific Settings ===
+    // Define formatter settings for code consistency across the team.
+    "[python]": {
+      "editor.defaultFormatter": "ms-python.black-formatter",
+      "editor.formatOnSave": true
+    },
+    "terminal.integrated.shell.osx": "/bin/zsh",
+    "github.copilot.enable": {
+      "*": true,
+      "yaml": true,
+      "plaintext": true,
+      "markdown": true,
+      "jsonc": true
+    },
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    },
+    "github.copilot.advanced": {
+      "debug.overrideEngine": "claude-3.5-sonnet"
+    },
+    "github.copilot.chat.localeOverride": "en",
+    "github.gitAuthentication": true,
+    "github.gitProtocol": "https",
+    "files.associations": {
+      "*.yml": "yaml",
+      "*.yaml": "yaml",
+      "nextjs-supabase.code-workspace": "jsonc"
+    },
+    "yaml.validate": true,
+    "yaml.schemas": {
+      "https://json.schemastore.org/github-workflow.json": ".github/workflows/*.{yml,yaml}"
+    },
+    "workbench.startupEditor": "readme",
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "http.proxyStrictSSL": false,
+    "http.systemCertificates": false
+  },
+  "extensions": {
+    "recommendations": [
+      "github.copilot",
+      "github.copilot-chat",
+      "github.vscode-pull-request-github",
+      "ms-vscode.vscode-typescript-next",
+      "esbenp.prettier-vscode",
+      "ms-vscode.vscode-json",
+      "bradlc.vscode-tailwindcss",
+      "github.vscode-github-actions",
+      "redhat.vscode-yaml",
+      "ms-vscode.remote-repositories",
+      "ms-python.python",
+      "ms-python.black-formatter"
+    ]
+  }
+}
