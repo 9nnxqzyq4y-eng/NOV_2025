@@ -5,7 +5,6 @@
 
 import * as hf from "./integrations/huggingface-integration";
 import { validateDataQuality, type QualityAuditResult } from "./abaco-strategy-2026";
-
 export interface EnhancedABACOTier1 extends QualityAuditResult {
   // Standard tier 1 fields...
   // NEW: HuggingFace insights
@@ -18,15 +17,12 @@ export interface EnhancedABACOTier1 extends QualityAuditResult {
   sentimentAnalysis?: {
     overallRisk: number;
     negativeIndicators: string[];
-  };
 }
-
 export async function validateDataQualityWithHF(
   data: any
 ): PromiseEnhancedABACOTier1 {
   // First: Standard validation
   const baseValidation  validateDataQuality(data);
-
   // Extract financial entities from narratives
   let financialEntities: any[]  [];
   if (data.loanNarratives) {
@@ -36,7 +32,6 @@ export async function validateDataQualityWithHF(
       financialEntities.push(...extracted.entities);
     }
   }
-
   // Detect anomalous payment patterns
   let anomalousRecords: any[]  [];
   if (data.payments) {
@@ -49,9 +44,6 @@ export async function validateDataQualityWithHF(
           indicators: detection.indicators,
         });
       }
-    }
-  }
-
   // Analyze sentiment from customer communications
   let sentimentAnalysis  { overallRisk: 0, negativeIndicators: [] as string[] };
   if (data.communications) {
@@ -67,12 +59,8 @@ export async function validateDataQualityWithHF(
         .slice(0, 5)
         .map((s)  s.sentiment),
     };
-  }
-
   return {
     ...baseValidation,
     financialEntities: financialEntities.slice(0, 20), // Top 20 entities
     anomalousRecords,
     sentimentAnalysis,
-  };
-}

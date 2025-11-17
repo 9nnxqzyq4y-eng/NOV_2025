@@ -7,7 +7,6 @@ type CookieOptions  {
   sameSite?: 'strict' | 'lax' | 'none'
   path?: string;
 }
-
 // cookies() returns a Promise, so await it before using.
 export const cookieClient  {
   cookies: {
@@ -16,11 +15,8 @@ export const cookieClient  {
       return cookieStore.get(name)?.value;
     },
     async set(name: string, value: string, options?: CookieOptions) {
-      const cookieStore  await cookies()
       cookieStore.set({ name, value, ...options })
-    },
     async delete(name: string, options?: CookieOptions) {
-      const cookieStore  await cookies()
       if (options && Object.keys(options).length  0) {
         // delete expects a single object with cookie attributes
         cookieStore.delete({ name, ...options })
@@ -30,6 +26,4 @@ export const cookieClient  {
       }
     }
   }
-}
-
 export { createClient } from './server-only'

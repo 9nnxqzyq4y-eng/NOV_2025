@@ -11,7 +11,6 @@ REQUIRED_VARS = {
     "GROK_API_KEY": "your-grok-api-key",
     "CODERABBIT_TOKEN": "your-coderabbit-token"
 }
-
 def read_env_file():
     if not ENV_FILE.exists():
         print("No .env.local file found. Creating a new one with placeholders.")
@@ -26,7 +25,6 @@ def read_env_file():
                 k, v = line.strip().split("=", 1)
                 env[k] = v
     return env
-
 def update_env_file(env):
     updated = False
     lines = []
@@ -42,42 +40,32 @@ def update_env_file(env):
         print("Some variables are still placeholders. Please update .env.local with your real secrets.")
     else:
         print("✅ All required environment variables are set in .env.local.")
-
 def check_connections(env):
     print("\nChecking connections to all tools:")
     if env.get("SUPABASE_URL", "").startswith("https://") and "supabase.co" in env.get("SUPABASE_URL", ""):
         print("✅ SUPABASE_URL looks valid.")
-    else:
         print("❌ SUPABASE_URL is missing or invalid.")
     if env.get("SUPABASE_ANON_KEY", "").startswith("ey"):
         print("✅ SUPABASE_ANON_KEY looks present.")
-    else:
         print("❌ SUPABASE_ANON_KEY is missing or placeholder.")
     if env.get("SUPABASE_SERVICE_ROLE_KEY", "").startswith("ey"):
         print("✅ SUPABASE_SERVICE_ROLE_KEY looks present.")
-    else:
         print("❌ SUPABASE_SERVICE_ROLE_KEY is missing or placeholder.")
     if env.get("SONAR_TOKEN", "").startswith("sqa_") or len(env.get("SONAR_TOKEN", "")) > 10:
         print("✅ SONAR_TOKEN looks present.")
-    else:
         print("❌ SONAR_TOKEN is missing or placeholder.")
     if env.get("OPENAI_API_KEY", "").startswith("sk-"):
         print("✅ OPENAI_API_KEY looks present.")
-    else:
         print("❌ OPENAI_API_KEY is missing or placeholder.")
     if env.get("GROK_API_KEY", "") and env.get("GROK_API_KEY", "") != "your-grok-api-key":
         print("✅ GROK_API_KEY looks present.")
-    else:
         print("❌ GROK_API_KEY is missing or placeholder.")
     if env.get("CODERABBIT_TOKEN", "") and env.get("CODERABBIT_TOKEN", "") != "your-coderabbit-token":
         print("✅ CODERABBIT_TOKEN looks present.")
-    else:
         print("❌ CODERABBIT_TOKEN is missing or placeholder.")
-
 def main():
     env = read_env_file()
     update_env_file(env)
     check_connections(env)
-
 if __name__ == "__main__":
     main()

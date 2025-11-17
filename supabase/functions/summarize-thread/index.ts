@@ -6,17 +6,14 @@ const corsHeaders  {
   'Access-Control-Allow-Headers':
     'authorization, x-client-info, apikey, content-type',
 }
-
 const _supabaseClient  createClient(
   Deno.env.get('SUPABASE_URL')!,
   Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
 )
-
 serve(async (req)  {
   if (req.method  'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })
   }
-
   try {
     const authorization  req.headers.get('Authorization')
     if (!authorization) {
@@ -25,9 +22,7 @@ serve(async (req)  {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       })
     }
-
     const { threadId }  await req.json()
-
     return new Response(JSON.stringify({ success: true, threadId }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     })

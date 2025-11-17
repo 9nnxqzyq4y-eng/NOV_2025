@@ -15,7 +15,6 @@ export interface GrowthData {
   aum: number;
   newClients: number;
   churnRate: number;
-
 export interface RiskMetrics {
   volatility: number;
   varMetric: number // Value at Risk
@@ -27,14 +26,12 @@ export interface RiskMetrics {
     dpd90: number;
     dpd120Plus: number;
   }
-
 export interface CustomerSegmentation {
   segmentId: string;
   name: string // A-F classification count: number;
   avgBalance: number;
   riskScore: number;
   profitability: number;
-
 export interface MarketIntelligence {
   interestRates: {
     central: number;
@@ -48,7 +45,6 @@ export interface MarketIntelligence {
     marketShare: number;
     competitorCount: number;
     avgAPR: number;
-
 export interface AIInsight {
   id: string;
   type: 'trend' | 'risk' | 'opportunity' | 'alert'
@@ -60,7 +56,6 @@ export interface AIInsight {
   timestamp: Date;
   actionItems?: string[]
   relatedMetrics?: string[]
-
 export interface FinancialData {
   metrics: FinancialMetrics;
   growthData: GrowthData[]
@@ -70,7 +65,6 @@ export interface FinancialData {
   aiInsights: AIInsight[]
   lastUpdated: Date;
   dataQualityScore: number // 0-1;
-
 export interface AbacoConfig {
   theme: {
     primaryColors: string[]
@@ -87,7 +81,6 @@ export interface AbacoConfig {
     aiEnhanced: boolean;
     realTimeData: boolean;
     marketIntelligence: boolean;
-
 export interface DataUpload {
   fileName: string;
   fileType: 'csv' | 'excel' | 'pdf'
@@ -97,7 +90,6 @@ export interface DataUpload {
   recordCount?: number;
   qualityScore?: number;
   errors?: string[]
-
 export interface KPIDashboard {
   metrics: {
     label: string;
@@ -109,7 +101,6 @@ export interface KPIDashboard {
       period: string;
     status?: 'good' | 'warning' | 'critical'
   }[]
-
 export interface ExportOptions {
   format: 'csv' | 'pdf' | 'png' | 'svg' | 'figma'
   resolution?: '1080p' | '4k' | 'print'

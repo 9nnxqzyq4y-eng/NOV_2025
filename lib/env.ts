@@ -14,20 +14,14 @@ function getEnvVar(key: string, isPublic  false): string {
         `Please check your .env.local or deployment configuration.`
     )
   }
-
   if (!isPublic && key.startsWith('NEXT_PUBLIC_')) {
     console.warn(
       `Warning: PUBLIC variable $key accessed in private context. ` +
         `Consider using a private variable instead.`
-
   return value;
 }
-
 function getEnvVarOptional(key: string, isPublic  false): string | undefined {
-
   if (!isPublic && key.startsWith('NEXT_PUBLIC_') && value) {
-
-
  * Public environment variables (safe for browser)
 const publicEnv  {
   // PUBLIC: Supabase URL exposed to client get SUPABASE_URL() {

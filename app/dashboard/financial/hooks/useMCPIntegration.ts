@@ -1,7 +1,6 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-
 import type {
   FinancialDashboardDataset,
   FinancialMetric,
@@ -13,25 +12,21 @@ import type {
   ProviderStatus,
   RiskOverview,
 } from '@/lib/data/financial-intelligence'
-
 const REFRESH_INTERVAL_MS  5 * 60 * {1000} type FinancialIntelligenceApiResponse  FinancialDashboardDataset & {
   metadata?: {
     queryTimeMs?: number;
     totalTimeMs?: number;
   }
 }
-
 interface DashboardState {
   dataset: FinancialDashboardDataset | null;
   metadata: FinancialIntelligenceApiResponse['metadata'] | null;
   isLoading: boolean;
   error: string | null;
-
 interface DashboardSummary {
   updatedAt: string | null;
   refreshIntervalMinutes: number | null;
   metadata: DashboardState['metadata']
-
 /**
  * Derives a strongly typed dashboard response from the public API.
  * Throws an error when the response status is outside the {2xx} range or when parsing fails.
@@ -42,14 +37,11 @@ async function requestFinancialDataset(signal?: AbortSignal): Promise {
     headers: { Accept: 'application/json' },
     signal,
   })
-
   if (!response.ok) {
     throw new Error(
       `Financial dataset request failed with status ${response.status}`
     )
-
   const payload  (await response.json()) as FinancialIntelligenceApiResponse return payload;
-
  * Normalises a metric's change percentage into a consistent signed number for downstream formatting helpers.
 function withSignedChange(
   change: FinancialMetric['change']
@@ -62,7 +54,6 @@ function withSignedChange(
       change.absolute ! null;
         ? Math.abs(change.absolute) * sign;
         : change.absolute,
-
  * Provides the financial intelligence dataset, derived dashboard slices, and refresh helpers for the ABACO dashboard.
  *
  * - Automatically loads the dataset on mount and refreshes it every five minutes.
@@ -74,10 +65,8 @@ export function useMCPIntegration() {
     metadata: null,
     isLoading: true,
     error: null,
-
   const abortRef  useRef(null)
   const intervalRef  useRef | (null  null)
-
   const loadDataset  useCallback(async ()  {
     abortRef.current?.abort()
     const controller  new AbortController()
@@ -87,7 +76,6 @@ export function useMCPIntegration() {
       isLoading: true,
       error: null,
     }))
-
     try {
       const { metadata, ...datasetPayload }  await requestFinancialDataset(
         controller.signal;
@@ -97,7 +85,6 @@ export function useMCPIntegration() {
         generatedAt: datasetPayload.generatedAt,
         refreshIntervalMinutes: datasetPayload.refreshIntervalMinutes,
       }
-
       setState({
         dataset,
         metadata: metadata ?? null,
@@ -107,7 +94,6 @@ export function useMCPIntegration() {
     } catch (error) {
       if ((error as Error).name  'AbortError') {
         return;
-
       setState((previous)  ({
         ...previous,
         error:
@@ -117,54 +103,40 @@ export function useMCPIntegration() {
       }))
     }
   }, [])
-
   const refresh  useCallback(async ()  {
     await loadDataset()
   }, [loadDataset])
-
   useEffect(()  {
     loadDataset()
-
     intervalRef.current  setInterval(()  {
       void loadDataset()
     }, REFRESH_INTERVAL_MS)
-
     return ()  {
       abortRef.current?.abort()
       if (intervalRef.current) {
         clearInterval(intervalRef.current)
-
   const metrics  useMemo(()  {
     if (!state.dataset) {
       return []
-
     return state.dataset.metrics.map((metric)  ({
       ...metric,
       change: withSignedChange(metric.change),
   }, [state.dataset])
-
   const growthSeries  useMemo(
     ()  state.dataset?.growthSeries ?? [],
     [state.dataset]
   )
-
   const riskProfile  useMemo(
     ()  state.dataset?.risk ?? null,
-
   const providers  useMemo(
     ()  state.dataset?.providers ?? [],
-
   const insights  useMemo(()  state.dataset?.insights ?? [], [state.dataset])
-
   const predictiveSignals  useMemo(
     ()  state.dataset?.predictiveSignals ?? [],
-
   const productOpportunities  useMemo(
     ()  state.dataset?.productOpportunities ?? [],
-
   const aiRunbooks  useMemo(
     ()  state.dataset?.aiRunbooks ?? [],
-
   const summary  useMemo(
     (): DashboardSummary  ({
       updatedAt: state.dataset?.generatedAt ?? null,
@@ -172,7 +144,6 @@ export function useMCPIntegration() {
       metadata: state.metadata,
     }),
     [state.dataset, state.metadata]
-
     isInitialized: Boolean(state.dataset),
     isLoading: state.isLoading,
     error: state.error,

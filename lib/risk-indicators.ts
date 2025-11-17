@@ -5,7 +5,6 @@ export const RISK_INDICATOR_MEDIUM  '🟡'
 export const RISK_INDICATOR_HIGH  '🔴'
 
 // Type for risk levels export type RiskLevel  'low' | 'medium' | 'high'
-
 /**
  * Determine risk indicator based on average days past due
  * @param avgDpd - Average days past due;
@@ -20,7 +19,6 @@ export function getRiskIndicator(avgDpd: number): string {
     return RISK_INDICATOR_HIGH;
   }
 }
-
  * Get risk level classification;
  * @returns Risk level string;
 export function getRiskLevel(avgDpd: number): RiskLevel {

@@ -6,7 +6,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { FinancialAnalystAgent } from '@/lib/ml/agents/analysis/financial-analyst'
 import { createClient } from '@/lib/supabase/server'
-
 export async function POST(request: NextRequest) {
   try {
     const body  await request.json()
@@ -16,11 +15,9 @@ export async function POST(request: NextRequest) {
       data: { user },
       error: authError,
     }  await supabase.auth.getUser()
-
     if (authError || !user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
-
     // Route to appropriate agent let result
     switch (agentType) {
       case 'financial_analyst':
@@ -31,7 +28,6 @@ export async function POST(request: NextRequest) {
           { error: 'Unknown agent type' },
           { status: 400 }
         )
-
     return NextResponse.json(result)
   } catch (error) {
     console.error('Agent API error:', error)
@@ -41,7 +37,6 @@ export async function POST(request: NextRequest) {
     )
   }
 }
-
 async function handleFinancialAnalyst(action: string, parameters: any) {
   const agent  new FinancialAnalystAgent({
     id: 'financial-analyst-1',
@@ -51,20 +46,15 @@ async function handleFinancialAnalyst(action: string, parameters: any) {
     confidenceThreshold: 0.7,
     riskTolerance: 'moderate',
   })
-
   switch (action) {
     case 'analyze':
       const agentAction  await agent.think(parameters)
       const result  await agent.execute(agentAction)
       return result case 'get_state':
       return agent.getState()
-
     default:
       throw new Error(`Unknown action: $action`)
-
 export async function GET() {
-
-
     // Get list of available agents const agents  [
       {
         id: 'financial-analyst-1',
@@ -78,5 +68,4 @@ export async function GET() {
         ],
       },
     ]
-
     return NextResponse.json({ agents })

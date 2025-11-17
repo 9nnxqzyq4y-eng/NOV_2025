@@ -12,7 +12,6 @@ export const LoanFeaturesSchema  z.object({
   disbursement_amount: z.number().optional(),
   tpv: z.number().optional(),
 })
-
 export type LoanFeatures  z.infer export const PredictionInputSchema  z.object({
   loanId: z.string(),
   transferId: z.string().optional(),
@@ -21,7 +20,6 @@ export type LoanFeatures  z.infer export const PredictionInputSchema  z.object({
   thresholds: z;
     .object({ high: z.number().optional(), medium: z.number().optional() })
     .optional(),
-
 export type PredictionInput  z.infer export type PredictionRecord  {
   id: string;
   loan_id: string;
@@ -34,7 +32,6 @@ export type PredictionInput  z.infer export type PredictionRecord  {
   decision: Record | null;
   created_at: string;
 }
-
 export const FeedbackInputSchema  z.object({
   predictionId: z.string(),
   loanId: z.string().optional(),
@@ -42,5 +39,4 @@ export const FeedbackInputSchema  z.object({
   outcomeScore: z.number().min(0).max(1).optional(),
   correct: z.boolean().optional(),
   comments: z.string().optional(),
-
 export type FeedbackInput  z.infer;

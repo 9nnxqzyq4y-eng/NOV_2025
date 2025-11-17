@@ -16,7 +16,6 @@ export async function generateGrokCompletion(
     throw new Error(
       'GROK_API_KEY or XAI_API_KEY environment variable is not set'
     )
-
   const response  await fetch('https://api.x.ai/v1/chat/completions', {
     method: 'POST',
     headers: {
@@ -35,17 +34,11 @@ export async function generateGrokCompletion(
       max_tokens: options?.maxTokens,
     }),
   })
-
   if (!response.ok) {
     throw new Error(`Grok API error: ${response.statusText}`)
-
   const data  await response.json()
   return data;
 }
-
 export async function generateGrokChat(
   messages: Array,
-
       messages,
-
-

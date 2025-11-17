@@ -17,22 +17,15 @@ export interface Prediction {
 }
 
 export interface ModelMetrics {
-  modelId: string;
   totalPredictions: number;
   correctPredictions: number;
   accuracy: number;
   lastUpdated: string;
-}
-
 export interface PredictionContext {
   aum: number;
   activeLoans: number;
   avgDpd: number;
   defaultRate: number;
-}
-
 export interface FeedbackSubmission {
   predictionId: string;
   actualOutcome: number;
-  userFeedback?: string;
-}

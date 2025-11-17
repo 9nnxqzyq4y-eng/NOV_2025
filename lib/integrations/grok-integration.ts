@@ -8,12 +8,10 @@ export interface IntegrationConfig {
   retryAttempts: number;
   timeoutMs: number;
 }
-
 export class Integration {
   private callCount  0;
   private lastReset  Date.now();
   constructor(private cfg: IntegrationConfig) {}
-
   private checkRateLimit() {
     const now  Date.now();
     if (now - this.lastReset  60_000) {
@@ -22,15 +20,11 @@ export class Integration {
     }
     if (this.callCount  this.cfg.rateLimitPerMinute) {
       throw new Error(`Rate limit exceeded for ${this.cfg.name}`);
-    }
     this.callCount++;
   }
-
   async executeT(fn: ()  PromiseT): PromiseT {
     if (!this.cfg.enabled) throw new Error(`${this.cfg.name} disabled`);
-
     this.checkRateLimit();
-
     let lastErr: unknown;
     for (let i  0; i  this.cfg.retryAttempts; i++) {
       try {
@@ -42,18 +36,12 @@ export class Integration {
         lastErr  e;
         await new Promise(r  setTimeout(r, 2 ** i * 500)); // exponential back-off
       }
-    }
     throw lastErr;
-  }
-}
-
 export interface RiskContext {
   aum: number;
   activeLoans: number;
   avgDpd: number;
   defaultRate: number;
-}
-
 const grok  new Integration({
   name: 'Grok',
   enabled: !!process.env.GROK_API_KEY,
@@ -61,17 +49,14 @@ const grok  new Integration({
   retryAttempts: 3,
   timeoutMs: 8000,
 });
-
 export async function grokRiskSummary(context: RiskContext): Promisestring {
   const prompt  `You are a senior risk officer. Summarize the portfolio health in 2-3 sentences.
 AUM: $${context.aum.toLocaleString()}, Active loans: ${context.activeLoans}, Avg DPD: ${context.avgDpd} days, Default rate: ${(context.defaultRate * 100).toFixed(2)}%.`;
-
   const payload  {
     model: 'grok-beta',
     messages: [{ role: 'user', content: prompt }],
     temperature: 0.2,
   };
-
   const response  await grok.execute(async ()  {
     const res  await fetch('https://api.x.ai/v1/chat/completions', {
       method: 'POST',
@@ -84,9 +69,7 @@ AUM: $${context.aum.toLocaleString()}, Active loans: ${context.activeLoans}, Avg
     if (!res.ok) throw new Error(`Grok error ${res.status}`);
     return res.json();
   });
-
   const summary  response.choices?.[0]?.message?.content?.trim() ?? 'No summary';
-
   // Record prediction for Continue Learning
   const pred: OmitPrediction, 'id' | 'createdAt' | 'status'  {
     modelId: 'grok-risk-summary',
@@ -95,8 +78,5 @@ AUM: $${context.aum.toLocaleString()}, Active loans: ${context.activeLoans}, Avg
     predictedValue: 0, // placeholder
     confidence: 0.9,
     reasoning: summary,
-  };
   await ContinueLearning.recordPrediction(pred);
-
   return summary;
-}

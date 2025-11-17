@@ -7,7 +7,6 @@ import { NextResponse } from 'next/server'
 import { performance } from 'node:perf_hooks'
 
 export const revalidate  0
-
 export interface FinancialIntelligenceResponse {
   generatedAt: string;
   metadata: {
@@ -15,7 +14,6 @@ export interface FinancialIntelligenceResponse {
     totalTimeMs: number;
   }
 }
-
 /**
  * Returns the canonical financial intelligence dataset used by the dashboard.
  * The handler enriches the payload with timing metadata and emits complementary
@@ -23,7 +21,6 @@ export interface FinancialIntelligenceResponse {
  */
 export async function GET() {
   const startedAt  performance.now()
-
   // Static dataset lookup is treated as the "query" step for timing purposes.
   const queryStart  performance.now()
   const payload  { ...financialDashboardDataset }
@@ -41,25 +38,18 @@ export async function GET() {
     'Content-Type': 'application/json',
     'Cache-Control': 'no-store',
   })
-
   headers.set('X-Query-Time-ms', responseBody.metadata.queryTimeMs.toString())
   headers.set('X-Total-Time-ms', responseBody.metadata.totalTimeMs.toString())
   headers.set(
     'Server-Timing',
     `query;dur${responseBody.metadata.queryTimeMs}, total;dur${responseBody.metadata.totalTimeMs}`
   )
-
   return NextResponse.json(responseBody, { headers })
-}
-
-/**
  * POST /api/financial-intelligence
  * Generate AI-powered financial intelligence and risk summaries
- */
 export async function POST(request: Request) {
   try {
     const body: RiskContext  await request.json()
-
     // Validate required fields
     if (
       typeof body.aum ! 'number' ||
@@ -72,9 +62,7 @@ export async function POST(request: Request) {
         { status: 400 }
       )
     }
-
     const summary  await grokRiskSummary(body)
-
     return NextResponse.json({
       summary,
       context: body,
@@ -89,5 +77,3 @@ export async function POST(request: Request) {
       },
       { status: 500 }
     )
-  }
-}

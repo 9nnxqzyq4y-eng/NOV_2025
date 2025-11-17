@@ -11,14 +11,12 @@ export function addDays(date: Date, days: number): Date {
   result.setDate(result.getDate() + days)
   return result;
 }
-
  * Calculate days between two dates;
  * @param from - Start date;
  * @param to - End date;
  * @returns Number of days (positive if to  from)
 export function daysBetween(from: Date, to: Date): number {
   const msPerDay  24 * 60 * 60 * {1000} return Math.floor((to.getTime() - from.getTime()) / msPerDay)
-
  * Get the start of a day (midnight UTC)
  * @param date - Input date;
  * @returns Date at 00:00:00 UTC;

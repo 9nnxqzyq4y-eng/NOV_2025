@@ -11,25 +11,21 @@ def fail_closed(reason: str, details: Optional[Dict] = None) -> None:
         payload["details"] = details
     print(json.dumps(payload))
     sys.exit(2)
-
 try:
     import pandas as pd
     import requests
 except (ValueError, TypeError, KeyError) as e:
     fail_closed("missing_python_deps", {"pip": "pip install pandas requests"})
-
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "").rstrip("/")
 SUPABASE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "")
 if not SUPABASE_URL or not SUPABASE_KEY:
     fail_closed("missing_supabase_credentials", {"envs": ["SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY"]})
-
 HEADERS = {
     "apikey": SUPABASE_KEY,
     "Authorization": f"Bearer {SUPABASE_KEY}",
     "Content-Type": "application/json",
     "Prefer": "return=representation"
 }
-
 def get_model_version_id(model_name: str, version_number: int) -> Optional[str]:
     """Fetch the UUID of an existing model version."""
     url = f"{SUPABASE_URL}/rest/v1/ml.model_versions?model_name=eq.{model_name}&version_number=eq.{version_number}&select=id"
@@ -37,7 +33,6 @@ def get_model_version_id(model_name: str, version_number: int) -> Optional[str]:
     if resp.status_code == 200 and resp.json():
         return resp.json()[0].get("id")
     return None
-
 def post_rows(table: str, rows: List[Dict]) -> int:
     if not rows:
         return 0
@@ -46,14 +41,11 @@ def post_rows(table: str, rows: List[Dict]) -> int:
     if resp.status_code not in (200, 201):
         fail_closed("supabase_insert_failed", {"table": table, "status": resp.status_code, "body": resp.text})
     return len(resp.json())
-
 def main() -> None:
     predictions_csv = os.environ.get("PREDICTIONS_CSV", "artifacts/predictions_to_seed.csv")
     outcomes_csv = os.environ.get("OUTCOMES_CSV", "artifacts/outcomes_to_seed.csv")
-
     inserted_counts = {"model_versions": 0, "loan_predictions": 0, "outcome_feedback": 0}
     model_version_id: Optional[str] = None
-
     model_version = {
         "model_name": "PD_MODEL",
         "version_number": 1,
@@ -62,7 +54,6 @@ def main() -> None:
     }
     
     model_version_id = get_model_version_id(model_version["model_name"], model_version["version_number"])
-
     if model_version_id:
         print(json.dumps({"status": "info", "note": "Model version already exists, skipping creation.", "model_version_id": model_version_id}))
     else:
@@ -74,7 +65,6 @@ def main() -> None:
             print(json.dumps({"status": "info", "note": "Model version created.", "model_version_id": model_version_id}))
         except Exception as e:
             fail_closed("model_version_creation_failed", {"error": str(e)})
-
     if os.path.exists(predictions_csv):
         dfp = pd.read_csv(predictions_csv, dtype=str)
         rows = []
@@ -90,27 +80,18 @@ def main() -> None:
             })
         if rows:
             inserted_counts["loan_predictions"] = post_rows("ml.loan_predictions", rows)
-    else:
         print(json.dumps({"status": "info", "note": f"Predictions CSV not found at {predictions_csv}, skipping."}))
-
     if os.path.exists(outcomes_csv):
         dfo = pd.read_csv(outcomes_csv, dtype=str)
-        rows = []
         for _, r in dfo.iterrows():
-            rows.append({
                 "prediction_id": int(r.get("prediction_id")) if r.get("prediction_id") else None,
                 "actual_loan_status": r.get("actual_loan_status") or None,
                 "actual_payback_date": r.get("actual_payback_date") or None,
                 "actual_total_repayment_usd": float(r.get("actual_total_repayment_usd")) if r.get("actual_total_repayment_usd") else None,
                 "user_feedback_rating": int(r.get("user_feedback_rating")) if r.get("user_feedback_rating") else None,
                 "user_comments": r.get("user_comments") or None
-            })
-        if rows:
             inserted_counts["outcome_feedback"] = post_rows("ml.outcome_feedback", rows)
-    else:
         print(json.dumps({"status": "info", "note": f"Outcomes CSV not found at {outcomes_csv}, skipping."}))
-
     print(json.dumps({"status": "ok", "inserted_counts": inserted_counts}))
-
 if __name__ == "__main__":
     main()

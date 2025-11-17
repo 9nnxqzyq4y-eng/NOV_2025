@@ -1,7 +1,6 @@
 #!/bin/bash
 echo "🔧 Installed CLI Tools Status"
 echo ""
-echo ""
 
 check_cli() {
     if command -v $1 & /dev/null; then
@@ -11,7 +10,6 @@ check_cli() {
         echo "❌ $2: Not installed"
     fi
 }
-
 # Check all CLIs
 check_cli "railway" "Railway"
 check_cli "vercel" "Vercel"
@@ -20,11 +18,7 @@ check_cli "gcloud" "Google Cloud"
 check_cli "gh" "GitHub CLI"
 check_cli "openai" "OpenAI"
 check_cli "huggingface-cli" "Hugging Face"
-
-echo ""
 echo "📦 Node.js Global Packages:"
 npm list -g --depth0 2/dev/null | grep -E "railway|vercel|supabase|figma|openai" || echo "No relevant packages"
-
-echo ""
 echo "🐍 Python Packages:"
 python3 -m pip list 2/dev/null | grep -E "huggingface|openai|google-generativeai|anthropic" || echo "Checking in virtual env..."

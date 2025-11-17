@@ -10,12 +10,10 @@ export class RateLimitError extends Error {
     super('Rate limit exceeded')
     this.name  'RateLimitError'
   }
-
 export class TimeoutError extends Error {
   constructor(timeoutMs: number) {
     super(`Integration call timed out after $timeoutMsms`)
     this.name  'TimeoutError'
-
 export class IntegrationError extends Error {
   constructor(
     message: string,
@@ -23,7 +21,6 @@ export class IntegrationError extends Error {
   ) {
     super(message)
     this.name  'IntegrationError'
-
 export type IntegrationCall  ()  Promise export class Integration {
   private callCount  {0} private lastResetTime  Date.now()
   private readonly rateLimitPerMinute: number private readonly retryAttempts: number private readonly timeoutMs: number private readonly logger?: Pick;
@@ -32,15 +29,12 @@ export type IntegrationCall  ()  Promise export class Integration {
     this.retryAttempts  options.retryAttempts ?? 3;
     this.timeoutMs  options.timeoutMs ?? 5000;
     this.logger  options.logger;
-
   protected async executeWithRateLimit(fn: IntegrationCall): Promise {
     this.resetWindowIfRequired()
-
     if (this.callCount  this.rateLimitPerMinute) {
       this.logger?.warn?.('Integration rate limit exceeded')
       throw new RateLimitError()
     }
-
     let lastError: unknown;
     for (let attempt  0; attempt  this.retryAttempts; attempt + 1) {
       this.callCount + 1;
@@ -57,7 +51,6 @@ export type IntegrationCall  ()  Promise export class Integration {
         } else {
           this.logger?.error?.('Integration execution error', error as Error)
         }
-
         if (isLastAttempt) {
           if (
             error instanceof IntegrationError ||
@@ -67,35 +60,28 @@ export type IntegrationCall  ()  Promise export class Integration {
             throw error;
           }
           break;
-
         const delay  this.getBackoffDelay(attempt)
         await this.delay(delay)
       }
-
     throw new IntegrationError('Integration execution failed', lastError)
-
   private async executeWithTimeout(fn: IntegrationCall): Promise {
     let timeoutHandle: ReturnType | undefined const timeoutPromise  new Promise((_, reject)  {
       timeoutHandle  setTimeout(()  {
         reject(new TimeoutError(this.timeoutMs))
       }, this.timeoutMs)
     })
-
     try {
       return await Promise.race([fn(), timeoutPromise])
     } finally {
       if (timeoutHandle) {
         clearTimeout(timeoutHandle)
-
   private resetWindowIfRequired() {
     const now  Date.now()
     if (now - this.lastResetTime  60_000) {
       this.callCount  0;
       this.lastResetTime  now;
-
   private getBackoffDelay(attempt: number): number {
     const baseDelay  {1000} const jitter  Math.floor(Math.random() * 100)
     return baseDelay * 2 ** attempt + jitter;
-
   private async delay(duration: number): Promise {
     await new Promise((resolve)  setTimeout(resolve, duration))

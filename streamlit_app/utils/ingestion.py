@@ -1,7 +1,6 @@
 """
 Data Ingestion Module - Google Drive to Supabase
 Handles 9+ source types with robust normalization and validation
-"""
 
 import pandas as pd
 import numpy as np
@@ -11,12 +10,10 @@ from typing import Dict, List, Optional, Tuple
 import io
 import warnings
 warnings.filterwarnings('ignore')
-
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseDownload
 from supabase import create_client
-
 class DataIngestionEngine:
     """Enterprise-grade data ingestion with normalization and validation"""
     
@@ -31,7 +28,6 @@ class DataIngestionEngine:
         'marketing': ['customer_id', 'channel', 'acquisition_date'],
         'industry': ['customer_id', 'industry_code']
     }
-    
     def __init__(self, supabase_url: str, supabase_key: str, gdrive_credentials: Dict):
         """Initialize clients"""
         self.supabase = create_client(supabase_url, supabase_key)
@@ -41,7 +37,6 @@ class DataIngestionEngine:
             scopes=['https://www.googleapis.com/auth/drive.readonly']
         )
         self.drive = build('drive', 'v3', credentials=credentials)
-        
     def normalize_columns(self, df: pd.DataFrame) -> pd.DataFrame:
         """Normalize column names to lowercase with underscores"""
         df.columns = [
@@ -50,7 +45,6 @@ class DataIngestionEngine:
         ]
         df.columns = [re.sub(r'_+', '_', col).strip('_') for col in df.columns]
         return df
-    
     def convert_numeric_tolerant(self, series: pd.Series) -> pd.Series:
         """Tolerant numeric conversion - removes currency symbols, commas"""
         if series.dtype == 'object':
@@ -59,67 +53,49 @@ class DataIngestionEngine:
             series = series.str.strip()
             series = pd.to_numeric(series, errors='coerce')
         return series
-    
     def standardize_dates(self, df: pd.DataFrame) -> pd.DataFrame:
         """Standardize date columns to datetime"""
         date_columns = [col for col in df.columns if 'date' in col or 'fecha' in col]
         for col in date_columns:
             df[col] = pd.to_datetime(df[col], errors='coerce')
-        return df
-    
     def normalize_dataframe(self, df: pd.DataFrame, source_name: str) -> Tuple[pd.DataFrame, int]:
         """Complete normalization pipeline"""
         df = self.normalize_columns(df)
-        
         for col in df.columns:
             if col not in ['workbook_name', 'refresh_date'] and 'id' not in col and 'name' not in col:
                 df[col] = self.convert_numeric_tolerant(df[col])
-        
         df = self.standardize_dates(df)
-        
         df['workbook_name'] = source_name
         df['refresh_date'] = datetime.now()
-        
         initial_rows = len(df)
         df = df.drop_duplicates()
         duplicates_removed = initial_rows - len(df)
-        
         return df, duplicates_removed
-    
     def validate_required_columns(self, df: pd.DataFrame, source_type: str) -> Tuple[bool, List[str]]:
         """Validate that required columns are present"""
         if source_type not in self.REQUIRED_COLUMNS:
             return True, []
-        
         required = self.REQUIRED_COLUMNS[source_type]
         missing = [col for col in required if col not in df.columns]
-        
         return len(missing) == 0, missing
-    
     def calculate_data_quality_score(self, df: pd.DataFrame) -> Dict:
         """Calculate data quality metrics"""
         total_cells = df.shape[0] * df.shape[1]
         null_cells = df.isnull().sum().sum()
         null_percentage = (null_cells / total_cells * 100) if total_cells > 0 else 0
-        
         numeric_cols = df.select_dtypes(include=[np.number]).columns
         if len(numeric_cols) > 0:
             zero_rows = (df[numeric_cols] == 0).all(axis=1).sum()
         else:
             zero_rows = 0
-        
         completeness_score = 100 - null_percentage
-        
         critical_cols = ['customer_id', 'balance', 'amount', 'date']
         critical_nulls = 0
         for col in critical_cols:
             if col in df.columns:
                 critical_nulls += df[col].isnull().sum()
-        
         critical_penalty = (critical_nulls / len(df) * 50) if len(df) > 0 else 0
-        
         final_score = max(0, completeness_score - critical_penalty)
-        
         return {
             'total_rows': len(df),
             'total_columns': len(df.columns),
@@ -130,11 +106,9 @@ class DataIngestionEngine:
             'critical_penalty': round(critical_penalty, 2),
             'final_quality_score': round(final_score, 2)
         }
-    
     def detect_source_type(self, filename: str) -> Optional[str]:
         """Detect source type from filename"""
         filename_lower = filename.lower()
-        
         type_keywords = {
             'portfolio': ['portfolio', 'portafolio', 'cartera', 'balances'],
             'facility': ['facility', 'facilities', 'linea', 'credito', 'limite'],
@@ -145,14 +119,10 @@ class DataIngestionEngine:
             'collections': ['collection', 'cobranza', 'recuperacion'],
             'marketing': ['marketing', 'adquisicion', 'canal'],
             'industry': ['industry', 'industria', 'sector']
-        }
-        
         for source_type, keywords in type_keywords.items():
             if any(keyword in filename_lower for keyword in keywords):
                 return source_type
-        
         return None
-    
     def get_table_name(self, source_type: str) -> str:
         """Map source type to Supabase table name"""
         table_map = {
@@ -165,9 +135,7 @@ class DataIngestionEngine:
             'collections': 'raw_collections',
             'marketing': 'raw_marketing',
             'industry': 'raw_industry'
-        }
         return table_map.get(source_type, 'raw_unknown')
-    
     def ingest_from_drive(self, folder_id: str) -> Dict:
         """Main ingestion pipeline: Google Drive → Supabase"""
         ingestion_report = {
@@ -177,8 +145,6 @@ class DataIngestionEngine:
             'skipped': 0,
             'details': [],
             'quality_scores': {}
-        }
-        
         try:
             query = f"'{folder_id}' in parents and trashed = false"
             results = self.drive.files().list(
@@ -188,7 +154,6 @@ class DataIngestionEngine:
             
             files = results.get('files', [])
             ingestion_report['total_files'] = len(files)
-            
             for file_info in files:
                 file_id = file_info['id']
                 file_name = file_info['name']
@@ -201,7 +166,6 @@ class DataIngestionEngine:
                     'rows_processed': 0,
                     'duplicates_removed': 0
                 }
-                
                 try:
                     request = self.drive.files().get_media(fileId=file_id)
                     fh = io.BytesIO()
@@ -221,54 +185,39 @@ class DataIngestionEngine:
                         ingestion_report['skipped'] += 1
                         ingestion_report['details'].append(file_result)
                         continue
-                    
                     source_type = self.detect_source_type(file_name)
                     if not source_type:
                         file_result['message'] = 'Could not detect source type from filename'
-                    
                     df, duplicates_removed = self.normalize_dataframe(df, file_name)
-                    
                     is_valid, missing_cols = self.validate_required_columns(df, source_type)
                     if not is_valid:
                         file_result['status'] = 'failed'
                         file_result['message'] = f'Missing required columns: {", ".join(missing_cols)}'
                         ingestion_report['failed'] += 1
-                    
                     quality_metrics = self.calculate_data_quality_score(df)
                     ingestion_report['quality_scores'][file_name] = quality_metrics
-                    
                     table_name = self.get_table_name(source_type)
-                    
                     data = df.to_dict(orient='records')
-                    
                     response = self.supabase.table(table_name).upsert(
                         data,
                         on_conflict='id' if 'id' in df.columns else None
                     ).execute()
-                    
                     file_result['status'] = 'success'
                     file_result['message'] = f'Upserted {len(data)} rows to {table_name}'
                     file_result['rows_processed'] = len(data)
                     file_result['duplicates_removed'] = duplicates_removed
                     file_result['quality_score'] = quality_metrics['final_quality_score']
                     ingestion_report['successful'] += 1
-                    
                 except Exception as e:
                     file_result['status'] = 'failed'
                     file_result['message'] = f'Error: {str(e)}'
                     ingestion_report['failed'] += 1
-                
                 ingestion_report['details'].append(file_result)
-            
             if ingestion_report['successful'] > 0:
-                try:
                     self.supabase.rpc('refresh_ml_features').execute()
                     ingestion_report['ml_features_refreshed'] = True
-                except Exception as e:
                     ingestion_report['ml_features_refreshed'] = False
                     ingestion_report['ml_refresh_error'] = str(e)
-            
         except Exception as e:
             ingestion_report['error'] = str(e)
-        
         return ingestion_report

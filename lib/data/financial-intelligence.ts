@@ -1,7 +1,6 @@
 import { createClient } from '@/utils/supabase/server'
 
 export type MetricUnit  'currency' | 'percentage' | 'count' | 'ratio'
-
 export interface FinancialDashboardDataset {
   // Define the structure of your data from the 'financial_intelligence' table
   // This should match the columns in your Supabase table.
@@ -17,7 +16,6 @@ export interface FinancialDashboardDataset {
   generatedAt: string
   refreshIntervalMinutes: number
 }
-
 export async function getFinancialDashboardDataset(): PromiseFinancialDashboardDataset | null {
   const supabase  createClient()
   const { data, error }  await supabase
@@ -26,11 +24,8 @@ export async function getFinancialDashboardDataset(): PromiseFinancialDashboardD
     .order('generatedAt', { ascending: false })
     .limit(1)
     .single()
-
   if (error) {
     console.error('Error fetching financial dashboard data:', error)
     return null
   }
-
   return data
-}

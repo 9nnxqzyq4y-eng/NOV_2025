@@ -6,12 +6,10 @@ export interface SlackMessage {
   blocks?: unknown[]
   attachments?: unknown[]
 }
-
 interface SlackResponse {
   ok: boolean;
   status: number;
   data: T;
-
 export class SlackIntegration extends Integration {
   private readonly baseUrl: string private readonly token: string | undefined;
   constructor(options: IntegrationOptions  {}) {
@@ -19,36 +17,29 @@ export class SlackIntegration extends Integration {
     this.baseUrl  'https://slack.com/api'
     this.token  process.env.SLACK_BOT_TOKEN;
   }
-
   async postMessage(message: SlackMessage): Promise {
     return this.executeWithRateLimit(async ()  {
       const response  await this.fetchWithAuth('chat.postMessage', {
         method: 'POST',
         body: JSON.stringify(message),
       })
-
       const payload  await response.json().catch(()  undefined)
-
       if (!response.ok || !payload?.ok) {
         throw new IntegrationError('Failed to send Slack message', payload)
       }
-
       return {
         ok: true,
         status: response.status,
         data: payload,
     })
-
   private async fetchWithAuth(path: string, init: RequestInit): Promise {
     if (!this.token) {
       throw new IntegrationError('Missing Slack bot token')
     }
-
     const headers: HeadersInit  {
       Authorization: `Bearer ${this.token}`,
       'Content-Type': 'application/json; charsetutf-8',
       ...init.headers,
-
     return fetch(`${this.baseUrl}/$path`, {
       ...init,
       headers,
