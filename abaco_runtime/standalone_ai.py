@@ -16,6 +16,7 @@ Key Features:
 import json
 import logging
 from pathlib import Path
+from datetime import datetime, timedelta
 from threading import Lock
 from typing import Dict, List, Any
 
@@ -152,8 +153,8 @@ Please generate a response in your persona.
 ## Key Metrics (as of {datetime.now().strftime('%Y-%m-%d')})
 - **TPV**: ${tpv:,.0f} USD ({'+' if growth >= 0 else ''}{growth*100:.1f}% MoM)
 - **Active Clients**: {clients:,}
-- **Default Rate**: {default_rate*100:.2f}% {'✅ HEALTHY' if default_rate  0.025 else '⚠️ WARNING'}
-- **NPA**: {npa*100:.2f}% {'✅ GOOD' if npa  0.05 else '⚠️ ELEVATED'}
+- **Default Rate**: {default_rate*100:.2f}% {'✅ HEALTHY' if default_rate <= 0.025 else '⚠️ WARNING'}
+- **NPA**: {npa*100:.2f}% {'✅ GOOD' if npa <= 0.05 else '⚠️ ELEVATED'}
 - **Penetration**: {(clients/31666)*100:.2f}% of El Salvador MYPE market
 
 ## Trend Signals
@@ -184,12 +185,12 @@ Please generate a response in your persona.
         report = f"""# Chief Risk Officer Assessment
 *{personality.signature_phrases[1]}*
 
-## Portfolio Risk Score: {risk_score:.1f}/100 {'🟢 ACCEPTABLE' if risk_score  70 else '🔴 ELEVATED'}
+## Portfolio Risk Score: {risk_score:.1f}/100 {'🟢 ACCEPTABLE' if risk_score > 70 else '🔴 ELEVATED'}
 
 ## POD Distribution Analysis
 - Average POD: {avg_pod*100:.1f}%
 - High-Risk Segment (POD30%): {self._calculate_high_risk_percentage(data):.1f}% of portfolio
-- Credit Concentration: {concentration*100:.1f}% {'⚠️ EXCEEDS LIMIT' if concentration  0.35 else '✅ WITHIN LIMITS'}
+- Credit Concentration: {concentration*100:.1f}% {'⚠️ EXCEEDS LIMIT' if concentration > 0.35 else '✅ WITHIN LIMITS'}
 
 ## Provisioning Recommendations (BCR Compliance)
 ```

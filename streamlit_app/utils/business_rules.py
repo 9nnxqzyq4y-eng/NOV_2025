@@ -134,7 +134,7 @@ class MYPEBusinessRules:
         # Check risk severity
         if customer_metrics.get('avg_risk_severity', 0) > criteria['avg_risk_severity_threshold']:
             is_high_risk = True
-            reasons.append(f"Risk severity {customer_metrics['avg_risk_severity']:.2f}  {criteria['avg_risk_severity_threshold']} threshold")
+            reasons.append(f"Risk severity {customer_metrics['avg_risk_severity']:.2f} > {criteria['avg_risk_severity_threshold']} threshold")
         
         return is_high_risk, reasons
     
