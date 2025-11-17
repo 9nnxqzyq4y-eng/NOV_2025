@@ -218,7 +218,7 @@ class AgentOrchestrator:
                 failed_count += 1
 
             self.logger.info(
-                "Agent %s executed: status%s, duration%dms",
+                "Agent %s executed: status=%s, duration=%dms",
                 result.agent_name,
                 result.status.value,
                 result.duration_ms,

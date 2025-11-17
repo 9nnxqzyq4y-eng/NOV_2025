@@ -1,3 +1,0 @@
-
-LC"*Preferred backends: {', '.join(personality.preferred_backends)}*"str
-?6"Generates a formatted string for preferred backends."strself

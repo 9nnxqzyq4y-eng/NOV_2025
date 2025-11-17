@@ -1,22 +1,0 @@
-
-C4"Action: Data quality approved. No cleaning needed."str
-E&"Action: Triggering Data Cleaning Agent due to low quality."str
-8/"Action: Verifying data quality post-cleaning."str
-J"final_data"str
-	85.0float
-sAj"   Result: Final status is {final_quality_report['status']} with score {final_quality_report['score']}."str
-
-0int
-5"Action: Performing initial data quality assessment."str
-70.0float
-W;N"   Result: Data cleaning complete. {cleaned_issues_count} issues addressed."str
- N"human_readable_report"str
-+E""Action: Generating final report."str
-1	"records"str
-"quality_thresholds"str
-i`"   Result: Initial status is {quality_report['status']} with score {quality_report['score']}."str
-	"warning"str
-!"score"str
-"reject"str
-("issues"str
-4"log"str

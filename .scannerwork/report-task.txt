@@ -1,7 +1,0 @@
-organizationjenineferderas
-projectKeymy-awesome-project
-serverUrlhttps://sonarcloud.io
-serverVersion8.0.0.76487
-dashboardUrlhttps://sonarcloud.io/dashboard?idmy-awesome-project
-ceTaskIdAZqP-TueZQlexUzzpRdA
-ceTaskUrlhttps://sonarcloud.io/api/ce/task?idAZqP-TueZQlexUzzpRdA

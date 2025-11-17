@@ -1,104 +1,0 @@
-
-0.003float
-0.085float
-("high_risk_pct"str
-)15.2float
-/47int
-4"30_60"str
-		"clients"str
-"default_rate"str
-"par30"str
-%"olb"str
-"kpis"str
-"portfolio"str
-"concentration"str
-0.032float
- 0.382float
-2450000int
-1"60_90"str
-
-245int
-"	"avg_pod"str
-"tpv"str
-#0.18float
-"growth_mom"str
-.	"over_90"str
-,"dpd_cases"str
-&5200000int
-"npa"str
- "Get default demo data"str
-558int
-232int
-"default_trend"str
-0.021float
-0.128floatself
-Ò Ò(#"Ä&
-$
-
-Ô é(	"#new-object#Bdict&
-$
-
-Õ Ü("#new-object#Bdict"
- 
-
-Ö Ö("	#map-set#:"
- 
-
-× ×("	#map-set#:	
-"
- 
-
-Ø Ø(%"	#map-set#:"
- 
-
-Ù Ù("	#map-set#:"
- 
-
-Ú Ú(#"	#map-set#:,
-*
-
-Û! Û('"#unaryop -#2-:Bfloat"
- 
-
-Û Û('"	#map-set#:"
- 
-
-Õ Ü("	#map-set#:&
-$
-
-Ý ã("#new-object#Bdict"
- 
-
-Þ Þ("	#map-set#:"
- 
-
-ß ß(&!"	#map-set#: "
- 
-
-à à($"	#map-set#:"#"
- 
-
-á á('"	#map-set#:%&"
- 
-
-â â(%*"	#map-set#:()"
- 
-
-Ý ã(+"	#map-set#:&
-$
-
-ä è(-"#new-object#Bdict"
- 
-
-å å(0"	#map-set#:-./"
- 
-
-æ æ(3"	#map-set#:-12"
- 
-
-ç ç(6"	#map-set#:-45"
- 
-
-ä è(7"	#map-set#:,-
-
-Ô é(	*P/Users/jenineferderas/my-awesome-project-new/abaco_runtime/agent_orchestrator.py

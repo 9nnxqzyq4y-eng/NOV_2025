@@ -1,72 +1,0 @@
-
-1.0PythonFrontend"1763352040123*py2.Bª
-
-imports1
-
-extends2
-
-returns3
-
-	has param4
-
-module5
-
-
-class6
-
-function7
-#
-tools/find_suspicious_files.py9
-
-find_suspicious_files11
-
-os12
-
-pathlib14
-)
-#find_suspicious_files.is_suspicious16
-
-
-bool18
-
-pathlib.Path20
- 
-find_suspicious_files.main22J
-
-8
-89j 
- 
-10
-10115 *
-8 (
-
-13
-13125
-
-15
-15145
-
-17
-17167 210
-
-19
-19186
-
-21
-21206
-
-23
-23227 210rh
-
-10131*
-8 (
-
-
-10151*
-8 (
-
-17193*
-8 (
-
-17214*
-8 (

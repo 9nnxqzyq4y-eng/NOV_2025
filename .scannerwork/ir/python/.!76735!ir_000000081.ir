@@ -1,46 +1,0 @@
-
-"*.pyo"str
-	"sample*"str
-".idea"str
-#"yarn.lock"str
-	"backup*"str
-".envrc"str
-".env.local.backup"str
-"*.pyc"str
-'&"CLEANUP_REPORT-checkpoint.md"str
-"node_modules"str
-".mypy_cache"str
-"__pycache__"str
-".cache"str
-".coverage"str
-""package-lock.json"str
-NoneNoneType
-"*.tmp"str
-".DS_Store"str
-
-"example*"str
-"*.log"str
-"*.orig"str
-"old*"str
-,(#"fix_merge_conflicts-checkpoint.sh"str
-".ipynb_checkpoints"str
-"demo*"str
-"junk*"str
-"dummy*"str
- "trash*"str
-$"pnpm-lock.yaml"str
- %"Dockerfile-checkpoint"str
-4
-"__main__"str
-	".vscode"str
-"*.egg-info"str
-".tox"str
-
-"*.bak"str
-"test*"str
-".pytest_cache"str
-!"hello.txt"str
-	"*.swp"str
-%'"components-checkpoint.json"str
-
--0int

@@ -1,8 +1,0 @@
-
-NoneNoneType
-4+"%(asctime)s - %(levelname)s - %(message)s"str
-
-"__main__"str
-kb"
-ABACO KPI Computation Tool
-Computes portfolio risk KPIs like DPD and PAR from local CSV files.

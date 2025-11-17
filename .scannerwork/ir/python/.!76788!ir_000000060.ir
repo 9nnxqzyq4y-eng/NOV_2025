@@ -1,34 +1,0 @@
-
-""str
-)/ "✅ SONAR_TOKEN looks present."str
-"ey"str
-("✅ SUPABASE_URL looks valid."str
-"SUPABASE_URL"str
-"GROK_API_KEY"str
-,8#"✅ OPENAI_API_KEY looks present."str
-5"sk-"str
-3"OPENAI_API_KEY"str
-*D!"✅ GROK_API_KEY looks present."str
-&"sqa_"str
-7 ."✅ SUPABASE_SERVICE_ROLE_KEY looks present."str
-NoneNoneType
-51,"❌ SONAR_TOKEN is missing or placeholder."str
-
-"supabase.co"str
-/&"\nChecking connections to all tools:"str
-2)"❌ SUPABASE_URL is missing or invalid."str
-$"SUPABASE_SERVICE_ROLE_KEY"str
-
-"https://"str
-H"CODERABBIT_TOKEN"str
-.P%"✅ CODERABBIT_TOKEN looks present."str
-+10int
-;2"❌ SUPABASE_ANON_KEY is missing or placeholder."str
-$"SONAR_TOKEN"str
-"SUPABASE_ANON_KEY"str
-:R1"❌ CODERABBIT_TOKEN is missing or placeholder."str
-@"your-grok-api-key"str
-/&"✅ SUPABASE_ANON_KEY looks present."str
-C":"❌ SUPABASE_SERVICE_ROLE_KEY is missing or placeholder."str
- L"your-coderabbit-token"str
-6F-"❌ GROK_API_KEY is missing or placeholder."str

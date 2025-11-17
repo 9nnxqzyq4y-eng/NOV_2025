@@ -1,30 +1,0 @@
-
-1"quality_scores"str
-"failed"str
-	"inverse"str
-$	"details"str
-"Failed"str
-#"✅ Ingestion completed!"str
-"total_files"str
-("Ingestion Details"str
- 	"skipped"str
-5"Data Quality Scores"str
-
-4int
-NoneNoneType
-"Successful"str
-/truebool
-
-	0int
-
-1int
-KB"Displays the metrics and detailed results from an ingestion run."str
-
-2int
-"successful"str
-
-3int
-""off"str
-"Total Files"str
-	"Skipped"str
-"normal"strreport

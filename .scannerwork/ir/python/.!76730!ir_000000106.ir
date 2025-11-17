@@ -1,19 +1,0 @@
-
-"par30"str
-	"default_rate"str
-
-0int
-"concentration"str
-%500int
-0.35float
-"portfolio"str
--"S3518"bool
-"kpis"str
-/"division by zero"bool
-100int
-0.085float
-200int
-."a"bool
-1000int
-
-0.021floatself

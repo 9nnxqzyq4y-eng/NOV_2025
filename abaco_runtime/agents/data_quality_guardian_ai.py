@@ -53,7 +53,7 @@ class DataQualityGuardianAgent:
                         }
                     )
                 elif (
-                    key  "email"
+                    key == "email"
                     and isinstance(value, str)
                     and not re.match(r"[^@]+@[^@]+\.[^@]+", value)
                 ):

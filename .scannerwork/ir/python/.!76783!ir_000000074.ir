@@ -1,20 +1,0 @@
-
-"store_true"str
-2"Agents Failed: %d"str
-6"Total Duration: %dms"str
-"--save-results"str
-'"Output directory for results"str
-!80int
-"--output-dir"str
- ""str
-"all"str
-"\n%s"str
-:"%s\n"str
-"--trigger"str
-#"ABACO Agent Orchestrator"str
-)"Status: %s"str
-"Save results to disk"str
-NoneNoneType
-"CLI entry point"str
-$	"Type of agents to trigger"str
-."Agents Executed: %d"str

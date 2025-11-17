@@ -1,60 +1,0 @@
-
-1.0PythonFrontend"1763352036911*py2.BŒ
-
-imports1
-
-extends2
-
-returns3
-
-	has param4
-
-module5
-
-
-class6
-
-function7
-%
- tools/tests/test_collect_kpis.py9
-
-test_collect_kpis11
-
-os12
-
-
-subprocess14
-
-
-json16
-@
-:test_collect_kpis.test_collect_kpis_fails_closed_if_no_env18J
-
-8
-89jt
- 
-10
-10115 *
-8 (
-
-13
-13125
-
-15
-15145
-
-17
-17165
-
-19
-19187 210rN
-
-10131*
-8 (
-
-
-10151*
-8 (
-
-10171*
-8 (

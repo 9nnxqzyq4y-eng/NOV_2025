@@ -1,18 +1,0 @@
-
-"GROK_API_KEY"str
-"your-openai-api-key"str
-+""https://your-project.supabase.co"str
-"SONAR_TOKEN"str
- "your-coderabbit-token"str
-"SUPABASE_URL"str
-"SUPABASE_ANON_KEY"str
-!	"your-supabase-anon-key"str
-"OPENAI_API_KEY"str
-$"SUPABASE_SERVICE_ROLE_KEY"str
-#
-"__main__"str
-".env.local"str
-"your-sonar-token"str
-NoneNoneType
-"your-grok-api-key"str
-"CODERABBIT_TOKEN"str
