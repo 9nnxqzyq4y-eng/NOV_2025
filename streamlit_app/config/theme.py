@@ -1,8 +1,9 @@
 """
 ABACO Financial Intelligence Platform - 4K Theme Configuration
 Enterprise-grade dark theme with purple gradients for superior visual analytics
+"""
 
-ABACO_THEME  {
+ABACO_THEME = {
     # Primary Brand Colors (Purple Gradient Palette)
     "brand_primary_light": "#9b87f5",
     "brand_primary_medium": "#7E69AB",
@@ -71,8 +72,7 @@ ABACO_THEME  {
     "export_scale": 4,
 }
 
-# Plotly Layout Template for 4K Resolution
-PLOTLY_LAYOUT_4K  {
+PLOTLY_LAYOUT_4K = {
     "template": "plotly_dark",
     "paper_bgcolor": ABACO_THEME["bg_primary"],
     "plot_bgcolor": ABACO_THEME["bg_card"],
@@ -89,135 +89,128 @@ PLOTLY_LAYOUT_4K  {
         },
         "x": 0.5,
         "xanchor": "center"
+    },
     "legend": {
         "bgcolor": ABACO_THEME["bg_secondary"],
         "bordercolor": ABACO_THEME["brand_primary_medium"],
         "borderwidth": 1,
+        "font": {
             "size": 12,
             "color": ABACO_THEME["text_secondary"]
         }
+    },
     "colorway": ABACO_THEME["chart_colors"],
-    "width": 1920,  # Full HD default, can scale to 4K
+    "width": 1920,
     "height": 1080,
     "margin": {"l": 80, "r": 80, "t": 100, "b": 80},
+}
 
-# Custom CSS for Streamlit
-CUSTOM_CSS  f"""
-style
-    /* Import Inter Font */
-    @import url('https://fonts.googleapis.com/css2?familyInter:wght@300;400;500;600;700;800&displayswap');
+CUSTOM_CSS = """
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
     
-    /* Global Styles */
-    .stApp {{
-        background: {ABACO_THEME["bg_primary"]};
-        font-family: {ABACO_THEME["font_family"]};
-        color: {ABACO_THEME["text_primary"]};
-    }}
+    .stApp {
+        background: var(--bg-primary);
+        font-family: var(--font-family);
+        color: var(--text-primary);
+    }
     
-    /* Sidebar Styling */
-    .css-1d391kg, [data-testid"stSidebar"] {{
-        background: {ABACO_THEME["bg_secondary"]};
-        border-right: 1px solid {ABACO_THEME["brand_primary_dark"]};
+    [data-testid="stSidebar"] {
+        background: var(--bg-secondary);
+        border-right: 1px solid var(--primary-dark);
+    }
     
-    /* Header Styling */
-    h1, h2, h3, h4, h5, h6 {{
+    h1, h2, h3, h4, h5, h6 {
         font-weight: 700;
+    }
     
-    h1 {{
-        background: {ABACO_THEME["gradient_primary"]};
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        font-size: {ABACO_THEME["font_size_xlarge"]};
+    h1 {
+        font-size: 28px;
+        color: var(--primary-light);
+    }
     
-    /* Card Styling */
-    .element-container {{
-        background: {ABACO_THEME["bg_card"]};
-        border-radius: {ABACO_THEME["border_radius_md"]};
-        padding: {ABACO_THEME["spacing_sm"]};
-        margin: {ABACO_THEME["spacing_xs"]} 0;
-        box-shadow: {ABACO_THEME["shadow_md"]};
+    .element-container {
+        background: var(--bg-card);
+        border-radius: 8px;
+        padding: 1rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+    }
     
-    /* Metric Cards */
-    [data-testid"stMetricValue"] {{
-        font-size: {ABACO_THEME["font_size_large"]};
-        color: {ABACO_THEME["brand_primary_light"]};
+    [data-testid="stMetricValue"] {
+        font-size: 20px;
+        color: var(--primary-light);
+    }
     
-    [data-testid"stMetricLabel"] {{
-        color: {ABACO_THEME["text_secondary"]};
+    [data-testid="stMetricLabel"] {
+        color: var(--text-secondary);
         font-size: 14px;
         font-weight: 500;
+    }
     
-    /* Button Styling */
-    .stButton  button {{
+    .stButton > button {
         border: none;
-        padding: {ABACO_THEME["spacing_xs"]} {ABACO_THEME["spacing_md"]};
+        padding: 0.5rem 1.5rem;
         font-weight: 600;
         transition: all 0.3s ease;
+    }
     
-    .stButton  button:hover {{
+    .stButton > button:hover {
         transform: translateY(-2px);
-        box-shadow: {ABACO_THEME["shadow_lg"]};
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+    }
     
-    /* DataFrame Styling */
-    .dataframe {{
-        background: {ABACO_THEME["bg_card"]} !important;
+    .dataframe {
+        background: var(--bg-card) !important;
+    }
     
-    .dataframe th {{
-        background: {ABACO_THEME["gradient_primary"]} !important;
-        color: {ABACO_THEME["text_primary"]} !important;
+    .dataframe th {
+        background: linear-gradient(135deg, #9b87f5 0%, #7E69AB 50%, #6E59A5 100%) !important;
+        color: white !important;
         padding: 12px;
+    }
     
-    .dataframe td {{
-        color: {ABACO_THEME["text_secondary"]} !important;
+    .dataframe td {
+        color: var(--text-secondary) !important;
         padding: 10px;
+    }
     
-    /* Input Fields */
-    .stTextInput  div  div  input,
-    .stNumberInput  div  div  input,
-    .stSelectbox  div  div  div {{
-        background: {ABACO_THEME["bg_tertiary"]};
-        border: 1px solid {ABACO_THEME["brand_primary_dark"]};
-        border-radius: {ABACO_THEME["border_radius_sm"]};
+    .stTextInput input, .stNumberInput input, .stSelectbox div {
+        background: var(--bg-tertiary);
+        border: 1px solid var(--primary-dark);
+        border-radius: 4px;
+    }
     
-    /* Alert Boxes */
-    .stAlert {{
-        border-left: 4px solid {ABACO_THEME["brand_primary_medium"]};
-        padding: {ABACO_THEME["spacing_md"]};
+    .stAlert {
+        border-left: 4px solid var(--primary-medium);
+        padding: 1.5rem;
+    }
     
-    /* Tabs */
-    .stTabs [data-baseweb"tab-list"] {{
+    .stTabs [data-baseweb="tab-list"] {
         gap: 8px;
         padding: 8px;
+    }
     
-    .stTabs [data-baseweb"tab"] {{
+    .stTabs [data-baseweb="tab"] {
         background: transparent;
+    }
     
-    .stTabs [aria-selected"true"] {{
+    .stSpinner > div {
+        border-top-color: var(--primary-light);
+    }
     
-    /* Spinner */
-    .stSpinner  div {{
-        border-top-color: {ABACO_THEME["brand_primary_light"]};
+    [data-testid="stFileUploadDropzone"] {
+        border: 2px dashed var(--primary-medium);
+        border-radius: 12px;
+    }
     
-    /* Progress Bar */
-    .stProgress  div  div  div {{
-    
-    /* Expander */
-    .streamlit-expanderHeader {{
-    
-    /* File Uploader */
-    [data-testid"stFileUploadDropzone"] {{
-        border: 2px dashed {ABACO_THEME["brand_primary_medium"]};
-        border-radius: {ABACO_THEME["border_radius_lg"]};
-    
-    /* Toast Messages */
-    .stToast {{
-        border-left: 4px solid {ABACO_THEME["brand_primary_light"]};
-        box-shadow: {ABACO_THEME["shadow_xl"]};
-/style
+    .stToast {
+        border-left: 4px solid var(--primary-light);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
+    }
+</style>
+"""
 
-# Plotly Chart Configuration for 4K Export
-PLOTLY_CONFIG_4K  {
+PLOTLY_CONFIG_4K = {
     "displayModeBar": True,
     "displaylogo": False,
     "modeBarButtonsToRemove": ["lasso2d", "select2d"],
@@ -228,3 +221,4 @@ PLOTLY_CONFIG_4K  {
         "width": 3840,
         "scale": 4
     }
+}

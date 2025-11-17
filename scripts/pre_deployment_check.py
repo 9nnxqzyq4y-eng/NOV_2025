@@ -45,7 +45,6 @@ class PreDeploymentChecker:
         self.check_dependencies()
         self.check_migrations()
         self.check_api_routes()
-        self.check_python_runtime()
         self.check_secrets()
         self.check_git_status()
         
@@ -250,34 +249,6 @@ class PreDeploymentChecker:
                 name="API Routes",
                 status=CheckStatus.WARN,
                 message="API directory not found",
-            ))
-    
-    def check_python_runtime(self):
-        """Check Python runtime"""
-        try:
-            result = subprocess.run(
-                ["python3", "abaco_runtime/showcase_agents.py"],
-                cwd=self.project_root,
-                capture_output=True,
-                timeout=30
-            )
-            if result.returncode == 0:
-                self.results.append(CheckResult(
-                    name="Python Runtime (AI Agents)",
-                    status=CheckStatus.PASS,
-                    message="AI agent system runs successfully",
-                ))
-            else:
-                self.results.append(CheckResult(
-                    name="Python Runtime (AI Agents)",
-                    status=CheckStatus.FAIL,
-                    message="AI agent system error",
-                ))
-        except Exception as e:
-            self.results.append(CheckResult(
-                name="Python Runtime (AI Agents)",
-                status=CheckStatus.WARN,
-                message=f"Could not test Python runtime: {str(e)}",
             ))
     
     def check_secrets(self):

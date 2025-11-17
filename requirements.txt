@@ -1,70 +1,8 @@
-# 
-# ABACO - Complete Python Dependencies
-# Single source of truth for all Python environments (main, streamlit, notebooks)
-# 
+# Project dependencies
+mcp[cli]
 
-# Core Framework
-streamlit==1.29.0
-pandas==2.1.4
-numpy==1.26.2
-scipy==1.11.0
+# Production server
+uvicorn[standard]
 
-# Database & Backend
-supabase==2.0.5
-python-dotenv==1.0.0
-psycopg2-binary==2.9.9
-sqlalchemy==2.0.23
-
-# Data Visualization
-plotly==5.18.0
-matplotlib==3.8.0
-seaborn==0.12.0
-dash==2.14.0
-
-# AI & Machine Learning
-openai==1.3.7
-anthropic==0.7.6
-google-generativeai==0.3.0
-transformers==4.35.0
-torch==2.1.0
-scikit-learn==1.5.2
-statsmodels==0.14.0
-
-# Communication & CRM
-slack-sdk==3.23.0
-hubspot-api-client==8.0.0
-
-# Development Tools
-pytest==7.4.3
-black==23.11.0
-flake8==6.1.0
-mypy==1.7.1
-fastapi==0.104.1
-uvicorn==0.24.0.post1
-
-# Additional Integrations
-requests==2.31.0
-pydantic==2.5.2
-python-dateutil==2.8.0
-pytz==2023.3
-beautifulsoup4==4.12.0
-openpyxl==3.1.0
-xlrd==2.0.1
-pdfplumber==0.9.0
-xlsxwriter==3.1.0
-
-# Optional: Jupyter Support
-ipykernel==6.27.0
-jupyter==1.0.0
-notebook==7.0.0
-jupyterlab==4.3.0
-
-# Google Cloud & Drive
-google-api-python-client==2.100.0
-google-auth==2.23.4
-google-auth-oauthlib==1.1.0
-google-auth-httplib2==0.1.1
-google-cloud-storage==2.14.0
-
-# Pin pyarrow to avoid build issues on macOS
-pyarrow==14.0.1
+# Configuration
+python-dotenv

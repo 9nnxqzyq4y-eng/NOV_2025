@@ -206,8 +206,8 @@ TOTAL:     ${self._calculate_provision(par30, 'total', data):,.0f}
 
 ## Regulatory Compliance Status
 ✅ BCR provisioning rates applied
-{'✅' if concentration  0.35 else '⚠️'} Concentration limits {'met' if concentration  0.35 else 'EXCEEDED'}
-{'✅' if par30  0.12 else '⚠️'} PAR30 within acceptable range
+{'✅' if concentration < 0.35 else '⚠️'} Concentration limits {'met' if concentration < 0.35 else 'EXCEEDED'}
+{'✅' if par30 < 0.12 else '⚠️'} PAR30 within acceptable range
 
 *Prepared by {personality.name}, {personality.position}*
 *Safety rule: Blocking if POD model not validated*
@@ -421,26 +421,26 @@ Partner:  {partner_volume} clients  |  CAC: ${economics['Partner']['cac']:,}  | 
 """
         return strategy
 
-    def _generate_quality_report(self, personality: AgentPersonality, data: Dict) - str:
+    def _generate_quality_report(self, personality: AgentPersonality, data: Dict) -> str:
         """Generate data quality audit report (Patricia)"""
-        quality_metrics: Dict[str, float]  data.get("quality", {})
-        null_pct  quality_metrics.get("null_pct", 0.082)
-        duplicate_pct  quality_metrics.get("duplicate_pct", 0.003)
-        schema_drift  quality_metrics.get("schema_drift", 0.0)
+        quality_metrics: Dict[str, float] = data.get("quality", {})
+        null_pct = quality_metrics.get("null_pct", 0.082)
+        duplicate_pct = quality_metrics.get("duplicate_pct", 0.003)
+        schema_drift = quality_metrics.get("schema_drift", 0.0)
 
-        quality_score  max(
+        quality_score = max(
             0, 100 - (null_pct * 500) - (duplicate_pct * 1000) - (schema_drift * 200)
         )
 
-        report  f"""# Data Quality Audit Report
+        report = f"""# Data Quality Audit Report
 *{personality.signature_phrases[2]}*
 
-## Quality Score: {quality_score:.1f}/100 {'🟢 APPROVED' if quality_score  70 else '🔴 BLOCKED'}
+## Quality Score: {quality_score:.1f}/100 {'🟢 APPROVED' if quality_score >= 70 else '🔴 BLOCKED'}
 
 ## Critical Quality Metrics
-- **Null Rate**: {null_pct*100:.2f}% {'✅' if null_pct  0.10 else '⚠️ ELEVATED'}
-- **Duplicate Rate**: {duplicate_pct*100:.3f}% {'✅' if duplicate_pct  0.01 else '⚠️ REVIEW NEEDED'}
-- **Schema Drift**: {schema_drift*100:.2f}% {'✅ STABLE' if schema_drift  0 else '⚠️ DRIFT DETECTED'}
+- **Null Rate**: {null_pct*100:.2f}% {'✅' if null_pct <= 0.10 else '⚠️ ELEVATED'}
+- **Duplicate Rate**: {duplicate_pct*100:.3f}% {'✅' if duplicate_pct <= 0.01 else '⚠️ REVIEW NEEDED'}
+- **Schema Drift**: {schema_drift*100:.2f}% {'✅ STABLE' if schema_drift == 0 else '⚠️ DRIFT DETECTED'}
 
 ## Field-Level Analysis
 
@@ -448,44 +448,44 @@ Partner:  {partner_volume} clients  |  CAC: ${economics['Partner']['cac']:,}  | 
 ```
 customer_id:        {100 - null_pct*100:.1f}% complete  ✅
 loan_id:            {100 - null_pct*50:.1f}% complete   ✅
-outstanding_balance: {100 - null_pct*200:.1f}% complete  {'✅' if null_pct  0.05 else '⚠️'}
-dpd:                {100 - null_pct*150:.1f}% complete  {'✅' if null_pct  0.08 else '⚠️'}
-collateral_value:   {100 - null_pct*300:.1f}% complete  {'⚠️ BLOCKING' if null_pct  0.10 else '✅'}
+outstanding_balance: {100 - null_pct*200:.1f}% complete  {'✅' if null_pct <= 0.05 else '⚠️'}
+dpd:                {100 - null_pct*150:.1f}% complete  {'✅' if null_pct <= 0.08 else '⚠️'}
+collateral_value:   {100 - null_pct*300:.1f}% complete  {'⚠️ BLOCKING' if null_pct > 0.10 else '✅'}
 ```
 
 ## Issues Detected
 
 ### 🔴 Critical
-{f"- {null_pct*100:.1f}% null values in 'collateral_value' field - BLOCKS collateral coverage analysis" if null_pct  0.10 else "None detected ✅"}
+{f"- {null_pct*100:.1f}% null values in 'collateral_value' field - BLOCKS collateral coverage analysis" if null_pct > 0.10 else "None detected ✅"}
 
 ### 🟡 Warnings
-{f"- {duplicate_pct*100:.3f}% duplicate customer_id records - requires deduplication" if duplicate_pct  0.001 else "None detected ✅"}
-{"- Schema drift detected in AUX file: 'customer_id' type changed" if schema_drift  0 else ""}
+{f"- {duplicate_pct*100:.3f}% duplicate customer_id records - requires deduplication" if duplicate_pct > 0.001 else "None detected ✅"}
+{"- Schema drift detected in AUX file: 'customer_id' type changed" if schema_drift > 0 else ""}
 
 ## Remediation Steps
 
-1. **Immediate**: {'Block downstream analyses pending collateral data quality improvement' if null_pct  0.10 else 'Proceed with analyses ✅'}
+1. **Immediate**: {'Block downstream analyses pending collateral data quality improvement' if null_pct > 0.10 else 'Proceed with analyses ✅'}
 2. **Short-term**: Run deduplication script on customer_id field
 3. **Ongoing**: Implement upstream validation in data ingestion pipeline
 
 ## Approval Decision
-**Status**: {'🔴 BLOCKED - Quality score below threshold (70)' if quality_score  70 else '🟢 APPROVED for production analytics'}
+**Status**: {'🔴 BLOCKED - Quality score below threshold (70)' if quality_score < 70 else '🟢 APPROVED for production analytics'}
 
-{f"**Required Actions**: Improve collateral_value completeness to {(100-null_pct*100+5):.0f}% before unblocking" if quality_score  70 else "**Cleared for**: All downstream analyses and model training"}
+{f"**Required Actions**: Improve collateral_value completeness to {(100-null_pct*100+5):.0f}% before unblocking" if quality_score < 70 else "**Cleared for**: All downstream analyses and model training"}
 
 *Prepared by {personality.name}, {personality.position}*
 *Next audit: {(datetime.now() + timedelta(hours24)).strftime('%Y-%m-%d %H:%M')}*
 """
         return report
 
-    def _get_backend_string(self, personality: AgentPersonality) - str:
+    def _get_backend_string(self, personality: AgentPersonality) -> str:
         """Generates a formatted string for preferred backends."""
         return f"*Preferred backends: {', '.join(personality.preferred_backends)}*"
 
     # Placeholder methods for remaining generators
     def _generate_commercial_report(
-        self, personality: AgentPersonality, data: Dict  # pylint: disableunused-argument
-    ) - str:
+        self, personality: AgentPersonality, data: Dict  # pylint: disable=unused-argument
+    ) -> str:
         return (
             f"# Commercial Manager Report\n"
             f"*{personality.signature_phrases[0]}*\n\n"
@@ -495,7 +495,7 @@ collateral_value:   {100 - null_pct*300:.1f}% complete  {'⚠️ BLOCKING' if nu
 
     def _generate_kam_brief(
         self, personality: AgentPersonality, data: Dict
-    ) - str:  # pylint: disableunused-argument
+    ) -> str:  # pylint: disable=unused-argument
         return (
             f"# KAM Assistant Brief\n"
             f"*{personality.signature_phrases[0]}*\n\n"
@@ -504,8 +504,8 @@ collateral_value:   {100 - null_pct*300:.1f}% complete  {'⚠️ BLOCKING' if nu
         )
 
     def _generate_financial_analysis(
-        self, personality: AgentPersonality, data: Dict  # pylint: disableunused-argument
-    ) - str:
+        self, personality: AgentPersonality, data: Dict  # pylint: disable=unused-argument
+    ) -> str:
         return (
             f"# Financial Analysis\n"
             f"*{personality.signature_phrases[0]}*\n\n"
@@ -515,7 +515,7 @@ collateral_value:   {100 - null_pct*300:.1f}% complete  {'⚠️ BLOCKING' if nu
 
     def _generate_mlops_report(
         self, personality: AgentPersonality, data: Dict
-    ) - str:  # pylint: disableunused-argument
+    ) -> str:  # pylint: disable=unused-argument
         return (
             f"# MLOps Model Report\n"
             f"*{personality.signature_phrases[0]}*\n\n"
@@ -525,7 +525,7 @@ collateral_value:   {100 - null_pct*300:.1f}% complete  {'⚠️ BLOCKING' if nu
 
     def _generate_design_spec(
         self, personality: AgentPersonality, data: Dict
-    ) - str:  # pylint: disableunused-argument
+    ) -> str:  # pylint: disable=unused-argument
         return (
             f"# Visual Design Spec\n"
             f"*{personality.signature_phrases[0]}*\n\n"
@@ -533,7 +533,7 @@ collateral_value:   {100 - null_pct*300:.1f}% complete  {'⚠️ BLOCKING' if nu
             f"{self._get_backend_string(personality)}"
         )
 
-    def _generate_integration_status(self, personality: AgentPersonality, data: Dict) - str:
+    def _generate_integration_status(self, personality: AgentPersonality, data: Dict) -> str:
         return (
             f"# Integration Status\n"
             f"*{personality.signature_phrases[0]}*\n\n"
@@ -542,8 +542,8 @@ collateral_value:   {100 - null_pct*300:.1f}% complete  {'⚠️ BLOCKING' if nu
         )
 
     def _generate_compliance_audit(
-        self, personality: AgentPersonality, data: Dict  # pylint: disableunused-argument
-    ) - str:
+        self, personality: AgentPersonality, data: Dict  # pylint: disable=unused-argument
+    ) -> str:
         return (
             f"# Compliance Audit\n"
             f"*{personality.signature_phrases[0]}*\n\n"
@@ -553,7 +553,7 @@ collateral_value:   {100 - null_pct*300:.1f}% complete  {'⚠️ BLOCKING' if nu
 
     def _generate_forecast(
         self, personality: AgentPersonality, data: Dict
-    ) - str:  # pylint: disableunused-argument
+    ) -> str:  # pylint: disable=unused-argument
         return (
             f"# 14-Month Forecast\n"
             f"*{personality.signature_phrases[0]}*\n\n"
@@ -563,7 +563,7 @@ collateral_value:   {100 - null_pct*300:.1f}% complete  {'⚠️ BLOCKING' if nu
 
     def _generate_decision_memo(
         self, personality: AgentPersonality, data: Dict
-    ) - str:  # pylint: disableunused-argument
+    ) -> str:  # pylint: disable=unused-argument
         return (
             f"# Decision Memo\n"
             f"*{personality.signature_phrases[0]}*\n\n"
@@ -572,22 +572,22 @@ collateral_value:   {100 - null_pct*300:.1f}% complete  {'⚠️ BLOCKING' if nu
         )
 
     # Helper methods
-    def _calculate_trends(self, data: Dict) - str:
+    def _calculate_trends(self, data: Dict) -> str:
         """Build concise trend signals from KPI inputs."""
-        kpis  data.get("kpis", {})
-        growth  kpis.get("growth_mom", None)
-        default_trend  kpis.get("default_trend", None)
+        kpis = data.get("kpis", {})
+        growth = kpis.get("growth_mom", None)
+        default_trend = kpis.get("default_trend", None)
 
-        trends: List[str]  []
+        trends: List[str] = []
 
         # Growth signal (only if growth is numeric)
         try:
             if isinstance(growth, (int, float)):
-                if growth  0.10:
+                if growth > 0.10:
                     trends.append(f"🟢 Strong growth momentum (+{growth*100:.1f}% MoM)")
-                elif growth  0:
+                elif growth > 0:
                     trends.append(f"🟢 Moderate growth (+{growth*100:.1f}% MoM)")
-                elif growth  0:
+                elif growth == 0:
                     trends.append("🟡 Flat growth (0% MoM)")
                 else:
                     trends.append(f"🔻 Contraction (-{abs(growth)*100:.1f}% MoM)")
@@ -597,10 +597,10 @@ collateral_value:   {100 - null_pct*300:.1f}% complete  {'⚠️ BLOCKING' if nu
         # Default-rate trend (improvement or deterioration)
         try:
             if isinstance(default_trend, (int, float)):
-                # default_trend is expected to be change in rate (e.g., -0.003  -0.3pp)
-                if default_trend  0:
+                # default_trend is expected to be change in rate (e.g., -0.003 = -0.3pp)
+                if default_trend < 0:
                     trends.append(f"🟢 Improving default rate ({default_trend*100:.2f}pp MoM)")
-                elif default_trend  0:
+                elif default_trend > 0:
                     trends.append(f"🔴 Worsening default rate (+{default_trend*100:.2f}pp MoM)")
                 else:
                     trends.append("🟡 Default rate stable")
@@ -611,45 +611,45 @@ collateral_value:   {100 - null_pct*300:.1f}% complete  {'⚠️ BLOCKING' if nu
 
         return "\n".join(trends) if trends else "Stable performance across key metrics"
 
-    def _identify_critical_flags(self, data: Dict) - str:
-        kpis  data.get("kpis", {})
-        portfolio  data.get("portfolio", {})
+    def _identify_critical_flags(self, data: Dict) -> str:
+        kpis = data.get("kpis", {})
+        portfolio = data.get("portfolio", {})
 
-        flags  []
-        if portfolio.get("concentration", 0.35)  0.35:
+        flags = []
+        if portfolio.get("concentration", 0.35) > 0.35:
             flags.append("⚠️ Credit concentration exceeds 35% regulatory limit")
-        if kpis.get("npa", 0.03)  0.05:
+        if data.get("kpis", {}).get("npa", 0.03) > 0.05:
             flags.append("⚠️ NPA elevated above 5% threshold")
 
         return "\n".join(flags) if flags else "✅ No critical flags detected"
 
-    def _get_immediate_action(self, data: Dict) - str:
-        portfolio  data.get("portfolio", {})
-        if portfolio.get("concentration", 0.35)  0.35:
+    def _get_immediate_action(self, data: Dict) -> str:
+        portfolio = data.get("portfolio", {})
+        if portfolio.get("concentration", 0.35) > 0.35:
             return "Diversify top client concentration within 30 days"
         return "Continue current monitoring protocols"
 
-    def _calculate_risk_score(self, data: Dict) - float:
-        portfolio  data.get("portfolio", {})
-        default_rate  data.get("kpis", {}).get("default_rate", 0.021)
-        par30  portfolio.get("par30", 0.085)
-        concentration  portfolio.get("concentration", 0.35)
+    def _calculate_risk_score(self, data: Dict) -> float:
+        portfolio = data.get("portfolio", {})
+        default_rate = data.get("kpis", {}).get("default_rate", 0.021)
+        par30 = portfolio.get("par30", 0.085)
+        concentration = portfolio.get("concentration", 0.35)
 
         # Composite risk score (0-100, higher is better)
-        scores  [max(0, 100 - (default_rate * 1000))]  # Default impact
+        scores = [max(0, 100 - (default_rate * 1000))]
         scores.append(max(0, 100 - (par30 * 200)))  # PAR impact
         scores.append(max(0, 100 - (max(0, concentration - 0.35) * 500)))  # Concentration penalty
 
         return sum(scores) / len(scores)
 
-    def _calculate_high_risk_percentage(self, data: Dict) - float:
+    def _calculate_high_risk_percentage(self, data: Dict) -> float:
         return data.get("portfolio", {}).get("high_risk_pct", 15.2)
 
-    def _calculate_provision(self, par30: float, category: str, data: Dict) - float:
-        tpv  data.get("kpis", {}).get("tpv", 2450000)
-        rates  self.knowledge_base["compliance"]["bcr_provisioning_rates"]
+    def _calculate_provision(self, par30: float, category: str, data: Dict) -> float:
+        tpv = data.get("kpis", {}).get("tpv", 2450000)
+        rates = self.knowledge_base["compliance"]["bcr_provisioning_rates"]
 
-        if category  "total":
+        if category == "total":
             return (
                 (tpv * 0.60 * rates["current"])
                 + (tpv * 0.25 * rates["dpd_30"])
@@ -661,7 +661,7 @@ collateral_value:   {100 - null_pct*300:.1f}% complete  {'⚠️ BLOCKING' if nu
 
     def _fallback_response(
         self, agent_id: str, context: Dict
-    ) - str:  # pylint: disableunused-argument
+    ) -> str:  # pylint: disable=unused-argument
         """Generic fallback for unknown agents"""
         return f"[Standalone AI]: Analysis for {agent_id} in progress. Specialized handler not yet configured."
 
@@ -671,7 +671,7 @@ _engine_instance: Any = None
 _engine_lock = Lock()
 
 
-def get_ai_engine() - StandaloneAIEngine:
+def get_ai_engine() -> StandaloneAIEngine:
     """Get singleton instance of AI engine"""
     global _engine_instance
     with _engine_lock:

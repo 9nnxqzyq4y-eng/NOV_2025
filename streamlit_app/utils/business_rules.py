@@ -45,8 +45,8 @@ class MYPEBusinessRules:
     - E-invoice threshold: $1K (Hacienda compliance)
     - Target rotation: 5.5x
     - NPL threshold: 180+ days
+    """
     
-    # Approval thresholds by facility amount
     FACILITY_THRESHOLDS = {
         'micro': {
             'max_amount': 50_000,
