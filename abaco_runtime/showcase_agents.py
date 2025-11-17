@@ -35,7 +35,7 @@ def main():
     print("Initializing standalone AI engine...")
 
     # Initialize AI engine
-    engine  get_ai_engine()
+    engine = get_ai_engine()
 
     print(f"Loaded {len(engine.personalities)} AI personas:")
     for agent_type, personality in engine.personalities.items():

@@ -46,30 +46,39 @@ class OrchestratorAgent:
         orchestration_log = []
 
         # Step 1: Run the Data Quality Guardian
-        orchestration_log.append("Action: Performing initial data quality assessment.")
+        orchestration_log.append(
+            "Action: Performing initial data quality assessment."
+        )
         quality_report = self.quality_guardian.run(run_context, data)
         orchestration_log.append(
-            f"   Result: Initial status is {quality_report['status']} with score {quality_report['score']}."
+            f"   Result: Initial status is {quality_report['status']} "
+            f"with score {quality_report['score']}."
         )
 
         processed_data = data
 
         # Step 2: Decide whether to trigger the Data Cleaning Agent
         if quality_report["score"] < config["quality_thresholds"]["warning"]:
-            orchestration_log.append("Action: Triggering Data Cleaning Agent due to low quality.")
+            orchestration_log.append(
+                "Action: Triggering Data Cleaning Agent due to low quality."
+            )
             cleaning_issues = quality_report.get("issues", [])
             cleaning_report = self.data_cleaner.run(cleaning_issues, processed_data)
             processed_data = {"records": cleaning_report.get("records")}
             cleaned_issues_count = len(cleaning_report.get("log", []))
             orchestration_log.append(
-                f"   Result: Data cleaning complete. {cleaned_issues_count} " f"issues addressed."
+                f"   Result: Data cleaning complete. {cleaned_issues_count} "
+                "issues addressed."
             )
 
             # Step 3: Verify cleaning by running quality check again
             orchestration_log.append("Action: Verifying data quality post-cleaning.")
-            final_quality_report = self.quality_guardian.run(run_context, processed_data)
+            final_quality_report = self.quality_guardian.run(
+                run_context, processed_data
+            )
             orchestration_log.append(
-                f"   Result: Final status is {final_quality_report['status']} with score {final_quality_report['score']}."
+                f"   Result: Final status is {final_quality_report['status']} "
+                f"with score {final_quality_report['score']}."
             )
         else:
             orchestration_log.append("Action: Data quality approved. No cleaning needed.")

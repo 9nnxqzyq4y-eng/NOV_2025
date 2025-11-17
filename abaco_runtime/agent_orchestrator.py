@@ -5,7 +5,8 @@ ABACO Agent Orchestrator - Production Agent Trigger System
 Version: 1.0 - Orchestration Engine
 
 This module provides production-ready orchestration for the 15-persona ABACO AI system.
-Supports scheduled execution, individual agent triggering, and result persistence.
+Supports scheduled execution, individual agent triggering, and result
+persistence.
 
 Features:
 - Trigger individual agents or all agents
@@ -128,7 +129,9 @@ class AgentOrchestrator:
         AgentTriggerType.ALL: list(AGENT_MAPPING.keys()),
     }
 
-    def __init__(self, output_dir: Optional[Path] = None, log_file: Optional[Path] = None):
+    def __init__(
+        self, output_dir: Optional[Path] = None, log_file: Optional[Path] = None
+    ):
         """Initialize orchestrator"""
         self.engine = get_ai_engine()
         self.output_dir = output_dir or Path(__file__).parent.parent / "outputs"
@@ -141,7 +144,9 @@ class AgentOrchestrator:
         logger = logging.getLogger("AgentOrchestrator")
         logger.setLevel(logging.INFO)
 
-        formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+        formatter = logging.Formatter(
+            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        )
 
         console_handler = logging.StreamHandler()
         console_handler.setFormatter(formatter)
@@ -169,7 +174,9 @@ class AgentOrchestrator:
         try:
             output = self.engine.generate_response(agent_id, {}, demo_data)
         except (KeyError, AttributeError, ValueError) as e:
-            self.logger.error("Agent '%s' execution failed: %s", agent_key, e, exc_info=True)
+            self.logger.error(
+                "Agent '%s' execution failed: %s", agent_key, e, exc_info=True
+            )
             status = ExecutionStatus.FAILED
             error_message = str(e)
 
@@ -201,7 +208,9 @@ class AgentOrchestrator:
         start_time = datetime.now()
         run_id = f"run_{start_time.strftime('%Y%m%d_%H%M%S')}"
 
-        self.logger.info(f"Starting orchestration run: {run_id}, trigger: {trigger_type.value}")
+        self.logger.info(
+            f"Starting orchestration run: {run_id}, trigger: {trigger_type.value}"
+        )
 
         if demo_data is None:
             demo_data = self._get_default_demo_data()
@@ -227,7 +236,9 @@ class AgentOrchestrator:
         end_time = datetime.now()
         total_duration = int((end_time - start_time).total_seconds() * 1000)
 
-        execution_status = self._determine_run_status(failed_count, len(agents_to_run))
+        execution_status = self._determine_run_status(
+            failed_count, len(agents_to_run)
+        )
 
         orchestration_result = OrchestrationResult(
             run_id=run_id,  # type: ignore
@@ -241,12 +252,14 @@ class AgentOrchestrator:
             metadata={
                 "version": "1.0",
                 "environment": "production",
-                "trigger_groups": list(agents_to_run),
+                "trigger_groups": agents_to_run,
             },
         )
 
         self.logger.info(
-            "Orchestration complete: %s, executed%d, failed%d, total_duration%dms",
+            (
+                "Orchestration complete: %s, executed%d, failed%d, total_duration%dms"
+            ),
             run_id,
             len(agents_to_run),
             failed_count,
@@ -255,7 +268,9 @@ class AgentOrchestrator:
 
         return orchestration_result
 
-    def _determine_run_status(self, failed_count: int, total_agents: int) -> ExecutionStatus:
+    def _determine_run_status(
+        self, failed_count: int, total_agents: int
+    ) -> ExecutionStatus:
         """Determines the final status of the orchestration run."""
         if failed_count == 0:
             return ExecutionStatus.SUCCESS
@@ -309,9 +324,8 @@ class AgentOrchestrator:
         if result.agents_executed == 0:
             success_rate = 0.0
         else:
-            success_rate = (
-                (result.agents_executed - result.agents_failed) / result.agents_executed
-            ) * 100
+            success_rate = ((result.agents_executed - result.agents_failed) /
+                            result.agents_executed) * 100
 
         report = f"""# ABACO Agent Orchestration Report
 
@@ -377,10 +391,13 @@ def main():
         choices=[t.value for t in list(AgentTriggerType)],
         help="Type of agents to trigger",
     )
-    parser.add_argument(
-        "--output-dir", type=Path, default=None, help="Output directory for results"
-    )
-    parser.add_argument("--save-results", action="store_true", help="Save results to disk")
+    parser.add_argument("--output-dir",
+                        type=Path,
+                        default=None,
+                        help="Output directory for results")
+    parser.add_argument("--save-results",
+                        action="store_true",
+                        help="Save results to disk")
 
     args = parser.parse_args()
 

@@ -63,7 +63,9 @@ class DataQualityGuardianAgent:
                             "field": "email",
                             "issue_type": "INVALID_FORMAT",
                             "value": value,
-                            "message": f"Invalid email format for '{value}' in record {i+1}.",
+                            "message": (
+                                f"Invalid email format for '{value}' in record {i+1}."
+                            ),
                         }
                     )
         return issues
