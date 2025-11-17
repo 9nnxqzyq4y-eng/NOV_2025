@@ -140,15 +140,12 @@ class MYPEBusinessRules:
     
     @staticmethod
     def evaluate_facility_approval(
-        self,
         facility_amount: float,
         customer_metrics: Dict,
         collateral_value: float = 0.0
     ) -> ApprovalDecision:
         """Evaluate facility approval based on amount and risk profile"""
-        reasons = []
         pod = customer_metrics.get('pod', customer_metrics.get('default_risk_score', 0.5))
-        
         # Determine facility tier
         if facility_amount <= MYPEBusinessRules.FACILITY_THRESHOLDS['micro']['max_amount']:
             tier = 'micro'
@@ -161,6 +158,7 @@ class MYPEBusinessRules:
         
         # Evaluation criteria
         conditions = []
+        reasons = []
         approved = True
         recommended_amount = facility_amount
         
@@ -231,15 +229,13 @@ class MYPEBusinessRules:
         Calculate risk adjustment factor based on industry.
         Higher GDP contribution -> lower adjustment (lower risk).
         """
-        contribution = MYPEBusinessRules.INDUSTRY_GDP_CONTRIBUTION.get(industry, 0.05)
-        
-        # Industries with higher GDP contribution get favorable adjustment
-        if contribution >= 0.25:  # Trade, Services
-            return 0.95  # 5% risk reduction
-        elif contribution >= 0.15:  # Manufacturing, Agriculture
-            return 1.0  # Neutral
-        else:  # Construction, Transport, Other
-            return 1.05  # 5% risk increase
+        contribution = MYPEBusinessRules.INDUSTRY_GDP_CONTRIBUTION.get(industry, 0.05) # Industries with higher GDP contribution get favorable adjustment
+        if contribution >= 0.25: # Trade, Services
+            return 0.95 # 5% risk reduction
+        elif contribution >= 0.15: # Manufacturing, Agriculture
+            return 1.0 # Neutral
+        else: # Construction, Transport, Other
+            return 1.05 # 5% risk increase
     
     @staticmethod
     def check_rotation_target(

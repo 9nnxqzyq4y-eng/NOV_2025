@@ -26,6 +26,17 @@ class CheckResult:
     message: str
     details: str = ""
 
+# Constants for check names
+TS_CHECK = "TypeScript Type Checking"
+LINT_CHECK = "ESLint Validation"
+BUILD_CHECK = "Next.js Build"
+DEPS_CHECK = "NPM Dependencies"
+ENV_CHECK = "Environment Variables"
+MIGRATIONS_CHECK = "Supabase Migrations"
+API_ROUTES_CHECK = "API Routes"
+SECRETS_CHECK = "Secrets Exposure Check"
+GIT_STATUS_CHECK = "Git Status"
+
 class PreDeploymentChecker:
     def __init__(self, project_root: Path):
         self.project_root = project_root
@@ -48,8 +59,8 @@ class PreDeploymentChecker:
         self.check_secrets()
         self.check_git_status()
         
-        passed = sum(1 for r in self.results if r.status == CheckStatus.PASS)
-        failed = sum(1 for r in self.results if r.status == CheckStatus.FAIL)
+        passed = sum(r.status == CheckStatus.PASS for r in self.results)
+        failed = sum(r.status == CheckStatus.FAIL for r in self.results)
         
         self.print_report(passed, failed)
         return passed, failed
@@ -65,26 +76,26 @@ class PreDeploymentChecker:
             )
             if result.returncode == 0:
                 self.results.append(CheckResult(
-                    name="TypeScript Type Checking",
+                    name=TS_CHECK,
                     status=CheckStatus.PASS,
                     message="All TypeScript files compile correctly",
                 ))
             else:
                 self.results.append(CheckResult(
-                    name="TypeScript Type Checking",
+                    name=TS_CHECK,
                     status=CheckStatus.FAIL,
                     message="TypeScript compilation errors detected",
                     details=result.stderr.decode()[:200],
                 ))
         except subprocess.TimeoutExpired:
             self.results.append(CheckResult(
-                name="TypeScript Type Checking",
+                name=TS_CHECK,
                 status=CheckStatus.FAIL,
                 message="Type checking timed out"
             ))
         except Exception as e:
             self.results.append(CheckResult(
-                name="TypeScript Type Checking",
+                name=TS_CHECK,
                 status=CheckStatus.FAIL,
                 message=f"Error during type checking: {str(e)}"
             ))
@@ -100,20 +111,20 @@ class PreDeploymentChecker:
             )
             if result.returncode == 0:
                 self.results.append(CheckResult(
-                    name="ESLint Validation",
+                    name=LINT_CHECK,
                     status=CheckStatus.PASS,
                     message="No linting errors or warnings"
                 ))
             else:
                 self.results.append(CheckResult(
-                    name="ESLint Validation",
+                    name=LINT_CHECK,
                     status=CheckStatus.WARN,
                     message="Linting issues detected",
                     details=result.stdout.decode()[:200],
                 ))
         except Exception as e:
             self.results.append(CheckResult(
-                name="ESLint Validation",
+                name=LINT_CHECK,
                 status=CheckStatus.WARN,
                 message=f"Could not run linting: {str(e)}"
             ))
@@ -129,26 +140,26 @@ class PreDeploymentChecker:
             )
             if result.returncode == 0:
                 self.results.append(CheckResult(
-                    name="Next.js Build",
+                    name=BUILD_CHECK,
                     status=CheckStatus.PASS,
                     message="Production build succeeds"
                 ))
             else:
                 self.results.append(CheckResult(
-                    name="Next.js Build",
+                    name=BUILD_CHECK,
                     status=CheckStatus.FAIL,
                     message="Build failed",
                     details=result.stderr.decode()[:200],
                 ))
         except subprocess.TimeoutExpired:
             self.results.append(CheckResult(
-                name="Next.js Build",
+                name=BUILD_CHECK,
                 status=CheckStatus.FAIL,
                 message="Build timed out"
             ))
         except Exception as e:
             self.results.append(CheckResult(
-                name="Next.js Build",
+                name=BUILD_CHECK,
                 status=CheckStatus.FAIL,
                 message=f"Error during build: {str(e)}"
             ))
@@ -164,13 +175,13 @@ class PreDeploymentChecker:
         
         if not missing:
             self.results.append(CheckResult(
-                name="Environment Variables",
+                name=ENV_CHECK,
                 status=CheckStatus.PASS,
                 message="All required environment variables set",
             ))
         else:
             self.results.append(CheckResult(
-                name="Environment Variables",
+                name=ENV_CHECK,
                 status=CheckStatus.WARN,
                 message=f"Missing environment variables: {', '.join(missing)}",
             ))
@@ -186,19 +197,19 @@ class PreDeploymentChecker:
             )
             if result.returncode == 0:
                 self.results.append(CheckResult(
-                    name="NPM Dependencies",
+                    name=DEPS_CHECK,
                     status=CheckStatus.PASS,
                     message="All dependencies installed"
                 ))
             else:
                 self.results.append(CheckResult(
-                    name="NPM Dependencies",
+                    name=DEPS_CHECK,
                     status=CheckStatus.WARN,
                     message="Some dependency issues detected"
                 ))
         except Exception as e:
             self.results.append(CheckResult(
-                name="NPM Dependencies",
+                name=DEPS_CHECK,
                 status=CheckStatus.WARN,
                 message=f"Could not check dependencies: {str(e)}",
             ))
@@ -210,19 +221,19 @@ class PreDeploymentChecker:
             migration_files = list(migrations_dir.glob("*.sql"))
             if migration_files:
                 self.results.append(CheckResult(
-                    name="Supabase Migrations",
+                    name=MIGRATIONS_CHECK,
                     status=CheckStatus.PASS,
                     message=f"Found {len(migration_files)} migrations",
                 ))
             else:
                 self.results.append(CheckResult(
-                    name="Supabase Migrations",
+                    name=MIGRATIONS_CHECK,
                     status=CheckStatus.WARN,
                     message="No migration files found",
                 ))
         else:
             self.results.append(CheckResult(
-                name="Supabase Migrations",
+                name=MIGRATIONS_CHECK,
                 status=CheckStatus.WARN,
                 message="Migrations directory not found",
             ))
@@ -234,19 +245,19 @@ class PreDeploymentChecker:
             route_files = list(api_dir.rglob("route.ts"))
             if route_files:
                 self.results.append(CheckResult(
-                    name="API Routes",
+                    name=API_ROUTES_CHECK,
                     status=CheckStatus.PASS,
                     message=f"Found {len(route_files)} API routes",
                 ))
             else:
                 self.results.append(CheckResult(
-                    name="API Routes",
+                    name=API_ROUTES_CHECK,
                     status=CheckStatus.WARN,
                     message="No API routes found",
                 ))
         else:
             self.results.append(CheckResult(
-                name="API Routes",
+                name=API_ROUTES_CHECK,
                 status=CheckStatus.WARN,
                 message="API directory not found",
             ))
@@ -272,13 +283,13 @@ class PreDeploymentChecker:
         
         if not suspicious_files:
             self.results.append(CheckResult(
-                name="Secrets Exposure Check",
+                name=SECRETS_CHECK,
                 status=CheckStatus.PASS,
                 message="No exposed secrets detected",
             ))
         else:
             self.results.append(CheckResult(
-                name="Secrets Exposure Check",
+                name=SECRETS_CHECK,
                 status=CheckStatus.WARN,
                 message="Potential secrets found (verify not hardcoded)",
             ))
@@ -298,19 +309,19 @@ class PreDeploymentChecker:
             
             if modified_count == 0:
                 self.results.append(CheckResult(
-                    name="Git Status",
+                    name=GIT_STATUS_CHECK,
                     status=CheckStatus.PASS,
                     message="Working directory clean",
                 ))
             else:
                 self.results.append(CheckResult(
-                    name="Git Status",
+                    name=GIT_STATUS_CHECK,
                     status=CheckStatus.WARN,
                     message=f"{modified_count} files with uncommitted changes",
                 ))
         except Exception as e:
             self.results.append(CheckResult(
-                name="Git Status",
+                name=GIT_STATUS_CHECK,
                 status=CheckStatus.SKIP,
                 message=f"Could not check git status: {str(e)}",
             ))
@@ -342,7 +353,7 @@ class PreDeploymentChecker:
 def main():
     project_root = Path(__file__).parent.parent
     checker = PreDeploymentChecker(project_root)
-    passed, failed = checker.run_all_checks()
+    _, _ = checker.run_all_checks()
 
 if __name__ == "__main__":
     main()

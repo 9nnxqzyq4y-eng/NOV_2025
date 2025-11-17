@@ -1,5 +1,6 @@
 import logging
 import os
+import random
 import sys
 
 from dotenv import load_dotenv
@@ -16,23 +17,51 @@ logging.basicConfig(level=LOG_LEVEL, stream=sys.stdout, format='%(asctime)s - %(
 
 mcp = FastMCP(APP_NAME)
 
+
 @mcp.tool()
 def echo(text: str) -> str:
-    """Echo server - returns the input text."""
-    return f"ECHO: {text}"
+    """
+    Returns the same text it receives.
+
+    Args:
+        text: The text to repeat.
+    """
+    logging.info(f"Echoing: {text}")
+    return text
 
 
 @mcp.tool()
 def get_financial_agents() -> dict:
-    """List available financial analysis agents."""
+    """
+    Returns a list of available financial agent personas.
+    """
     return {
         "agents": [
-            {"name": "CEO AI", "role": "Strategic Financial Analysis"},
-            {"name": "CFO AI", "role": "Cash Flow & Budget Management"},
-            {"name": "CMO AI", "role": "Market & Revenue Analysis"},
-            {"name": "CRO AI", "role": "Risk Assessment"},
-            {"name": "CIO/CISO AI", "role": "Security & IT Strategy"},
+            {"name": "Risk Analyst", "id": "agent-01"},
+            {"name": "Portfolio Manager", "id": "agent-02"},
+            {"name": "Compliance Officer", "id": "agent-03"},
         ]
+    }
+
+
+@mcp.tool()
+def get_stock_price(ticker: str) -> dict:
+    """
+    Returns a fictional stock price for a given ticker symbol.
+
+    Args:
+        ticker: The stock ticker symbol (e.g., 'AAPL').
+
+    Returns:
+        A dictionary containing the ticker and its fictional price.
+    """
+    # Generate a fictional price, for example between 50 and 1000
+    price = round(random.uniform(50.0, 1000.0), 2)
+    logging.info(f"Generated fictional price for {ticker}: ${price}")
+    return {
+        "ticker": ticker.upper(),
+        "price": price,
+        "currency": "USD"
     }
 
 
