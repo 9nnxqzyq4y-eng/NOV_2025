@@ -1,0 +1,488 @@
+
+1.0PythonFrontend"1763346289429*py2.B–
+
+imports1
+
+extends2
+
+returns3
+
+	has param4
+
+module5
+
+
+class6
+
+function7
+#
+abaco_runtime/standalone_ai.py9
+
+standalone_ai11
+
+dataclasses12
+
+typing14
+
+datetime16
+
+logging18
+
+	threading20
+!
+standalone_ai.get_ai_engine22
+&
+ standalone_ai.StandaloneAIEngine24
+$
+standalone_ai.AgentPersonality26
+A
+;standalone_ai.StandaloneAIEngine._generate_collections_plan28
+	
+str30
+
+
+dict32
+9
+3standalone_ai.StandaloneAIEngine._generate_forecast34
+;
+5standalone_ai.StandaloneAIEngine._generate_cfo_report36
+C
+=standalone_ai.StandaloneAIEngine._generate_integration_status38
+>
+8standalone_ai.StandaloneAIEngine._generate_decision_memo40
+@
+:standalone_ai.StandaloneAIEngine._generate_growth_strategy42
+@
+:standalone_ai.StandaloneAIEngine._generate_risk_cro_report44
+?
+9standalone_ai.StandaloneAIEngine._generate_quality_report46
+<
+6standalone_ai.StandaloneAIEngine._generate_design_spec48
+D
+>standalone_ai.StandaloneAIEngine._generate_risk_manager_report50
+6
+0standalone_ai.StandaloneAIEngine._calc_provision52
+
+float54
+;
+5standalone_ai.StandaloneAIEngine._load_knowledge_base56
+9
+3standalone_ai.StandaloneAIEngine._fallback_response58
+:
+4standalone_ai.StandaloneAIEngine._generate_kam_brief60
+?
+9standalone_ai.StandaloneAIEngine._load_response_templates62
+:
+4standalone_ai.StandaloneAIEngine._extract_agent_type64
+A
+;standalone_ai.StandaloneAIEngine._generate_compliance_audit66
+;
+5standalone_ai.StandaloneAIEngine._generate_cto_report68
+8
+2standalone_ai.StandaloneAIEngine.generate_response70
+=
+7standalone_ai.StandaloneAIEngine._generate_mlops_report72
+C
+=standalone_ai.StandaloneAIEngine._generate_financial_analysis74
+<
+6standalone_ai.StandaloneAIEngine._calculate_risk_score76
+8
+2standalone_ai.StandaloneAIEngine._calculate_trends78
+<
+6standalone_ai.StandaloneAIEngine._get_immediate_action80
+:
+4standalone_ai.StandaloneAIEngine._calc_high_risk_pct82
+:
+4standalone_ai.StandaloneAIEngine._load_personalities84
+B
+<standalone_ai.StandaloneAIEngine._generate_commercial_report86
+:
+4standalone_ai.StandaloneAIEngine._map_agent_handlers88
+?
+9standalone_ai.StandaloneAIEngine._identify_critical_flags90
+B
+<standalone_ai.StandaloneAIEngine._generate_executive_summary92
+/
+)standalone_ai.StandaloneAIEngine.__init__94J
+
+8
+89jŒ
+ 
+10
+10115 *
+8 (
+
+13
+13125
+
+15
+15145
+
+17
+17165
+
+19
+19185
+
+21
+21205
+
+23
+23227 210
+
+25
+25246 210
+
+27
+27266 210
+
+29
+29287 225
+
+31
+31306
+
+33
+33326
+
+35
+35347 225
+
+37
+37367 225
+
+39
+39387 225
+
+41
+41407 225
+
+43
+43427 225
+
+45
+45447 225
+
+47
+47467 225
+
+49
+49487 225
+
+51
+51507 225
+
+53
+53527 225
+
+55
+55546
+
+57
+57567 225
+
+59
+59587 225
+
+61
+61607 225
+
+63
+63627 225
+
+65
+65647 225
+
+67
+67667 225
+
+69
+69687 225
+
+71
+71707 225
+
+73
+73727 225
+
+75
+75747 225
+
+77
+77767 225
+
+79
+79787 225
+
+81
+81807 225
+
+83
+83827 225
+
+85
+85847 225
+
+87
+87867 225
+
+89
+89887 225
+
+91
+91907 225
+
+93
+93927 225
+
+95
+95947 225rˆ
+
+10131*
+8 ("
+
+10151*
+8 (#
+
+10171*
+8 ()
+
+10191*
+8 (
+
+10211*
+8 (
+
+23253*
+8ð ð(
+
+29313*
+8ð	 ð(#
+
+29274*
+8ð	 ð(#
+
+29334*
+8ð	 ð(#
+
+35313*
+8€	 €(
+
+35274*
+8€	 €(
+
+35334*
+8€	 €(
+
+37313*
+8Ÿ	 Ÿ(
+
+37274*
+8Ÿ	 Ÿ(
+
+37334*
+8Ÿ	 Ÿ(
+
+39313*
+8ê	 ê(%
+
+39274*
+8ê	 ê(%
+
+39334*
+8ê	 ê(%
+
+41313*
+8‰	 ‰( 
+
+41274*
+8‰	 ‰( 
+
+41334*
+8‰	 ‰( 
+
+43313*
+8·	 ·("
+
+43274*
+8·	 ·("
+
+43334*
+8·	 ·("
+
+45313*
+8ò	 ò("
+
+45274*
+8ò	 ò("
+
+45334*
+8ò	 ò("
+
+47313*
+8€	 €(!
+
+47274*
+8€	 €(!
+
+47334*
+8€	 €(!
+
+49313*
+8á	 á(
+
+49274*
+8á	 á(
+
+49334*
+8á	 á(
+
+51313*
+8Å	 Å(&
+
+51274*
+8Å	 Å(&
+
+51334*
+8Å	 Å(&
+
+53553*
+8Ú	 Ú(
+
+53554*
+8Ú	 Ú(
+
+53314*
+8Ú	 Ú(
+
+53334*
+8Ú	 Ú(
+
+57333*
+8©	 ©(
+
+59313*
+8æ	 æ(
+
+59314*
+8æ	 æ(
+
+59334*
+8æ	 æ(
+
+61313*
+8Ä	 Ä(
+
+61274*
+8Ä	 Ä(
+
+61334*
+8Ä	 Ä(
+
+63333*
+8þ	 þ(!
+
+65313*
+8º	 º(
+
+65314*
+8º	 º(
+
+67313*
+8õ	 õ(#
+
+67274*
+8õ	 õ(#
+
+67334*
+8õ	 õ(#
+
+69313*
+8¶	 ¶(
+
+69274*
+8¶	 ¶(
+
+69334*
+8¶	 ¶(
+
+71313*
+8œ	 œ(
+
+71314*
+8œ	 œ(
+
+71334*
+8œ	 œ(
+
+71334*
+8œ	 œ(
+
+73313*
+8Ø	 Ø(
+
+73274*
+8Ø	 Ø(
+
+73334*
+8Ø	 Ø(
+
+75313*
+8Í	 Í(%
+
+75274*
+8Í	 Í(%
+
+75334*
+8Í	 Í(%
+
+77553*
+8Ê	 Ê(
+
+77334*
+8Ê	 Ê(
+
+79313*
+8“	 “(
+
+79334*
+8“	 “(
+
+81313*
+8Ä	 Ä(
+
+81334*
+8Ä	 Ä(
+
+83553*
+8×	 ×(
+
+83334*
+8×	 ×(
+
+85333*
+8L	 L(
+
+87313*
+8¹	 ¹($
+
+87274*
+8¹	 ¹($
+
+87334*
+8¹	 ¹($
+
+91313*
+8¸	 ¸(!
+
+91334*
+8¸	 ¸(!
+
+93313*
+8Î	 Î($
+
+93274*
+8Î	 Î($
+
+93334*
+8Î	 Î($

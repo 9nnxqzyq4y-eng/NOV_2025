@@ -1,0 +1,121 @@
+
+"risk_manager"str
+"collections"str
+@	"advisor"str
+ "kam"str
+(	"quality"str
+<"forecaster"str
+$"financial"str
+"commercial"str
+,"mlops"str
+"cfo"str
+
+"risk_cro"str
+"executive"str
+I@"Maps agent types to their generator methods for clean routing."str
+4"integrations"str
+8"compliance"str
+"growth"str
+0
+"designer"strself7 7( "ê$
+"
+9 J(	"#new-object#Bdict<
+:
+: :(9")'#get-field# _generate_executive_summary:,
+*
+: :(9"?python-partial-apply?: 
+
+: :(9"	#map-set#::
+8
+; ;(6	"'%#get-field# _generate_risk_cro_report:,
+*
+; ;(6
+"?python-partial-apply?:	 
+
+; ;(6"	#map-set#:
+5
+3
+< <(,"" #get-field# _generate_cfo_report:,
+*
+< <(,"?python-partial-apply?: 
+
+< <(,"	#map-set#:>
+<
+= =(>"+)#get-field# _generate_risk_manager_report:,
+*
+= =(>"?python-partial-apply?: 
+
+= =(>"	#map-set#:;
+9
+> >(:"(&#get-field# _generate_collections_plan:,
+*
+> >(:"?python-partial-apply?: 
+
+> >(:"	#map-set#::
+8
+? ?(4"'%#get-field# _generate_growth_strategy:,
+*
+? ?(4"?python-partial-apply?: 
+
+? ?(4"	#map-set#:<
+:
+@ @(:")'#get-field# _generate_commercial_report:,
+*
+@ @(:"?python-partial-apply?: 
+
+@ @(:"	#map-set#:4
+2
+A A(+!"!#get-field# _generate_kam_brief:,
+*
+A A(+""?python-partial-apply?:! 
+
+A A(+#"	#map-set#: "=
+;
+B B(:%"*(#get-field# _generate_financial_analysis:,
+*
+B B(:&"?python-partial-apply?:% 
+
+B B(:'"	#map-set#:$&9
+7
+C C(4)"&$#get-field# _generate_quality_report:,
+*
+C C(4*"?python-partial-apply?:) 
+
+C C(4+"	#map-set#:(*7
+5
+D D(0-"$"#get-field# _generate_mlops_report:,
+*
+D D(0."?python-partial-apply?:- 
+
+D D(0/"	#map-set#:,.6
+4
+E E(21"#!#get-field# _generate_design_spec:,
+*
+E E(22"?python-partial-apply?:1 
+
+E E(23"	#map-set#:02=
+;
+F F(=5"*(#get-field# _generate_integration_status:,
+*
+F F(=6"?python-partial-apply?:5 
+
+F F(=7"	#map-set#:46;
+9
+G G(99"(&#get-field# _generate_compliance_audit:,
+*
+G G(9:"?python-partial-apply?:9 
+
+G G(9;"	#map-set#:8:3
+1
+H H(1=" #get-field# _generate_forecast:,
+*
+H H(1>"?python-partial-apply?:= 
+
+H H(1?"	#map-set#:<>8
+6
+I I(3A"%##get-field# _generate_decision_memo:,
+*
+I I(3B"?python-partial-apply?:A 
+
+I I(3C"	#map-set#:@B
+9 J(	*K/Users/jenineferderas/my-awesome-project-new/abaco_runtime/standalone_ai.py

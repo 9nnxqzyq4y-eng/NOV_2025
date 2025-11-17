@@ -25,9 +25,9 @@ from typing import Dict, List, Any, Optional
 from dataclasses import dataclass, asdict
 from enum import Enum
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).parent))
 
-from abaco_runtime.standalone_ai import get_ai_engine
+from standalone_ai import get_ai_engine  # noqa: E402
 
 
 class AgentTriggerType(Enum):
@@ -75,6 +75,19 @@ class OrchestrationResult:
     status: ExecutionStatus
     results: List[AgentExecutionResult]
     metadata: Dict[str, Any]
+
+
+class _SerializationKeys:
+    """Defines keys for serialization to avoid magic strings."""
+    RUN_ID = "run_id"
+    TRIGGER_TYPE = "trigger_type"
+    TIMESTAMP = "timestamp"
+    TOTAL_DURATION_MS = "total_duration_ms"
+    AGENTS_EXECUTED = "agents_executed"
+    AGENTS_FAILED = "agents_failed"
+    STATUS = "status"
+    METADATA = "metadata"
+    RESULTS = "results"
 
 
 class AgentOrchestrator:
@@ -137,6 +150,37 @@ class AgentOrchestrator:
 
         return logger
 
+    def _execute_agent_safely(
+        self, agent_key: str, demo_data: Dict[str, Any]
+    ) -> AgentExecutionResult:
+        """Executes a single agent and handles any exceptions."""
+        start_time = datetime.now()
+        agent_id = self.AGENT_MAPPING.get(agent_key, agent_key)
+        personality = self.engine.personalities.get(agent_key)
+        agent_name = personality.name if personality else agent_key
+        error_message = None
+        status = ExecutionStatus.SUCCESS
+        output = ""
+
+        try:
+            output = self.engine.generate_response(agent_id, {}, demo_data)
+        except Exception as e:
+            self.logger.error(f"Agent '{agent_key}' execution failed: {e}", exc_info=True)
+            status = ExecutionStatus.FAILED
+            error_message = str(e)
+
+        duration = int((datetime.now() - start_time).total_seconds() * 1000)
+        return AgentExecutionResult(
+            agent_id=agent_key,
+            agent_name=agent_name,
+            status=status,
+            timestamp=datetime.now().isoformat(),
+            duration_ms=duration,
+            output=output,
+            error=error_message,
+            lines_generated=len(output.split('\n')) if output else 0,
+        )
+
     def trigger_agents(
         self,
         trigger_type: AgentTriggerType,
@@ -165,48 +209,26 @@ class AgentOrchestrator:
         failed_count = 0
 
         for agent_key in agents_to_run:
-            try:
-                result = self._execute_agent(agent_key, demo_data)
-                results.append(result)
+            result = self._execute_agent_safely(agent_key, demo_data)
+            results.append(result)
 
-                if result.status == ExecutionStatus.FAILED:
-                    failed_count += 1
-
-                self.logger.info(
-                    f"Agent {result.agent_name} executed: "
-                    f"status={result.status.value}, duration={result.duration_ms}ms"
-                )
-            except Exception as e:
-                self.logger.error(f"Failed to execute agent {agent_key}: {str(e)}")
+            if result.status == ExecutionStatus.FAILED:
                 failed_count += 1
-                personality = self.engine.personalities.get(agent_key, {})
-                agent_name = (
-                    personality.name if hasattr(personality, 'name')
-                    else agent_key
-                )
-                results.append(AgentExecutionResult(
-                    agent_id=agent_key,
-                    agent_name=agent_name,
-                    status=ExecutionStatus.FAILED,
-                    timestamp=datetime.now().isoformat(),
-                    duration_ms=0,
-                    output="",
-                    error=str(e)
-                ))
+
+            self.logger.info(
+                f"Agent {result.agent_name} executed: "
+                f"status={result.status.value}, duration={result.duration_ms}ms"
+            )
 
         end_time = datetime.now()
         total_duration = int((end_time - start_time).total_seconds() * 1000)
 
-        execution_status = (
-            ExecutionStatus.SUCCESS if failed_count == 0 else
-            ExecutionStatus.PARTIAL if failed_count < len(agents_to_run) else
-            ExecutionStatus.FAILED
-        )
+        execution_status = self._determine_run_status(failed_count, len(agents_to_run))
 
         orchestration_result = OrchestrationResult(
             run_id=run_id,
             trigger_type=trigger_type,
-            timestamp=datetime.now().isoformat(),
+            timestamp=start_time.isoformat(),
             total_duration_ms=total_duration,
             agents_executed=len(agents_to_run),
             agents_failed=failed_count,
@@ -227,46 +249,13 @@ class AgentOrchestrator:
 
         return orchestration_result
 
-    def _execute_agent(
-        self,
-        agent_key: str,
-        demo_data: Dict[str, Any]
-    ) -> AgentExecutionResult:
-        """Execute a single agent"""
-        start_time = datetime.now()
-
-        agent_id = self.AGENT_MAPPING.get(agent_key, agent_key)
-        personality = self.engine.personalities.get(agent_key)
-        agent_name = personality.name if personality else agent_key
-
-        try:
-            output = self.engine.generate_response(agent_id, {}, demo_data)
-
-            end_time = datetime.now()
-            duration = int((end_time - start_time).total_seconds() * 1000)
-
-            return AgentExecutionResult(
-                agent_id=agent_key,
-                agent_name=agent_name,
-                status=ExecutionStatus.SUCCESS,
-                timestamp=datetime.now().isoformat(),
-                duration_ms=duration,
-                output=output,
-                lines_generated=len(output.split('\n'))
-            )
-        except Exception as e:
-            end_time = datetime.now()
-            duration = int((end_time - start_time).total_seconds() * 1000)
-
-            return AgentExecutionResult(
-                agent_id=agent_key,
-                agent_name=agent_name,
-                status=ExecutionStatus.FAILED,
-                timestamp=datetime.now().isoformat(),
-                duration_ms=duration,
-                output="",
-                error=str(e)
-            )
+    def _determine_run_status(self, failed_count: int, total_agents: int) -> ExecutionStatus:
+        """Determines the final status of the orchestration run."""
+        if failed_count == 0:
+            return ExecutionStatus.SUCCESS
+        if failed_count < total_agents:
+            return ExecutionStatus.PARTIAL
+        return ExecutionStatus.FAILED
 
     def save_results(self, result: OrchestrationResult) -> Path:
         """Save orchestration results to disk"""
@@ -274,27 +263,27 @@ class AgentOrchestrator:
         result_file = self.output_dir / f"{result.run_id}_result.json"
 
         result_dict = {
-            "run_id": result.run_id,
-            "trigger_type": result.trigger_type.value,
-            "timestamp": result.timestamp,
-            "total_duration_ms": result.total_duration_ms,
-            "agents_executed": result.agents_executed,
-            "agents_failed": result.agents_failed,
-            "status": result.status.value,
-            "metadata": result.metadata,
-            "results": [asdict(r) for r in result.results]
+            _SerializationKeys.RUN_ID: result.run_id,
+            _SerializationKeys.TRIGGER_TYPE: result.trigger_type.value,
+            _SerializationKeys.TIMESTAMP: result.timestamp,
+            _SerializationKeys.TOTAL_DURATION_MS: result.total_duration_ms,
+            _SerializationKeys.AGENTS_EXECUTED: result.agents_executed,
+            _SerializationKeys.AGENTS_FAILED: result.agents_failed,
+            _SerializationKeys.STATUS: result.status.value,
+            _SerializationKeys.METADATA: result.metadata,
+            _SerializationKeys.RESULTS: [asdict(r) for r in result.results]
         }
 
-        result_dict["results"] = [
+        result_dict[_SerializationKeys.RESULTS] = [
             {
                 **r,
-                "status": (
-                    r["status"].value
-                    if isinstance(r["status"], ExecutionStatus)
-                    else r["status"]
+                _SerializationKeys.STATUS: (
+                    r[_SerializationKeys.STATUS].value
+                    if isinstance(r[_SerializationKeys.STATUS], ExecutionStatus)
+                    else r[_SerializationKeys.STATUS]
                 )
             }
-            for r in result_dict["results"]
+            for r in result_dict[_SerializationKeys.RESULTS]
         ]
 
         with open(result_file, 'w') as f:
@@ -310,13 +299,10 @@ class AgentOrchestrator:
     def _save_markdown_report(self, result: OrchestrationResult, file_path: Path):
         """Save human-readable markdown report"""
 
-        if result.agents_executed > 0:
-            success_rate = (
-                (result.agents_executed - result.agents_failed)
-                / result.agents_executed * 100
-            )
-        else:
+        if result.agents_executed == 0:
             success_rate = 0.0
+        else:
+            success_rate = ((result.agents_executed - result.agents_failed) / result.agents_executed) * 100
 
         report = f"""# ABACO Agent Orchestration Report
 
@@ -408,13 +394,14 @@ def main():
     if args.save_results:
         orchestrator.save_results(result)
 
-    print("\n" + "="*80)
-    print(f"Orchestration Complete: {result.run_id}")
-    print(f"Status: {result.status.value}")
-    print(f"Agents Executed: {result.agents_executed}")
-    print(f"Agents Failed: {result.agents_failed}")
-    print(f"Total Duration: {result.total_duration_ms}ms")
-    print("="*80 + "\n")
+    # Use logger for final output
+    orchestrator.logger.info("\n" + "="*80)
+    orchestrator.logger.info(f"Orchestration Complete: {result.run_id}")
+    orchestrator.logger.info(f"Status: {result.status.value}")
+    orchestrator.logger.info(f"Agents Executed: {result.agents_executed}")
+    orchestrator.logger.info(f"Agents Failed: {result.agents_failed}")
+    orchestrator.logger.info(f"Total Duration: {result.total_duration_ms}ms")
+    orchestrator.logger.info("="*80 + "\n")
 
 
 if __name__ == "__main__":

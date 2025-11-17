@@ -1,0 +1,611 @@
+
+2"Jeninefer Deras"str
+Ö12000int
+P"valuation_usd"str
+ì14.30float
+9"Head of Data & Risk"str
+'"key_people"str
+u"par30_good"str
+º1.82float
+§
+"Referral"str
+"√Åbaco Technologies"str
+À30int
+≤"realized_ltv_usd_k"str
+∞0.74float
+x"par30_warning"str
+<"investors"str
+N1000000int
+,"Juan Carlos G√≥mez"str
+Ç0.75float
+«"high_risk_dpd"str
+⁄"NRC"str
+j"kpi_benchmarks"str
+õ94.0float
+0.35float
+>"Nazca"str
+o"default_rate_warning"str
+§96int
+¯	"dpd_120"str
+è"2023"str
+ï
+"2025_ytd"str
+¶
+ú"To provide agile, transparent, 100% digital working-capital financing to micro, small and medium enterprises (MIPYMEs), guaranteeing short-term liquidity."str
+		"mission"str
+à0.62float
+"operating_markets"str
+-"CTO"str
+~"concentration_limit"str
+Õ"pod_critical"str
+¶100int
+ r"default_rate_critical"str
+"name"str
+∫2.21float
+Û"dpd_60"str
+"company_profile"str
+»60int
+U"market_context"str
+{"par30_critical"str
+"Andean region"str
+ì
+"Embedded"str
+à8.0float
+è2400int
+5"Carlos Villalobos"str
+a"USD"str
+m0.021float
+l"default_rate_good"str
+90"Load El Salvador MYPE lending domain knowledge"str
+¶254int
+Ø"cac_usd_k"str
+"2023-07-01"str
+Å"cac"str
+"dpd_30"str
+Œ0.50float
+∂2.34float
+›"email"str
+ÿ"pii_fields"str
+˘1.00float
+Å"utilization_healthy"str
+Ò0.05float
+6"CCO"str
+ˇ"KAM"str
+®319int
+ï250int
+s0.050float
+M"amount_raised_usd"str
+Ñ"ltv"str
+)"Alejandro McCormack"str
+*"CEO"str
+á"ratio"str
+¢"customers_eop"str
+ê7.26float
+ü66.2float
+"Î"bcr_provisioning_rates"str
+^	320000000int
+=
+"Caricaco"str
+≈90int
+Ì	"current"str
+È7int
+Ç1500int
+ã	"Digital"str
+"Costa Rica"str
+Ö0.15float
+]	"som_usd"str
+p0.035float
+`
+"currency"str
+˝"channel_economics"str
+[18330000000int
+ñ30.35float
+¬"risk_triggers"str
+ü5000int
+ƒ"critical_dpd"str
+Z	"sam_usd"str
+J"type"str
+y0.120float
+á"cure_rate_target"str
+"target_markets"str
+"Guatemala"str
+ "medium_risk_dpd"str
+æ0.80float
+"Central America"str
+8"B√°rbara Mena"str
+”"pod_medium"str
+€"customer_name"str
+ç"sales_usd_mm"str
+Ÿ"NIT"str
+g"2024-01-01"str
+ "operations_start_date"str
+ù67.9float
+ô"recurrence_pct"str
+Ë"retention_years"str
+)d "BCR (Banco Central de Reserva)"str
+©15.0float
+H"last_round"str
+v0.080float
+X31280000000int
+ó2000int
+ù500int
+Q7500000int
+K
+"Pre-seed"str
+¨"unit_economics"str
+≥1.73float
+õ	"Partner"str
+ˆ"dpd_90"str
+0"COO"str
+÷"compliance"str
+µ"ltv_cac_ratio"str
+f"break_even_target"str
+ã"historical_kpis"str
+W	"tam_usd"str
+"El Salvador"str
+
+0int
+|0.150float
+Ù0.25float
+°10.0float
+—0.30float
+Ñ"churn_acceptable"str
+ç300int
+–
+"pod_high"str
+‹"phone"str
+í"2024"str
+Ó0.01float
+c"regulator"str
+3"Head of Commercial"str
+?	"Innogen"str
+/"Mois√©s Hasb√∫n"strself
+© ©(!list"·-&
+$
+
+´ ¸(	"#new-object#Bdict&
+$
+
+¨ º("#new-object#Bdict"
+ 
+
+≠ ≠(,"	#map-set#:#
+!
+Æ Æ(∑"	#map-set#:	
+"
+ 
+
+Ø Ø(5"	#map-set#:)
+'
+
+∞% ∞(O"#unknown-value#Blist(
+&
+
+∞% ∞(O"
+#is-exact#:Bbool
+
+
+∞% ∞(O"
+#assume#::
+8
+
+∞% ∞(O"#set-field# __collection_size:Bint(
+&
+
+∞% ∞(O"#array-add-last#:(
+&
+
+∞% ∞(O"#array-add-last#:(
+&
+
+∞% ∞(O"#array-add-last#:"
+ 
+
+∞ ∞(O"	#map-set#:)
+'
+
+±" ±(F "#unknown-value#Blist(
+&
+
+±" ±(F!"
+#is-exact#: Bbool
+
+
+±" ±(F""
+#assume#:!:
+8
+
+±" ±(F#"#set-field# __collection_size: Bint(
+&
+
+±" ±(F$"#array-add-last#: (
+&
+
+±" ±(F%"#array-add-last#: "
+ 
+
+± ±(F&"	#map-set#: &
+$
+
+≤ π(("#new-object#Bdict"
+ 
+
+≥ ≥(0+"	#map-set#:()*"
+ 
+
+¥ ¥(.."	#map-set#:(,-"
+ 
+
+µ µ(*1"	#map-set#:(/0"
+ 
+
+∂ ∂(;4"	#map-set#:(23"
+ 
+
+∑ ∑(.7"	#map-set#:(56"
+ 
+
+∏ ∏(9:"	#map-set#:(89"
+ 
+
+≤ π(;"	#map-set#:'()
+'
+
+∫ ∫(=@"#unknown-value#Blist(
+&
+
+∫ ∫(=A"
+#is-exact#:@Bbool
+
+
+∫ ∫(=B"
+#assume#:A:
+8
+
+∫ ∫(=C"#set-field# __collection_size:@Bint(
+&
+
+∫ ∫(=D"#array-add-last#:@=(
+&
+
+∫ ∫(=E"#array-add-last#:@>(
+&
+
+∫ ∫(=F"#array-add-last#:@?"
+ 
+
+∫ ∫(=G"	#map-set#:<@&
+$
+
+ª ª(jI"#new-object#Bdict"
+ 
+
+ª ª(1L"	#map-set#:IJK"
+ 
+
+ª3 ª(OO"	#map-set#:IMN"
+ 
+
+ªQ ª(iR"	#map-set#:IPQ"
+ 
+
+ª ª(jS"	#map-set#:HI"
+ 
+
+¨ º(T"	#map-set#:&
+$
+
+Ω ƒ(V"#new-object#Bdict"
+ 
+
+æ æ()Y"	#map-set#:VWX"
+ 
+
+ø ø()\"	#map-set#:VZ["
+ 
+
+¿ ¿(&_"	#map-set#:V]^"
+ 
+
+¡ ¡(!b"	#map-set#:V`a"
+ 
+
+¬ ¬(=e"	#map-set#:Vcd"
+ 
+
+√ √(1h"	#map-set#:Vfg"
+ 
+
+Ω ƒ(i"	#map-set#:UV&
+$
+
+≈ –(k"#new-object#Bdict"
+ 
+
+∆ ∆(*n"	#map-set#:klm"
+ 
+
+« «(-q"	#map-set#:kop"
+ 
+
+» »(.t"	#map-set#:krs"
+ 
+
+… …(#w"	#map-set#:kuv"
+ 
+
+   (&z"	#map-set#:kxy"
+ 
+
+À À('}"	#map-set#:k{|#
+!
+
+Ã Ã(+Ä"	#map-set#:k~%
+#
+
+Õ Õ(+É"	#map-set#:kÅÇ%
+#
+
+Œ Œ((Ü"	#map-set#:kÑÖ%
+#
+
+œ œ((â"	#map-set#:káà#
+!
+
+≈ –(ä"	#map-set#:jk'
+%
+
+— ’(å"#new-object#Bdict'
+%
+
+“  “(Pé"#new-object#Bdict&
+$
+
+“! “(-ë"	#map-set#:éèê&
+$
+
+“/ “(<î"	#map-set#:éíì&
+$
+
+“> “(Oó"	#map-set#:éïñ&
+$
+
+“ “(Pò"	#map-set#:åçé'
+%
+
+”" ”(Pö"#new-object#Bdict&
+$
+
+”# ”(/ú"	#map-set#:öèõ&
+$
+
+”1 ”(=û"	#map-set#:öíù&
+$
+
+”? ”(O†"	#map-set#:öïü&
+$
+
+” ”(P°"	#map-set#:åôö'
+%
+
+‘! ‘(K£"#new-object#Bdict&
+$
+
+‘" ‘(,•"	#map-set#:£è§&
+$
+
+‘. ‘(9ß"	#map-set#:£í¶&
+$
+
+‘; ‘(J©"	#map-set#:£ï®&
+$
+
+‘ ‘(K™"	#map-set#:å¢£%
+#
+
+— ’(´"	#map-set#:ãå'
+%
+
+÷ ·(≠"#new-object#Bdict'
+%
+
+◊ €(Æ"#new-object#Bdict&
+$
+
+ÿ ÿ(%±"	#map-set#:ÆØ∞&
+$
+
+Ÿ Ÿ(.¥"	#map-set#:Æ≤≥&
+$
+
+⁄ ⁄()∑"	#map-set#:Æµ∂&
+$
+
+◊ €(∏"	#map-set#:≠íÆ'
+%
+
+‹ ‡(π"#new-object#Bdict&
+$
+
+› ›(%ª"	#map-set#:πØ∫&
+$
+
+ﬁ ﬁ(.Ω"	#map-set#:π≤º&
+$
+
+ﬂ ﬂ()ø"	#map-set#:πµæ&
+$
+
+‹ ‡(¿"	#map-set#:≠ïπ%
+#
+
+÷ ·(¡"	#map-set#:¨≠'
+%
+
+‚ È(√"#new-object#Bdict&
+$
+
+„ „("∆"	#map-set#:√ƒ≈&
+$
+
+‰ ‰(#…"	#map-set#:√«»&
+$
+
+Â Â(%Ã"	#map-set#:√ À&
+$
+
+Ê Ê($œ"	#map-set#:√ÕŒ&
+$
+
+Á Á( “"	#map-set#:√–—&
+$
+
+Ë Ë("‘"	#map-set#:√”Ö%
+#
+
+‚ È(’"	#map-set#:¬√'
+%
+
+Í Ù(◊"#new-object#Bdict*
+(
+
+Î Î(Oﬁ"#unknown-value#Blist*
+(
+
+Î Î(Oﬂ"
+#is-exact#:ﬁBbool!
+
+
+Î Î(O‡"
+#assume#:ﬂ<
+:
+
+Î Î(O·"#set-field# __collection_size:ﬁBint+
+)
+
+Î Î(O‚"#array-add-last#:ﬁŸ+
+)
+
+Î Î(O„"#array-add-last#:ﬁ⁄+
+)
+
+Î Î(O‰"#array-add-last#:ﬁ€+
+)
+
+Î Î(OÂ"#array-add-last#:ﬁ‹+
+)
+
+Î Î(OÊ"#array-add-last#:ﬁ›&
+$
+
+Î Î(OÁ"	#map-set#:◊ÿﬁ&
+$
+
+Ï Ï($Í"	#map-set#:◊ËÈ'
+%
+
+Ì* Û(Ï"#new-object#Bdict&
+$
+
+Ó Ó(#Ô"	#map-set#:ÏÌÓ&
+$
+
+Ô Ô("Ú"	#map-set#:ÏÒ&
+$
+
+ ("ı"	#map-set#:ÏÛÙ&
+$
+
+Ò Ò("˜"	#map-set#:ÏˆŒ&
+$
+
+Ú Ú(#˙"	#map-set#:Ï¯˘&
+$
+
+Ì Û(˚"	#map-set#:◊ÎÏ%
+#
+
+Í Ù(¸"	#map-set#:÷◊'
+%
+
+ı! ˚(˛"#new-object#Bdict'
+%
+
+ˆ ˆ(@Ä"#new-object#Bdict&
+$
+
+ˆ ˆ(#É"	#map-set#:ÄÅÇ&
+$
+
+ˆ% ˆ(1Ü"	#map-set#:ÄÑÖ&
+$
+
+ˆ3 ˆ(?â"	#map-set#:Äáà&
+$
+
+ˆ ˆ(@ä"	#map-set#:˛ˇÄ'
+%
+
+˜ ˜(Bå"#new-object#Bdict&
+$
+
+˜ ˜(&é"	#map-set#:åÅç&
+$
+
+˜( ˜(3ê"	#map-set#:åÑè&
+$
+
+˜5 ˜(Aë"	#map-set#:åáà&
+$
+
+˜ ˜(Bí"	#map-set#:˛ãå'
+%
+
+¯ ¯(Cî"#new-object#Bdict&
+$
+
+¯ ¯('ñ"	#map-set#:îÅï&
+$
+
+¯) ¯(4ò"	#map-set#:îÑó&
+$
+
+¯6 ¯(Bô"	#map-set#:îáà&
+$
+
+¯ ¯(Cö"	#map-set#:˛ìî'
+%
+
+˘ ˘(Cú"#new-object#Bdict&
+$
+
+˘ ˘(&û"	#map-set#:úÅù&
+$
+
+˘( ˘(3†"	#map-set#:úÑü&
+$
+
+˘5 ˘(B¢"	#map-set#:úá°&
+$
+
+˘ ˘(C£"	#map-set#:˛õú'
+%
+
+˙ ˙(D•"#new-object#Bdict&
+$
+
+˙ ˙('ß"	#map-set#:•Å¶&
+$
+
+˙) ˙(4®"	#map-set#:•ÑÇ&
+$
+
+˙6 ˙(C™"	#map-set#:•á©&
+$
+
+˙ ˙(D´"	#map-set#:˛§•%
+#
+
+ı ˚(¨"	#map-set#:˝˛
+
+´ ¸(	*K/Users/jenineferderas/my-awesome-project-new/abaco_runtime/standalone_ai.py

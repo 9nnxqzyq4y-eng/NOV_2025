@@ -17,10 +17,11 @@ Key Features:
 """
 
 from dataclasses import dataclass
-from typing import Dict, List, Any, Optional
+from typing import Dict, List, Any
 from datetime import datetime, timedelta
-import json
 import logging
+from threading import Lock
+
 
 @dataclass
 class AgentPersonality:
@@ -37,6 +38,7 @@ class AgentPersonality:
     kpi_anchors: List[str]
     safety_rules: List[str]
 
+
 class StandaloneAIEngine:
     """
     Standalone AI Engine that generates intelligent responses for all 15 ABACO personas
@@ -48,6 +50,28 @@ class StandaloneAIEngine:
         self.personalities = self._load_personalities()
         self.knowledge_base = self._load_knowledge_base()
         self.response_templates = self._load_response_templates()
+        self.agent_handlers = self._map_agent_handlers()
+
+    def _map_agent_handlers(self):
+        """Maps agent types to their generator methods for clean routing."""
+        return {
+            "executive": self._generate_executive_summary,
+            "risk_cro": self._generate_risk_cro_report,
+            "cfo": self._generate_cfo_report,
+            "risk_manager": self._generate_risk_manager_report,
+            "collections": self._generate_collections_plan,
+            "growth": self._generate_growth_strategy,
+            "commercial": self._generate_commercial_report,
+            "kam": self._generate_kam_brief,
+            "financial": self._generate_financial_analysis,
+            "quality": self._generate_quality_report,
+            "mlops": self._generate_mlops_report,
+            "designer": self._generate_design_spec,
+            "integrations": self._generate_integration_status,
+            "compliance": self._generate_compliance_audit,
+            "forecaster": self._generate_forecast,
+            "advisor": self._generate_decision_memo,
+        }
 
     def _load_personalities(self) -> Dict[str, AgentPersonality]:
         """Load all 15 AI persona definitions"""
@@ -478,7 +502,8 @@ class StandaloneAIEngine:
                 "KAM": {"cac": 1500, "ltv": 12000, "ratio": 8.0},
                 "Digital": {"cac": 300, "ltv": 2400, "ratio": 8.0},
                 "Embedded": {"cac": 250, "ltv": 2000, "ratio": 8.0},
-                "Partner": {"cac": 500, "ltv": 5000, "ratio": 10.0}
+                "Partner": {"cac": 500, "ltv": 5000, "ratio": 10.0},
+                "Referral": {"cac": 100, "ltv": 1500, "ratio": 15.0},
             }
         }
 
@@ -532,42 +557,14 @@ class StandaloneAIEngine:
         if not personality:
             return self._fallback_response(agent_id, context)
 
-        # Route to appropriate generator
-        if agent_type == "executive":
-            return self._generate_executive_summary(personality, data)
-        elif agent_type == "risk_cro":
-            return self._generate_risk_cro_report(personality, data)
-        elif agent_type == "cfo":
-            return self._generate_cfo_report(personality, data)
-        elif agent_type == "cto":
+        # Use the handler map for clean, scalable routing
+        handler = self.agent_handlers.get(agent_type)
+
+        if handler:
+            return handler(personality, data)
+        elif agent_type == "cto":  # Handle exceptions to the pattern
             return self._generate_cto_report(personality, data)
-        elif agent_type == "risk_manager":
-            return self._generate_risk_manager_report(personality, data)
-        elif agent_type == "collections":
-            return self._generate_collections_plan(personality, data)
-        elif agent_type == "growth":
-            return self._generate_growth_strategy(personality, data)
-        elif agent_type == "commercial":
-            return self._generate_commercial_report(personality, data)
-        elif agent_type == "kam":
-            return self._generate_kam_brief(personality, data)
-        elif agent_type == "financial":
-            return self._generate_financial_analysis(personality, data)
-        elif agent_type == "quality":
-            return self._generate_quality_report(personality, data)
-        elif agent_type == "mlops":
-            return self._generate_mlops_report(personality, data)
-        elif agent_type == "designer":
-            return self._generate_design_spec(personality, data)
-        elif agent_type == "integrations":
-            return self._generate_integration_status(personality, data)
-        elif agent_type == "compliance":
-            return self._generate_compliance_audit(personality, data)
-        elif agent_type == "forecaster":
-            return self._generate_forecast(personality, data)
-        elif agent_type == "advisor":
-            return self._generate_decision_memo(personality, data)
-        else:
+        else:  # Fallback for unmapped agents
             return self._fallback_response(agent_id, context)
 
     def _extract_agent_type(self, agent_id: str) -> str:
@@ -676,7 +673,7 @@ TOTAL:     ${self._calc_provision(par30, 'total', data):,.0f}
         findings: List[Dict[str, Any]] = data.get("findings", [])
         must_fix_count = len([f for f in findings if f.get("severity") == "Must Fix"])
 
-        report = """# ABACO_CFO_AI Financial Audit
+        report = f"""# ABACO_CFO_AI Financial Audit
 *Mode: {personality.tone}*
 
 ## Summary
@@ -708,6 +705,7 @@ TOTAL:     ${self._calc_provision(par30, 'total', data):,.0f}
             for finding in findings:
                 report += f"- **{finding.get('severity', 'Info')}**: {finding.get('description', 'N/A')} (File: {finding.get('file', 'N/A')})\n"
         return report
+
     def _generate_risk_manager_report(self, personality: AgentPersonality, data: Dict) -> str:
         """Generate risk manager operational report (María)"""
         dpd_cases: Dict[str, int] = data.get("dpd_cases", {})
@@ -1129,13 +1127,17 @@ collateral_value:   {100 - null_pct*300:.1f}% complete  {'⚠️ BLOCKING' if nu
         """Generic fallback for unknown agents"""
         return f"[Standalone AI]: Analysis for {agent_id} in progress. Specialized handler not yet configured."
 
+
 # Singleton pattern
 _engine_instance = None
+_engine_lock = Lock()
 
 
 def get_ai_engine() -> StandaloneAIEngine:
     """Get singleton instance of AI engine"""
     global _engine_instance
     if _engine_instance is None:
-        _engine_instance = StandaloneAIEngine()
+        with _engine_lock:
+            if _engine_instance is None:
+                _engine_instance = StandaloneAIEngine()
     return _engine_instance

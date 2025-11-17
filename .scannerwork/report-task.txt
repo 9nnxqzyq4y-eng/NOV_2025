@@ -1,0 +1,7 @@
+organization=jenineferderas
+projectKey=jenineferderas_abaco-sim-e
+serverUrl=https://sonarcloud.io
+serverVersion=8.0.0.76487
+dashboardUrl=https://sonarcloud.io/dashboard?id=jenineferderas_abaco-sim-e
+ceTaskId=AZqPoSVsXjTBGOcUiDxT
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AZqPoSVsXjTBGOcUiDxT

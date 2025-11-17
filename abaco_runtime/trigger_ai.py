@@ -5,9 +5,15 @@ ABACO AI Trigger Script
 This script demonstrates how to trigger a specific AI persona from the
 standalone_ai.py engine and generate a response.
 """
+import logging
 from dataclasses import dataclass, asdict
 
 from standalone_ai import get_ai_engine
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+)
 
 
 @dataclass
@@ -31,9 +37,9 @@ class KpiData:
 
 def main():
     """Main function to trigger an AI agent and print its response."""
-    print("🚀 Initializing ABACO Standalone AI Engine...")
+    logging.info("🚀 Initializing ABACO Standalone AI Engine...")
     ai_engine = get_ai_engine()
-    print("✅ Engine Initialized.")
+    logging.info("✅ Engine Initialized.")
 
     agent_id_to_trigger = "executive-summary-ai-001"
 
@@ -51,16 +57,16 @@ def main():
 
     input_data = {"kpis": asdict(kpi_data)}
 
-    print(f"\n🎯 Sending trigger to agent: {agent_id_to_trigger}")
-    print("-" * 40)
+    logging.info(f"🎯 Sending trigger to agent: {agent_id_to_trigger}")
+    logging.info("-" * 40)
 
     response = ai_engine.generate_response(
         agent_id_to_trigger, asdict(request_context), input_data
     )
 
-    print(response)
-    print("-" * 40)
-    print("✅ Task Complete.")
+    logging.info(f"Response received:\n{response}")
+    logging.info("-" * 40)
+    logging.info("✅ Task Complete.")
 
 
 if __name__ == "__main__":
