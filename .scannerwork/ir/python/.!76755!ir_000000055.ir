@@ -1,0 +1,22 @@
+
+"high_risk"str
+"Total Clients"str
+3*"{df['high_risk'].sum()/len(df)*100:.1f}%"str
+F"{df.get('collection_rate', pd.Series([0])).mean()*100:.1f}%"str
+
+4int
+	"Avg DPD"str
+"Collection Rate"str
+"High-Risk Clients"str
+
+0int
+NoneNoneType
+
+1int
+
+
+2int
+
+3int
+;2"Displays summary metrics for the risk dashboard."str
+?6"{df.get('dpd_mean', pd.Series([0])).mean():.1f} days"strdf

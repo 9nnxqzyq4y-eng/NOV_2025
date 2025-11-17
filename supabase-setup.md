@@ -50,9 +50,9 @@
 Create `.env.local` with local Supabase credentials:
 
 ```env
-NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-from-supabase-start
-SUPABASE_SERVICE_ROLE_KEY=your-service-role-key-from-supabase-start
+NEXT_PUBLIC_SUPABASE_URLhttp://127.0.0.1:54321
+NEXT_PUBLIC_SUPABASE_ANON_KEYyour-anon-key-from-supabase-start
+SUPABASE_SERVICE_ROLE_KEYyour-service-role-key-from-supabase-start
 ```
 
 ## Useful Commands

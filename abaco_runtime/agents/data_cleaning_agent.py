@@ -1,3 +1,5 @@
+"""Data Cleaning Agent for fixing identified data quality issues."""
+
 from typing import Dict, Any, List
 
 
@@ -28,11 +30,11 @@ class DataCleaningAgent:
         if field == "email":
             record[field] = None
             return f"Fixed: Nullified invalid email in record {record_index}."
-        return f"Info: No fix applied for invalid format on field '{field}' in record {record_index}."
+        return (f"Info: No fix applied for invalid format on field '{field}' "
+                f"in record {record_index}.")
 
-    def run(
-        self, issues: List[Dict[str, Any]], data: Dict[str, Any]
-    ) -> Dict[str, Any]:
+
+    def run(self, issues: List[Dict[str, Any]], data: Dict[str, Any]) -> Dict[str, Any]:
         """
         Cleans the provided dataset based on a list of identified issues.
 
@@ -55,19 +57,17 @@ class DataCleaningAgent:
 
         # Process each issue identified by the guardian
         for issue in issues:
-            record_index = issue.get("record_index")
-            field = issue.get("field")
-            issue_type = issue.get("issue_type")
-
-            if record_index is None or field is None:
+            if (
+                not (record_index := issue.get("record_index")) or
+                not isinstance(field := issue.get("field"), str) or
+                not (issue_type := issue.get("issue_type"))
+            ):
                 continue
 
             handler = self.issue_handlers.get(issue_type)
 
             if handler:
-                log_message = handler(
-                    cleaned_records[record_index], field, record_index
-                )
+                log_message = handler(cleaned_records[record_index], field, record_index)
                 cleaning_log.append(log_message)
 
         return {

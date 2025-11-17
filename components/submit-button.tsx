@@ -11,9 +11,9 @@ export interface SubmitButtonProps
 
 export function SubmitButton({
   children,
-  isLoading = false,
+  isLoading  false,
   disabled,
-  type = "submit",
+  type  "submit",
   ...props;
 }: SubmitButtonProps) {
   return (

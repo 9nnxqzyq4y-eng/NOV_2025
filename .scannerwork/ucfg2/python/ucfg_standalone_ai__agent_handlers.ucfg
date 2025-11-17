@@ -1,18 +1,18 @@
 
 4standalone_ai.StandaloneAIEngine._map_agent_handlersU
-K/Users/jenineferderas/my-awesome-project-new/abaco_runtime/standalone_ai.py7 7("2*•"
-28 8(L
-9 J(	
+K/Users/jenineferderas/my-awesome-project-new/abaco_runtime/standalone_ai.py, ,("2*´$
+2- -(L
+. @(	
 %1"dict{
 y
-: :(9
+/ /(9
 %2"__id*a
 
 __unknown_file (E*C"
  standalone_ai.StandaloneAIEngine"
 _generate_executive_summaryê
 ç
-: :(9
+/ /(9
 %3"__mapSet*"
 
 __unknown_file (
@@ -26,14 +26,14 @@ y
 
 %2y
 w
-; ;(6
+0 0(6
 %4"__id*_
 
 __unknown_file (C*A"
  standalone_ai.StandaloneAIEngine"
 _generate_risk_cro_reportè
 å
-; ;(6
+0 0(6
 %5"__mapSet*"
 
 __unknown_file (
@@ -48,15 +48,36 @@ w
 
 %4t
 r
-< <(,
+1 1(,
 %6"__id*Z
+
+__unknown_file (>*<"
+ standalone_ai.StandaloneAIEngine"
+_generate_cto_reportä
+á
+1 1(,
+%7"__mapSet*"
+
+__unknown_file (
+
+%1*#
+
+__unknown_file (
+cto*"
+
+__unknown_file (
+
+%6t
+r
+2 2(,
+%8"__id*Z
 
 __unknown_file (>*<"
  standalone_ai.StandaloneAIEngine"
 _generate_cfo_reportä
 á
-< <(,
-%7"__mapSet*"
+2 2(,
+%9"__mapSet*"
 
 __unknown_file (
 
@@ -67,38 +88,38 @@ r
 
 __unknown_file (
 
-%6}
-{
-= =(>
-%8"__id*c
+%8~
+|
+3 3(>
+%10"__id*c
 
 __unknown_file (G*E"
  standalone_ai.StandaloneAIEngine"
-_generate_risk_manager_reportì
-ê
-= =(>
-%9"__mapSet*"
+_generate_risk_manager_reportï
+í
+3 3(>
+%11"__mapSet*"
 
 __unknown_file (
 
 %1*,
 
 __unknown_file (
-risk_manager*"
+risk_manager*#
 
-__unknown_file (
-
-%8{
+__unknown_file (
+
+%10{
 y
-> >(:
-%10"__id*`
+4 4(:
+%12"__id*`
 
 __unknown_file (D*B"
  standalone_ai.StandaloneAIEngine"
 _generate_collections_planî
 ë
-> >(:
-%11"__mapSet*"
+4 4(:
+%13"__mapSet*"
 
 __unknown_file (
 
@@ -109,17 +130,17 @@ y
 
 __unknown_file (
 
-%10z
+%12z
 x
-? ?(4
-%12"__id*_
+5 5(4
+%14"__id*_
 
 __unknown_file (C*A"
  standalone_ai.StandaloneAIEngine"
 _generate_growth_strategyè
 å
-? ?(4
-%13"__mapSet*"
+5 5(4
+%15"__mapSet*"
 
 __unknown_file (
 
@@ -131,17 +152,17 @@ x
 
 __unknown_file (
 
-%12|
+%14|
 z
-@ @(:
-%14"__id*a
+6 6(:
+%16"__id*a
 
 __unknown_file (E*C"
  standalone_ai.StandaloneAIEngine"
 _generate_commercial_reportì
 ê
-@ @(:
-%15"__mapSet*"
+6 6(:
+%17"__mapSet*"
 
 __unknown_file (
 
@@ -153,17 +174,17 @@ commercial*#
 
 __unknown_file (
 
-%14t
+%16t
 r
-A A(+
-%16"__id*Y
+7 7(+
+%18"__id*Y
 
 __unknown_file (=*;"
  standalone_ai.StandaloneAIEngine"
 _generate_kam_briefå
 â
-A A(+
-%17"__mapSet*"
+7 7(+
+%19"__mapSet*"
 
 __unknown_file (
 
@@ -174,17 +195,17 @@ r
 
 __unknown_file (
 
-%16}
+%18}
 {
-B B(:
-%18"__id*b
+8 8(:
+%20"__id*b
 
 __unknown_file (F*D"
  standalone_ai.StandaloneAIEngine"
 _generate_financial_analysisí
 è
-B B(:
-%19"__mapSet*"
+8 8(:
+%21"__mapSet*"
 
 __unknown_file (
 
@@ -195,17 +216,17 @@ r
 
 __unknown_file (
 
-%18y
+%20y
 w
-C C(4
-%20"__id*^
+9 9(4
+%22"__id*^
 
 __unknown_file (B*@"
  standalone_ai.StandaloneAIEngine"
 _generate_quality_reportê
 ç
-C C(4
-%21"__mapSet*"
+9 9(4
+%23"__mapSet*"
 
 __unknown_file (
 
@@ -216,17 +237,17 @@ w
 
 __unknown_file (
 
-%20w
+%22w
 u
-D D(0
-%22"__id*\
+: :(0
+%24"__id*\
 
 __unknown_file (@*>"
  standalone_ai.StandaloneAIEngine"
 _generate_mlops_reporté
 ã
-D D(0
-%23"__mapSet*"
+: :(0
+%25"__mapSet*"
 
 __unknown_file (
 
@@ -237,17 +258,17 @@ u
 
 __unknown_file (
 
-%22v
+%24v
 t
-E E(2
-%24"__id*[
+; ;(2
+%26"__id*[
 
 __unknown_file (?*="
  standalone_ai.StandaloneAIEngine"
 _generate_design_specë
 é
-E E(2
-%25"__mapSet*"
+; ;(2
+%27"__mapSet*"
 
 __unknown_file (
 
@@ -259,17 +280,17 @@ t
 
 __unknown_file (
 
-%24}
+%26}
 {
-F F(=
-%26"__id*b
+< <(=
+%28"__id*b
 
 __unknown_file (F*D"
  standalone_ai.StandaloneAIEngine"
 _generate_integration_statusï
 í
-F F(=
-%27"__mapSet*"
+< <(=
+%29"__mapSet*"
 
 __unknown_file (
 
@@ -280,17 +301,17 @@ t
 
 __unknown_file (
 
-%26{
+%28{
 y
-G G(9
-%28"__id*`
+= =(9
+%30"__id*`
 
 __unknown_file (D*B"
  standalone_ai.StandaloneAIEngine"
 _generate_compliance_auditì
 ê
-G G(9
-%29"__mapSet*"
+= =(9
+%31"__mapSet*"
 
 __unknown_file (
 
@@ -302,17 +323,17 @@ compliance*#
 
 __unknown_file (
 
-%28s
+%30s
 q
-H H(1
-%30"__id*X
+> >(1
+%32"__id*X
 
 __unknown_file (<*:"
  standalone_ai.StandaloneAIEngine"
 _generate_forecastì
 ê
-H H(1
-%31"__mapSet*"
+> >(1
+%33"__mapSet*"
 
 __unknown_file (
 
@@ -324,17 +345,17 @@ forecaster*#
 
 __unknown_file (
 
-%30x
+%32x
 v
-I I(3
-%32"__id*]
+? ?(3
+%34"__id*]
 
 __unknown_file (A*?"
  standalone_ai.StandaloneAIEngine"
 _generate_decision_memoê
 ç
-I I(3
-%33"__mapSet*"
+? ?(3
+%35"__mapSet*"
 
 __unknown_file (
 
@@ -345,8 +366,8 @@ v
 
 __unknown_file (
 
-%32"
-9 J(	
+%34"
+. @(	
 
 %1B$"
  standalone_ai.StandaloneAIEngineH

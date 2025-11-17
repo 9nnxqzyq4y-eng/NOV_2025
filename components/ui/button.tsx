@@ -2,7 +2,7 @@ import { Slot } from '@radix-ui/react-slot'
 import { cn } from '@/lib/utils'
 import * as React from 'react'
 
-const buttonVariants = {
+const buttonVariants  {
   default: 'bg-primary text-primary-foreground hover:bg-primary/90',
   destructive:
     'bg-destructive text-destructive-foreground hover:bg-destructive/90',
@@ -12,7 +12,7 @@ const buttonVariants = {
   ghost: 'hover:bg-accent hover:text-accent-foreground',
 }
 
-const buttonSizes = {
+const buttonSizes  {
   default: 'h-10 px-4 py-2',
   sm: 'h-9 rounded-md px-3 text-sm',
   lg: 'h-11 rounded-md px-8',
@@ -22,32 +22,32 @@ interface ButtonProps extends React.ButtonHTMLAttributes {
   size?: keyof typeof buttonSizes
   asChild?: boolean;
 
-const Button = React.forwardRef(
+const Button  React.forwardRef(
   (
     {
       className,
-      variant = 'default',
-      size = 'default',
-      asChild = false,
+      variant  'default',
+      size  'default',
+      asChild  false,
       ...props;
     },
     ref;
-  ) => {
-    const Comp = asChild ? Slot : 'button'
+  )  {
+    const Comp  asChild ? Slot : 'button'
     return (
-      <Comp;
-        className={cn(
+      Comp;
+        className{cn(
           'inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
           buttonVariants[variant],
           buttonSizes[size],
           className;
         )}
-        ref=ref
+        refref
         {...props}
-      />
+      /
     )
   }
 )
-Button.displayName = 'Button'
+Button.displayName  'Button'
 
 export { Button, buttonVariants }

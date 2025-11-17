@@ -5,7 +5,6 @@
 **Audience**: Product teams, engineering leads, data scientists  
 **Cadence**: Weekly sprints with quarterly milestones  
 
----
 
 ## Executive Framework: The 8-Agent Expansion Model
 
@@ -23,16 +22,16 @@ from enum import Enum
 from dataclasses import dataclass
 
 class UserExpertiseLevel(Enum):
-    EXECUTIVE = "executive"      # C-suite, 1-page summaries
-    MANAGER = "manager"          # Operational, detailed breakdowns
-    ANALYST = "analyst"          # Deep technical analysis
-    OPERATOR = "operator"        # Task-specific instructions
+    EXECUTIVE  "executive"      # C-suite, 1-page summaries
+    MANAGER  "manager"          # Operational, detailed breakdowns
+    ANALYST  "analyst"          # Deep technical analysis
+    OPERATOR  "operator"        # Task-specific instructions
 
 class TemporalContext(Enum):
-    CRISIS = "crisis"            # <1hr, immediate action
-    URGENT = "urgent"            # <4hrs, prioritize
-    NORMAL = "normal"            # Routine, comprehensive
-    STRATEGIC = "strategic"      # No time constraint, depth
+    CRISIS  "crisis"            # 1hr, immediate action
+    URGENT  "urgent"            # 4hrs, prioritize
+    NORMAL  "normal"            # Routine, comprehensive
+    STRATEGIC  "strategic"      # No time constraint, depth
 
 @dataclass
 class ExecutionContext:
@@ -42,19 +41,19 @@ class ExecutionContext:
     role_title: str
     
 class AdaptivePersonalityEngine:
-    async def adapt_communication(self, context: ExecutionContext) -> str:
+    async def adapt_communication(self, context: ExecutionContext) - str:
         """Returns communication style"""
-        if context.user_level == UserExpertiseLevel.EXECUTIVE:
-            if context.time_sensitivity == TemporalContext.CRISIS:
-                return "executive_brief"  # <100 words, action-focused
-            return "board_memo"           # <500 words, strategic
+        if context.user_level  UserExpertiseLevel.EXECUTIVE:
+            if context.time_sensitivity  TemporalContext.CRISIS:
+                return "executive_brief"  # 100 words, action-focused
+            return "board_memo"           # 500 words, strategic
         
-        if context.user_level == UserExpertiseLevel.ANALYST:
-            if context.time_sensitivity == TemporalContext.NORMAL:
+        if context.user_level  UserExpertiseLevel.ANALYST:
+            if context.time_sensitivity  TemporalContext.NORMAL:
                 return "detailed_analysis"  # Full methodology shown
             return "quick_summary"
     
-    async def adapt_recommendation_specificity(self, context) -> int:
+    async def adapt_recommendation_specificity(self, context) - int:
         """Returns number of options to present"""
         # Crisis: 1 recommendation (CEO decides)
         # Urgent: 2-3 options (manager picks)
@@ -72,11 +71,10 @@ class AdaptivePersonalityEngine:
 
 **Testing**:
 ```bash
-# Simulate 4 user types × 4 time sensitivities = 16 scenarios
+# Simulate 4 user types × 4 time sensitivities  16 scenarios
 pytest tests/test_adaptive_personalities.py -v
 ```
 
----
 
 #### Week 5-8: Real-time Risk Engine
 
@@ -128,25 +126,25 @@ Database Store:
 
 class RealtimeRiskStreamProcessor:
     def __init__(self, kafka_broker: str):
-        self.temporal_scorer = TemporalAnomalyScorer()
-        self.relational_scorer = RelationalRiskScorer()
-        self.behavioral_scorer = BehavioralRiskScorer()
+        self.temporal_scorer  TemporalAnomalyScorer()
+        self.relational_scorer  RelationalRiskScorer()
+        self.behavioral_scorer  BehavioralRiskScorer()
         
     async def process_stream(self, facility_id: str):
         """Main streaming processor"""
         async for event in self.kafka_stream.consume():
             # Parse event (transaction, payment, risk signal)
-            parsed_event = self.parse_event(event)
+            parsed_event  self.parse_event(event)
             
             # Score across 3 dimensions (parallel)
-            temporal, relational, behavioral = await asyncio.gather(
+            temporal, relational, behavioral  await asyncio.gather(
                 self.temporal_scorer.score_async(parsed_event),
                 self.relational_scorer.score_async(parsed_event),
                 self.behavioral_scorer.score_async(parsed_event)
             )
             
             # Composite score
-            composite = (
+            composite  (
                 temporal * 0.40 +      # 40% weight
                 relational * 0.35 +    # 35% weight
                 behavioral * 0.25      # 25% weight
@@ -155,12 +153,12 @@ class RealtimeRiskStreamProcessor:
             # Store & check threshold
             await self.store_risk_snapshot(facility_id, composite)
             
-            if composite > self.get_threshold(facility_id):
+            if composite  self.get_threshold(facility_id):
                 await self.trigger_agent_cascade(facility_id, composite)
 ```
 
 **Acceptance Criteria**:
-- [ ] <100ms latency from event to agent trigger
+- [ ] 100ms latency from event to agent trigger
 - [ ] 99.95% uptime guarantee
 - [ ] Handles 10,000 concurrent facilities
 - [ ] -60% latency vs batch (p99)
@@ -169,20 +167,19 @@ class RealtimeRiskStreamProcessor:
 **Monitoring**:
 ```python
 # Prometheus metrics
-stream_processor_latency = Histogram(
+stream_processor_latency  Histogram(
     'risk_score_latency_ms',
     'Time from event to decision',
-    buckets=[10, 25, 50, 100, 200]
+    buckets[10, 25, 50, 100, 200]
 )
 
-alert_quality = Counter(
+alert_quality  Counter(
     'alerts_triggered',
     'Total alerts (track false positive rate)',
-    labels=['severity', 'outcome']
+    labels['severity', 'outcome']
 )
 ```
 
----
 
 #### Week 9-12: Behavioral Analyst Agent
 
@@ -193,14 +190,14 @@ alert_quality = Counter(
 # FILE: abaco_runtime/agents/behavioral_analyst.py
 
 class BehavioralAnalystAgent(BaseAgent):
-    name = "Lucia"
-    position = "Chief Behavioral Officer"
+    name  "Lucia"
+    position  "Chief Behavioral Officer"
     
     async def analyze_customer_behavior(self, customer_id: str):
         """Main analysis method"""
         
         # Measure 5 behavioral dimensions
-        behavioral_profile = {
+        behavioral_profile  {
             'loss_aversion': await self.measure_loss_aversion(customer_id),
             'temporal_discounting': await self.measure_temporal_bias(customer_id),
             'anchoring_effect': await self.measure_anchoring(customer_id),
@@ -217,15 +214,15 @@ class BehavioralAnalystAgent(BaseAgent):
             'predicted_compliance': self.estimate_compliance(behavioral_profile)
         }
     
-    async def measure_loss_aversion(self, customer_id: str) -> Dict:
-        """Loss aversion = discomfort with risk"""
+    async def measure_loss_aversion(self, customer_id: str) - Dict:
+        """Loss aversion  discomfort with risk"""
         # Data points:
-        # - Insurance purchase history (risk-averse = higher insurance uptake)
-        # - Late payment behavior (risk-tolerant = later payments)
-        # - Collateral preference (risk-averse = more collateral offered)
+        # - Insurance purchase history (risk-averse  higher insurance uptake)
+        # - Late payment behavior (risk-tolerant  later payments)
+        # - Collateral preference (risk-averse  more collateral offered)
         
         return {
-            'score': 0-1,  # Higher = more loss-averse
+            'score': 0-1,  # Higher  more loss-averse
             'evidence': [...],
             'implication': "High loss aversion → offer payment insurance"
         }
@@ -251,11 +248,10 @@ New Recommendation: APPROVE
 **Acceptance Criteria**:
 - [ ] Behavioral profile captures 5+ dimensions
 - [ ] +18% payment compliance for behavioral-optimized offers
-- [ ] <15% false positive rate (overestimating compliance)
+- [ ] 15% false positive rate (overestimating compliance)
 - [ ] Integrated into credit decision workflow
 - [ ] Explainable to customers ("why we structured your payment this way")
 
----
 
 #### Week 13-16: Alternative Data Integration
 
@@ -267,7 +263,7 @@ New Recommendation: APPROVE
 
 class AlternativeDataSynthesizer:
     
-    data_sources = {
+    data_sources  {
         'mobile_money': {
             'provider': 'local_mobile_operators',
             'signals': ['transaction_volume', 'frequency', 'seasonality'],
@@ -295,10 +291,10 @@ class AlternativeDataSynthesizer:
         }
     }
     
-    async def synthesize_alt_score(self, customer_id: str) -> AltDataScore:
+    async def synthesize_alt_score(self, customer_id: str) - AltDataScore:
         """Combine alternative signals"""
         
-        signals = await asyncio.gather(
+        signals  await asyncio.gather(
             self.score_mobile_patterns(customer_id),
             self.score_location_stability(customer_id),
             self.score_social_resilience(customer_id),
@@ -307,15 +303,15 @@ class AlternativeDataSynthesizer:
         )
         
         # Weighted composite
-        alt_score = sum(
+        alt_score  sum(
             signal.score * weight
             for signal, weight in zip(signals, self.weights)
         )
         
         return AltDataScore(
-            score=alt_score,
-            signals=signals,
-            insights=self.generate_insights(signals)
+            scorealt_score,
+            signalssignals,
+            insightsself.generate_insights(signals)
         )
 ```
 
@@ -355,7 +351,6 @@ Scenario 2: Established trader (poor recent payment history)
 - [ ] +$50M previously underserved market unlocked
 - [ ] Bias audit shows no disparate impact
 
----
 
 ### Summary: Phase 1 Deliverables
 
@@ -391,7 +386,6 @@ Scenario 2: Established trader (poor recent payment history)
 └─ **Total Phase 1 Revenue Impact: +$380K/quarter**
 ```
 
----
 
 ## Phase 2: Q3-Q4 2025 (32 weeks) - Agent Consensus & Advanced Analytics
 
@@ -417,7 +411,7 @@ Debate Process (3 rounds max):
 └─ If no consensus → Escalate to human with full transcript
 
 Output:
-├─ Consensus recommendation (if >75% agreement)
+├─ Consensus recommendation (if 75% agreement)
 ├─ Minority positions (if disagreement)
 ├─ Full debate transcript (audit trail)
 ├─ Confidence scoring
@@ -433,40 +427,40 @@ class AgentDebateCoordinator:
     async def facilitate_debate(self, question: str, agents_list: List[Agent]):
         """Main debate orchestration"""
         
-        debate_record = DebateRecord(question=question, timestamp=now())
+        debate_record  DebateRecord(questionquestion, timestampnow())
         
         # Round 1: Initial positions
-        positions = await asyncio.gather(*[
+        positions  await asyncio.gather(*[
             agent.generate_initial_position(question)
             for agent in agents_list
         ])
-        debate_record.round_1 = positions
+        debate_record.round_1  positions
         
         # Measure initial consensus
-        consensus_round_1 = self.measure_agreement(positions)
-        if consensus_round_1 > 0.75:
+        consensus_round_1  self.measure_agreement(positions)
+        if consensus_round_1  0.75:
             return self.finalize_consensus(positions, debate_record)
         
         # Round 2: Rebuttal
-        rebuttals = await asyncio.gather(*[
-            agent.generate_rebuttal(question, other_positions=[p for a, p in zip(agents_list, positions) if a != agent])
+        rebuttals  await asyncio.gather(*[
+            agent.generate_rebuttal(question, other_positions[p for a, p in zip(agents_list, positions) if a ! agent])
             for agent in agents_list
         ])
-        debate_record.round_2 = rebuttals
+        debate_record.round_2  rebuttals
         
-        consensus_round_2 = self.measure_agreement(rebuttals)
-        if consensus_round_2 > 0.75:
+        consensus_round_2  self.measure_agreement(rebuttals)
+        if consensus_round_2  0.75:
             return self.finalize_consensus(rebuttals, debate_record)
         
         # Round 3: Final position
-        final_positions = await asyncio.gather(*[
-            agent.generate_final_position(question, full_debate=debate_record)
+        final_positions  await asyncio.gather(*[
+            agent.generate_final_position(question, full_debatedebate_record)
             for agent in agents_list
         ])
-        debate_record.round_3 = final_positions
+        debate_record.round_3  final_positions
         
-        consensus_round_3 = self.measure_agreement(final_positions)
-        if consensus_round_3 > 0.75:
+        consensus_round_3  self.measure_agreement(final_positions)
+        if consensus_round_3  0.75:
             return self.finalize_consensus(final_positions, debate_record)
         
         # No consensus reached → escalate to human
@@ -498,13 +492,12 @@ class AgentDebateCoordinator:
 ```
 
 **Acceptance Criteria**:
-- [ ] >85% of consensus decisions prove accurate in retrospective analysis
+- [ ] 85% of consensus decisions prove accurate in retrospective analysis
 - [ ] Debate format increases stakeholder buy-in by 45%+
-- [ ] <5% of decisions escalate to human due to no consensus
+- [ ] 5% of decisions escalate to human due to no consensus
 - [ ] Full debate transcript logged (audit trail)
-- [ ] Debate latency <10 minutes for complex decisions
+- [ ] Debate latency 10 minutes for complex decisions
 
----
 
 ### Week 25-32: Causal Inference Engine
 
@@ -524,13 +517,13 @@ class CausalInferenceEngine:
         """Main causal analysis method"""
         
         # Step 1: Learn causal structure (DAG)
-        dag = await self.learn_causal_dag(outcome, context)
+        dag  await self.learn_causal_dag(outcome, context)
         
         # Step 2: Identify confounders
-        confounders = self.identify_confounders(dag)
+        confounders  self.identify_confounders(dag)
         
         # Step 3: Run causal estimation (multiple methods for robustness)
-        causal_effects = await asyncio.gather(
+        causal_effects  await asyncio.gather(
             self.run_double_machine_learning(outcome, confounders),
             self.run_regression_discontinuity(outcome),
             self.run_synthetic_control(outcome)
@@ -555,7 +548,7 @@ Method 1: Double ML (DML)
 ├─ Interpretation: Collections intensity HELPS, but isn't main driver
 
 Method 2: Regression Discontinuity
-├─ Cutoff: Policy changed collections thresholds at DPD>30
+├─ Cutoff: Policy changed collections thresholds at DPD30
 ├─ Comparison: Just before vs just after policy
 ├─ Effect: Policy reduced DPD by only 1.2%
 ├─ Implication: Collections policy is minor factor
@@ -573,7 +566,7 @@ Final Causal Analysis:
 │  └─ Evidence: Agricultural sector DPD universally up
 ├─ Tertiary Driver (10%): Payment schedule mismatch (internal, addressable)
 │  └─ Evidence: Businesses with weekly income defaulting on monthly schedules
-└─ Collections intensity impact: <5%
+└─ Collections intensity impact: 5%
 
 Recommended Actions (Prioritized by impact):
 1. Revenue stabilization partnerships (60% impact potential)
@@ -593,38 +586,38 @@ async def make_credit_decision_with_causality(self, application):
     """Enhanced decisioning with causal insights"""
     
     # Traditional scoring
-    traditional_score = await self.score_traditional(application)
+    traditional_score  await self.score_traditional(application)
     
     # Causal risk analysis
     # "What drives default for THIS customer profile?"
-    causal_drivers = await self.causal_engine.identify_drivers(
-        outcome='default_risk',
-        customer_profile=application
+    causal_drivers  await self.causal_engine.identify_drivers(
+        outcome'default_risk',
+        customer_profileapplication
     )
     
     # Risk-adjusted decision
-    decision = {
-        'approval': traditional_score > 0.70,
+    decision  {
+        'approval': traditional_score  0.70,
         'causal_drivers': causal_drivers,
         'risk_mitigation': []
     }
     
     # Tailor risk mitigation to actual causes
     for driver, contribution in causal_drivers.items():
-        if driver == 'revenue_volatility':
+        if driver  'revenue_volatility':
             decision['risk_mitigation'].append(
                 MitigationStrategy(
-                    type='revenue_insurance',
-                    impact=contribution,
-                    cost=self.calculate_insurance_cost(application)
+                    type'revenue_insurance',
+                    impactcontribution,
+                    costself.calculate_insurance_cost(application)
                 )
             )
-        elif driver == 'seasonal_business':
+        elif driver  'seasonal_business':
             decision['risk_mitigation'].append(
                 MitigationStrategy(
-                    type='seasonal_schedule',
-                    impact=contribution,
-                    implementation='8-month vs 12-month'
+                    type'seasonal_schedule',
+                    impactcontribution,
+                    implementation'8-month vs 12-month'
                 )
             )
 ```
@@ -636,13 +629,12 @@ async def make_credit_decision_with_causality(self, application):
 - [ ] 95% confidence intervals on causal effects
 - [ ] Bias audit shows robust to model specification changes
 
----
 
 ## Phase 3: 2026+ - Autonomous & Quantum
 
 ### Weeks 33-48: Autonomous Underwriting Engine
 
-**Objective**: 95% automation for small facilities (<$5K)
+**Objective**: 95% automation for small facilities ($5K)
 
 **Key Metrics**:
 ```
@@ -654,15 +646,15 @@ Decisioning Speed: 15 seconds (target)
 ├─ Decision + pricing: 3s
 ├─ Fund transfer: 2s
 
-Decisioning Accuracy: >92%
+Decisioning Accuracy: 92%
 ├─ Default prediction: 92% AUC
 ├─ Pricing: Within 2% of manual underwriter
 ├─ Approval consistency: 99.5% (same inputs → same output)
 
 Automation Rate: 95%
-├─ <$5K facilities: 98% full automation
+├─ $5K facilities: 98% full automation
 ├─ $5K-$10K: 85% (some human review)
-├─ >$10K: 10% (primarily human-driven)
+├─ $10K: 10% (primarily human-driven)
 
 Annual Capacity: 500,000+ applications
 ├─ Current: ~50 applications/month
@@ -700,7 +692,7 @@ Annual Capacity: 500,000+ applications
             │                         │
     ┌───────▼──────┐        ┌────────▼──────┐
     │High Conf     │        │Marginal Conf  │
-    │(>85%)        │        │(70-85%)       │
+    │(85%)        │        │(70-85%)       │
     │              │        │               │
     │AUTO APPROVE  │        │HUMAN REVIEW   │
     │or DECLINE    │        │(5-15% cases)  │
@@ -726,14 +718,13 @@ Annual Capacity: 500,000+ applications
 ```
 
 **Acceptance Criteria**:
-- [ ] 95%+ automation rate for <$5K
+- [ ] 95%+ automation rate for $5K
 - [ ] 15-second decisioning time
 - [ ] 92%+ default prediction accuracy
 - [ ] 99.5% decision consistency
-- [ ] <5% human override rate
+- [ ] 5% human override rate
 - [ ] Full audit trail for every decision
 
----
 
 ### Weeks 49-64: Embedded Finance at Scale
 
@@ -744,7 +735,7 @@ Annual Capacity: 500,000+ applications
 1. Hardware Retailers (Home Depot, Ferremax)
    ├─ TAM: $50M annual lending
    ├─ Integration: POS API
-   ├─ Decisioning: <5 seconds at checkout
+   ├─ Decisioning: 5 seconds at checkout
    └─ Expected volume: 100 applications/day
 
 2. Wholesale Clubs (Sam's Club, Cosco)
@@ -762,7 +753,7 @@ Annual Capacity: 500,000+ applications
 4. Supplier Payment (B2B Platforms)
    ├─ TAM: $30M annual lending
    ├─ Integration: Invoice financing
-   ├─ Decisioning: <2 seconds at invoice
+   ├─ Decisioning: 2 seconds at invoice
    └─ Expected volume: 75 applications/day
 ```
 
@@ -775,7 +766,7 @@ Traditional KAM Channel:
 
 Embedded Channel:
 ├─ CAC: $120 per customer (-90%)
-├─ First loan velocity: <1 day
+├─ First loan velocity: 1 day
 ├─ Approval rate: 85% (frictionless)
 
 Blended Portfolio Impact:
@@ -786,12 +777,11 @@ Blended Portfolio Impact:
 
 **Acceptance Criteria**:
 - [ ] 5+ strategic partnerships signed
-- [ ] <5 second decisioning at POS
+- [ ] 5 second decisioning at POS
 - [ ] 85%+ approval rates
 - [ ] $200M+ embedded TPV
-- [ ] CAC reduction to <$150
+- [ ] CAC reduction to $150
 
----
 
 ## Unified Metrics Dashboard
 
@@ -808,7 +798,7 @@ Performance:
 └─ Active Agents: 23/23 online — Green ✅
 
 Risk Metrics:
-├─ Portfolio Default Rate: 1.9% (target: <2.1%) — Green ✅
+├─ Portfolio Default Rate: 1.9% (target: 2.1%) — Green ✅
 ├─ Early Warning Recall: 94% — Green ✅
 ├─ False Positive Rate: 0.8% — Green ✅
 └─ Provision Coverage: 118% — Green ✅
@@ -816,7 +806,7 @@ Risk Metrics:
 Operational:
 ├─ Decisions Today: 547 applications
 ├─ Approval Rate: 72% (target: 70-75%) — Green ✅
-├─ Human Override Rate: 3.2% (target: <5%) — Green ✅
+├─ Human Override Rate: 3.2% (target: 5%) — Green ✅
 ├─ Audit Trail Integrity: 100% — Green ✅
 └─ Regulatory Violations: 0 (all-time) — Green ✅
 ```
@@ -850,7 +840,6 @@ Q3 2025 Performance (End of Causal Inference Phase):
 └─ Net Income: $8.2M (30% margin)
 ```
 
----
 
 ## Success Criteria & Gates
 
@@ -863,7 +852,7 @@ Q3 2025 Performance (End of Causal Inference Phase):
 - [ ] $380K revenue impact validated
 
 ### Phase 2 Gate (End Q4 2025)
-- [ ] Agent debate system live (>85% consensus)
+- [ ] Agent debate system live (85% consensus)
 - [ ] Causal inference engine deployed
 - [ ] 4 new agents (behavioral, ecosystem, SCF, insurance)
 - [ ] +70% remedy effectiveness
@@ -871,14 +860,13 @@ Q3 2025 Performance (End of Causal Inference Phase):
 - [ ] 0 regulatory violations
 
 ### Phase 3 Gate (End Q1 2026)
-- [ ] 95% automation for <$5K facilities
+- [ ] 95% automation for $5K facilities
 - [ ] 5+ embedded finance partnerships
 - [ ] 8 new agents live (all 23 total)
 - [ ] Quantum readiness roadmap published
 - [ ] $8.2M annualized revenue trajectory
 - [ ] 35:1 LTV:CAC ratio achieved
 
----
 
 **Document Status**: Approved for Implementation  
 **Next Review**: Weekly sprint standup  

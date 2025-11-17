@@ -5,8 +5,8 @@ SELECT cron.schedule(
   '0 6 * * *',
   $$
   SELECT net.http_post(
-    url := 'https://your-app.vercel.app/api/ingest',
-    headers := jsonb_build_object(
+    url : 'https://your-app.vercel.app/api/ingest',
+    headers : jsonb_build_object(
       'Authorization', 'Bearer ' || current_setting('app.supabase_service_key'),
       'Content-Type', 'application/json'
     )
@@ -15,4 +15,4 @@ SELECT cron.schedule(
 );
 
 -- Verify cron job is scheduled
-SELECT * FROM cron.job WHERE jobname = 'daily-drive-ingestion';
+SELECT * FROM cron.job WHERE jobname  'daily-drive-ingestion';

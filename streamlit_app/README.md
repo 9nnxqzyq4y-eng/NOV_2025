@@ -1,18 +1,17 @@
 # ABACO Financial Intelligence Platform
 
-![ABACO Logo](https://img.shields.io/badge/ABACO-Financial%20Intelligence-9b87f5?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTIgMkw0IDZWMTJDNCAxNi40MiA3LjU4IDIwIDEyIDIwQzE2LjQyIDIwIDIwIDE2LjQyIDIwIDEyVjZMMTIgMloiIGZpbGw9IiM5Yjg3ZjUiLz48L3N2Zz4=)
+![ABACO Logo](https://img.shields.io/badge/ABACO-Financial%20Intelligence-9b87f5?stylefor-the-badge&logodata:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTIgMkw0IDZWMTJDNCAxNi40MiA3LjU4IDIwIDEyIDIwQzE2LjQyIDIwIDIwIDE2LjQyIDIwIDEyVjZMMTIgMloiIGZpbGw9IiM5Yjg3ZjUiLz48L3N2Zz4)
 
 **Superior predictive intelligence for strategic financial decisions**
 
-[![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)](https://nextjs.org/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.28+-FF4B4B?logo=streamlit)](https://streamlit.io/)
-[![Supabase](https://img.shields.io/badge/Supabase-Powered-3ECF8E?logo=supabase)](https://supabase.com/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue?logo=typescript)](https://www.typescriptlang.org/)
-[![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python)](https://www.python.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-14-black?logonext.js)](https://nextjs.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.28+-FF4B4B?logostreamlit)](https://streamlit.io/)
+[![Supabase](https://img.shields.io/badge/Supabase-Powered-3ECF8E?logosupabase)](https://supabase.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue?logotypescript)](https://www.typescriptlang.org/)
+[![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logopython)](https://www.python.org/)
 
 [Documentation](docs/ABACO_DEPLOYMENT_GUIDE.md) • [Quick Start](#-quick-start) • [Features](#-features) • [Architecture](#-architecture)
 
----
 
 ## 🎯 Vision
 
@@ -20,7 +19,7 @@
 
 ## 📋 Core Principles
 
-> To engineer a next-generation financial intelligence platform where standard is not compliance but **excellence** — producing outcomes that are not merely correct but **superior, robust, and strategically insightful**.
+ To engineer a next-generation financial intelligence platform where standard is not compliance but **excellence** — producing outcomes that are not merely correct but **superior, robust, and strategically insightful**.
 
 - ✨ **Enterprise-Grade Quality**: Every line of code built to production standards
 - 🎨 **4K Visual Excellence**: All visualizations at ultra-high definition (3840x2160)
@@ -179,9 +178,9 @@ pip install -r requirements.txt
 **Supabase:**
 
 # Create .env.local
-NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-SUPABASE_SERVICE_KEY=your-service-key
+NEXT_PUBLIC_SUPABASE_URLhttps://xxxxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEYyour-anon-key
+SUPABASE_SERVICE_KEYyour-service-key
 
 **Streamlit:**
 
@@ -325,5 +324,5 @@ For deployment assistance or technical support, see:
 
 **Built with ❤️ for superior financial intelligence**
 
-![Status](https://img.shields.io/badge/Status-Production%20Ready-success?style=flat-square)
-![Maintenance](https://img.shields.io/badge/Maintained-Yes-green?style=flat-square)
+![Status](https://img.shields.io/badge/Status-Production%20Ready-success?styleflat-square)
+![Maintenance](https://img.shields.io/badge/Maintained-Yes-green?styleflat-square)

@@ -4,7 +4,6 @@
 
 This document provides the key performance indicators (KPIs) for Ábaco Technologies, computed directly from the provided data sources. The calculations are performed by the `tools/compute_kpis_from_local_csvs.py` script, ensuring that all metrics are auditable and reproducible. All numbers are based on data as of October 31, 2025.
 
----
 
 ## 1. Revenue Generation
 

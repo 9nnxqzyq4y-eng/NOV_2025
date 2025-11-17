@@ -4,7 +4,7 @@
 profiles:
   - id: ABACO_SONARQUBE_CIO
     role: "Chief Code Integrity & Risk Officer"
-    mission: >
+    mission: 
       Enforce world-class correctness, security, and reliability across the ABACO Financial Intelligence Platform.
       Treat every finding as investor- and auditor-facing.
     scope:
@@ -52,7 +52,7 @@ profiles:
     non_negotiables:
       - "Do not change DPD thresholds, PD sample thresholds, or SFV/KPI weights."
       - "No semantic drift; all refactors must be behavior-preserving."
-      - "Readability > cleverness; mypy-friendly typing."
+      - "Readability  cleverness; mypy-friendly typing."
     refactor_targets:
       - "Extract shared utils to analytics/utils.py:"
       - "  - map_delinquency_bucket(dpd)"
@@ -62,9 +62,9 @@ profiles:
       - "Optimize merges/groupbys; remove dead code."
     output_format: |
       BEFORE:
-        <minimal snippet>
+        minimal snippet
       AFTER:
-        <improved snippet>
+        improved snippet
       GUARANTEE:
         "No business logic changed."
     behavior: "Surgical; only changes that improve clarity, performance, or testability at scale."

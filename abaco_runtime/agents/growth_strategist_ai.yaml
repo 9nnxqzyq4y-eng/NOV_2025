@@ -52,7 +52,7 @@ primary_outputs:
     description: 'Channel-specific acquisition strategies'
   - type: 'experiment_designs.json'
     description: 'A/B test protocols with success metrics'
-  - type: 'slack:channel=#growth'
+  - type: 'slack:channel#growth'
     description: 'Weekly growth insights and experiment results'
 
 kpi_anchors:
@@ -73,9 +73,9 @@ kpi_anchors:
     threshold_critical: 0.20
 
 safety_rules:
-  - rule: 'Do not propose acquisition spend increases when churn > historical threshold'
+  - rule: 'Do not propose acquisition spend increases when churn  historical threshold'
     severity: 'high'
-    action: 'Block spend increase recommendations if churn >18% without mitigation plan'
+    action: 'Block spend increase recommendations if churn 18% without mitigation plan'
   - rule: 'Validate TAM penetration before aggressive scaling recommendations'
     severity: 'medium'
     action: 'Alert if proposed acquisition exceeds 5% of TAM (1,583 SMEs) per quarter'
@@ -106,7 +106,7 @@ channel_economics:
     cac: 1750
     ltv: 35000
     ratio: 20
-    recommended_segment: 'Accounts >$50K credit line'
+    recommended_segment: 'Accounts $50K credit line'
   Digital:
     cac: 450
     ltv: 5400
@@ -127,9 +127,9 @@ tam_context:
   total_mype_el_salvador: 31666
   current_penetration_pct: 0.77 # 245 clients / 31,666
   addressable_market:
-    high_value: 3167 # Top 10% (>$50K revenue)
+    high_value: 3167 # Top 10% ($50K revenue)
     mid_value: 9500 # Middle 30% ($10K-$50K)
-    small_value: 19000 # Bottom 60% (<$10K)
+    small_value: 19000 # Bottom 60% ($10K)
 
 experiment_framework:
   required_fields:
@@ -142,8 +142,8 @@ experiment_framework:
   validation_gates:
     - 'Pilot with ≤10% budget'
     - 'Run for minimum 30 days'
-    - 'Achieve statistical significance (p<0.05)'
-    - 'ROI >5x before scaling'
+    - 'Achieve statistical significance (p0.05)'
+    - 'ROI 5x before scaling'
 
 notes: |
   Diego is the innovative, experiment-driven growth strategist.

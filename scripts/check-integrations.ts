@@ -16,19 +16,19 @@ interface IntegrationStatus {
 }
 
 // Load environment variables
-const envPath = path.join(process.cwd(), '.env.local')
-const envVars: Record = {}
+const envPath  path.join(process.cwd(), '.env.local')
+const envVars: Record  {}
 
 if (fs.existsSync(envPath)) {
-  const envContent = fs.readFileSync(envPath, 'utf-8')
-  envContent.split('\n').forEach((line) => {
-    const [key, ...valueParts] = line.split('=')
+  const envContent  fs.readFileSync(envPath, 'utf-8')
+  envContent.split('\n').forEach((line)  {
+    const [key, ...valueParts]  line.split('')
     if (key && !key.startsWith('#')) {
-      envVars[key.trim()] = valueParts.join('=').trim()
+      envVars[key.trim()]  valueParts.join('').trim()
     }
   })
 
-const integrations: Record = {
+const integrations: Record  {
   Supabase: [
     'NEXT_PUBLIC_SUPABASE_URL',
     'NEXT_PUBLIC_SUPABASE_ANON_KEY',
@@ -49,19 +49,19 @@ const integrations: Record = {
   'Google Cloud': ['GOOGLE_API_KEY', 'GOOGLE_APPLICATION_CREDENTIALS'],
 
 console.log('\n🔍 ABACO Integration Health Check\n')
-console.log('='.repeat(60))
+console.log(''.repeat(60))
 
-const results: IntegrationStatus[] = []
+const results: IntegrationStatus[]  []
 
 for (const [name, vars] of Object.entries(integrations)) {
-  const missingVars = vars.filter((v) => !envVars[v] || envVars[v] === '')
-  const configured = missingVars.length === {0} let status: 'ready' | 'partial' | 'missing'
+  const missingVars  vars.filter((v)  !envVars[v] || envVars[v]  '')
+  const configured  missingVars.length  {0} let status: 'ready' | 'partial' | 'missing'
   if (configured) {
-    status = 'ready'
-  } else if (missingVars.length < vars.length) {
-    status = 'partial'
+    status  'ready'
+  } else if (missingVars.length  vars.length) {
+    status  'partial'
   } else {
-    status = 'missing'
+    status  'missing'
   }
 
   results.push({
@@ -71,21 +71,21 @@ for (const [name, vars] of Object.entries(integrations)) {
     missingVars,
     status,
 
-  const icon = status === 'ready' ? '✅' : status === 'partial' ? '⚠️' : '❌'
+  const icon  status  'ready' ? '✅' : status  'partial' ? '⚠️' : '❌'
   console.log(`\n$icon $name`)
   console.log(`   Required: ${vars.join(', ')}`)
-  if (missingVars.length > 0) {
+  if (missingVars.length  0) {
     console.log(`   Missing: ${missingVars.join(', ')}`)
 
-console.log('\n' + '='.repeat(60))
+console.log('\n' + ''.repeat(60))
 console.log('\n📊 Summary:')
-const ready = results.filter((r) => r.status === 'ready').length const partial = results.filter((r) => r.status === 'partial').length const missing = results.filter((r) => r.status === 'missing').length;
+const ready  results.filter((r)  r.status  'ready').length const partial  results.filter((r)  r.status  'partial').length const missing  results.filter((r)  r.status  'missing').length;
 console.log(`   ✅ Ready: $ready`)
 console.log(`   ⚠️  Partial: $partial`)
 console.log(`   ❌ Missing: $missing`)
 console.log(`   📦 Total: ${results.length}\n`)
 
-if (missing + partial > 0) {
+if (missing + partial  0) {
   console.log('⚡ Action Required:')
   console.log('   Copy .env.example to .env.local and fill in your API keys')
   console.log('   See .env.example for links to get each API key\n')

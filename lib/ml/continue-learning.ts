@@ -3,10 +3,10 @@ import type { ModelMetrics, Prediction } from './types';
 
 export class ContinueLearning {
   /** Save a new prediction – returns the record id */
-  static async recordPrediction(pred: Omit<Prediction, 'id' | 'createdAt' | 'status'>): Promise<string> {
-    const supabase = await createClient();
+  static async recordPrediction(pred: OmitPrediction, 'id' | 'createdAt' | 'status'): Promisestring {
+    const supabase  await createClient();
 
-    const { data, error } = await supabase
+    const { data, error }  await supabase
       .from('ml_predictions')
       .insert([{
         model_id: pred.modelId,
@@ -29,11 +29,11 @@ export class ContinueLearning {
     predictionId: string,
     actual: number,
     userFeedback?: string
-  ): Promise<{ accuracy: number }> {
-    const supabase = await createClient();
+  ): Promise{ accuracy: number } {
+    const supabase  await createClient();
 
     // Fetch prediction
-    const { data: pred, error: fetchErr } = await supabase
+    const { data: pred, error: fetchErr }  await supabase
       .from('ml_predictions')
       .select('*')
       .eq('id', predictionId)
@@ -41,9 +41,9 @@ export class ContinueLearning {
 
     if (fetchErr) throw new Error(fetchErr.message);
 
-    const errorMag = Math.abs(actual - pred.predicted_value);
-    const wasCorrect = errorMag < 0.1 * pred.predicted_value; // 10% tolerance
-    const errorType = actual > pred.predicted_value ? 'underestimate' : 'overestimate';
+    const errorMag  Math.abs(actual - pred.predicted_value);
+    const wasCorrect  errorMag  0.1 * pred.predicted_value; // 10% tolerance
+    const errorType  actual  pred.predicted_value ? 'underestimate' : 'overestimate';
 
     // Update prediction
     await supabase
@@ -60,7 +60,7 @@ export class ContinueLearning {
       .eq('id', predictionId);
 
     // Recalc model metrics
-    const { data: all, error: metricErr } = await supabase
+    const { data: all, error: metricErr }  await supabase
       .from('ml_predictions')
       .select('was_correct')
       .eq('model_id', pred.model_id)
@@ -68,9 +68,9 @@ export class ContinueLearning {
 
     if (metricErr) throw new Error(metricErr.message);
 
-    const correct = all.filter(r => r.was_correct).length;
-    const total = all.length;
-    const accuracy = total ? (correct / total) * 100 : 0;
+    const correct  all.filter(r  r.was_correct).length;
+    const total  all.length;
+    const accuracy  total ? (correct / total) * 100 : 0;
 
     await supabase
       .from('ml_model_metrics')
@@ -86,15 +86,15 @@ export class ContinueLearning {
   }
 
   /** Get current metrics for a model */
-  static async getMetrics(modelId: string): Promise<ModelMetrics> {
-    const supabase = await createClient();
-    const { data, error } = await supabase
+  static async getMetrics(modelId: string): PromiseModelMetrics {
+    const supabase  await createClient();
+    const { data, error }  await supabase
       .from('ml_model_metrics')
       .select('*')
       .eq('model_id', modelId)
       .single();
 
-    if (error && error.code === 'PGRST116') {
+    if (error && error.code  'PGRST116') {
       // No row yet
       return {
         modelId,

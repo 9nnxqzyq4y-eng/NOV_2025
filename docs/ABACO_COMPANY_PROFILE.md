@@ -14,7 +14,7 @@ Headlines and primary KPIs
 
   - Sales (monthly disbursements; USD)
   - Revenue (monthly cash-in: interest + fees + other; USD)
-  - Recurrence (% recurring revenue = interest / (interest + fees + other))
+  - Recurrence (% recurring revenue  interest / (interest + fees + other))
   - Customers EOP (cumulative unique customers with at least one disbursement as of month end)
   - Unit economics (per cohort / month): CAC (USD k), Realized LTV (USD k), LTV/CAC (x)
 
@@ -39,7 +39,7 @@ Product / Business model
 - Revenue generation: interest on outstanding balances + periodic fees + other service charges.
 - Recurrence: measure share of interest (recurring) versus one-off fees.
 - Distribution / GTM: B2B sales and partnerships (e.g., ProntoCash, corporate distribution channels).
-- Unique selling proposition: Competitive rates and a fully digital, fast disbursement process (typically <24 hours).
+- Unique selling proposition: Competitive rates and a fully digital, fast disbursement process (typically 24 hours).
 
 Market sizing and traction
 
@@ -97,5 +97,5 @@ Contact & references
   - .github/instructions/sonarqube_mcp.instructions.md
   - tools/README_COLLECT_KPIS.md
 
-<!-- End of profile -->
+!-- End of profile --
 

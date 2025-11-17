@@ -40,7 +40,7 @@ Refactor the codebase to be minimal, fast, and readable without changing any dom
 
 - No behavioral drift. All refactors must be semantics-preserving.
 
-- No hidden magic. Readability > cleverness.
+- No hidden magic. Readability  cleverness.
 
 ## Primary tasks
 

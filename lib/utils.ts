@@ -3,7 +3,7 @@ import type { Route } from 'next'
 import { redirect } from 'next/navigation'
 import { twMerge } from 'tailwind-merge'
 
-const SPECIAL_CHAR_PATTERN = /[!"#$%&'()*+,\-./:;?@[\\\]^_`{|}~]/
+const SPECIAL_CHAR_PATTERN  /[!"#$%&'()*+,\-./:;?@[\\\]^_`{|}~]/
 
 /**
  * Combines multiple class value inputs into a single string and resolves Tailwind class conflicts.
@@ -21,7 +21,7 @@ export function cn(...inputs: ClassValue[]) {
  * @returns True if email format is valid, false otherwise
  */
 export function isValidEmail(email: string): boolean {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  const emailRegex  /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   return emailRegex.test(email)
 }
 
@@ -32,7 +32,7 @@ export function isValidEmail(email: string): boolean {
  */
 export function isValidPassword(password: string): boolean {
   return (
-    password.length >= 8 &&
+    password.length  8 &&
     /[A-Z]/.test(password) &&
     /[a-z]/.test(password) &&
     /\d/.test(password)
@@ -61,56 +61,56 @@ export interface PasswordValidationResult {
  * @returns PasswordValidationResult with validation details
  */
 export function validatePasswordStrength(password: string): PasswordValidationResult {
-  const errors: string[] = []
-  let score = 0
+  const errors: string[]  []
+  let score  0
 
   // Check minimum length
-  if (password.length < 8) {
+  if (password.length  8) {
     errors.push('Password must be at least 8 characters long')
   } else {
-    if (password.length >= 12) score += 1
-    if (password.length >= 16) score += 1
+    if (password.length  12) score + 1
+    if (password.length  16) score + 1
   }
 
   // Check for uppercase letters
   if (!/[A-Z]/.test(password)) {
     errors.push('Password must contain at least one uppercase letter')
   } else {
-    score += 1
+    score + 1
   }
 
   // Check for lowercase letters
   if (!/[a-z]/.test(password)) {
     errors.push('Password must contain at least one lowercase letter')
   } else {
-    score += 1
+    score + 1
   }
 
   // Check for numbers
   if (!/\d/.test(password)) {
     errors.push('Password must contain at least one number')
   } else {
-    score += 1
+    score + 1
   }
 
   // Check for special characters
   if (!SPECIAL_CHAR_PATTERN.test(password)) {
     errors.push('Password must contain at least one special character')
   } else {
-    score += 1
+    score + 1
   }
 
   // Determine strength
-  let strength: 'weak' | 'medium' | 'strong' = 'weak'
-  if (score >= 4) {
-    strength = 'medium'
+  let strength: 'weak' | 'medium' | 'strong'  'weak'
+  if (score  4) {
+    strength  'medium'
   }
-  if (score >= 5) {
-    strength = 'strong'
+  if (score  5) {
+    strength  'strong'
   }
 
   return {
-    isValid: errors.length === 0,
+    isValid: errors.length  0,
     errors,
     strength,
     score,
@@ -154,7 +154,7 @@ export function formatNumber(
   value: number,
   options?: Intl.NumberFormatOptions
 ) {
-  const formatter = new Intl.NumberFormat('en-US', {
+  const formatter  new Intl.NumberFormat('en-US', {
     maximumFractionDigits: 1,
     ...options,
   })
@@ -170,7 +170,7 @@ export function formatNumber(
  */
 export function formatCurrency(
   value: number,
-  currency: string = 'USD',
+  currency: string  'USD',
   options?: Intl.NumberFormatOptions
 ) {
   return new Intl.NumberFormat('en-US', {
@@ -202,7 +202,7 @@ export function formatPercent(
  * Check if Supabase environment variables are present.
  * Used to determine if Supabase features should be enabled.
  */
-export const hasEnvVars = Boolean(
+export const hasEnvVars  Boolean(
   process.env.NEXT_PUBLIC_SUPABASE_URL &&
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 )
@@ -218,8 +218,8 @@ export function encodedRedirect(
   path: string,
   message: string
 ): never {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
-  const url = new URL(path, baseUrl)
+  const baseUrl  process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
+  const url  new URL(path, baseUrl)
   url.searchParams.set(type, message)
   return redirect(url.toString() as Route)
 }

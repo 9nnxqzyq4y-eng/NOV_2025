@@ -13,31 +13,34 @@ from typing import Dict, List, Tuple
 from dataclasses import dataclass
 from enum import Enum
 
+
 class CheckStatus(Enum):
-    PASS = "✅ PASS"
-    FAIL = "❌ FAIL"
-    WARN = "⚠️  WARN"
-    SKIP = "⊘ SKIP"
+    PASS  "✅ PASS"
+    FAIL  "❌ FAIL"
+    WARN  "⚠️  WARN"
+    SKIP  "⊘ SKIP"
+
 
 @dataclass
 class CheckResult:
     name: str
     status: CheckStatus
     message: str
-    details: str = ""
+    details: str  ""
+
 
 class PreDeploymentChecker:
     def __init__(self, project_root: Path):
-        self.project_root = project_root
-        self.results: List[CheckResult] = []
-    
-    def run_all_checks(self) -> Tuple[int, int]:
+        self.project_root  project_root
+        self.results: List[CheckResult]  []
+
+    def run_all_checks(self) - Tuple[int, int]:
         """Run all pre-deployment checks"""
-        
-        print("\n" + "="*80)
+
+        print("\n" + "" * 80)
         print("ABACO PRE-DEPLOYMENT VALIDATION")
-        print("="*80 + "\n")
-        
+        print("" * 80 + "\n")
+
         self.check_typescript()
         self.check_linting()
         self.check_build()
@@ -48,328 +51,369 @@ class PreDeploymentChecker:
         self.check_python_runtime()
         self.check_secrets()
         self.check_git_status()
-        
-        passed = sum(1 for r in self.results if r.status == CheckStatus.PASS)
-        failed = sum(1 for r in self.results if r.status == CheckStatus.FAIL)
-        
+
+        passed  sum(1 for r in self.results if r.status  CheckStatus.PASS)
+        failed  sum(1 for r in self.results if r.status  CheckStatus.FAIL)
+
         self.print_report(passed, failed)
         return passed, failed
-    
+
     def check_typescript(self):
         """Check TypeScript compilation"""
         try:
-            result = subprocess.run(
-                ["npm", "run", "type-check"],
-                cwd=self.project_root,
-                capture_output=True,
-                timeout=30
+            result  subprocess.run(
+                ["npm", "run", "type-check"], cwdself.project_root, capture_outputTrue, timeout30
             )
-            if result.returncode == 0:
-                self.results.append(CheckResult(
-                    name="TypeScript Type Checking",
-                    status=CheckStatus.PASS,
-                    message="All TypeScript files compile correctly"
-                ))
+            if result.returncode  0:
+                self.results.append(
+                    CheckResult(
+                        name"TypeScript Type Checking",
+                        statusCheckStatus.PASS,
+                        message"All TypeScript files compile correctly",
+                    )
+                )
             else:
-                self.results.append(CheckResult(
-                    name="TypeScript Type Checking",
-                    status=CheckStatus.FAIL,
-                    message="TypeScript compilation errors detected",
-                    details=result.stderr.decode()[:200]
-                ))
+                self.results.append(
+                    CheckResult(
+                        name"TypeScript Type Checking",
+                        statusCheckStatus.FAIL,
+                        message"TypeScript compilation errors detected",
+                        detailsresult.stderr.decode()[:200],
+                    )
+                )
         except subprocess.TimeoutExpired:
-            self.results.append(CheckResult(
-                name="TypeScript Type Checking",
-                status=CheckStatus.FAIL,
-                message="Type checking timed out"
-            ))
+            self.results.append(
+                CheckResult(
+                    name"TypeScript Type Checking",
+                    statusCheckStatus.FAIL,
+                    message"Type checking timed out",
+                )
+            )
         except Exception as e:
-            self.results.append(CheckResult(
-                name="TypeScript Type Checking",
-                status=CheckStatus.FAIL,
-                message=f"Error during type checking: {str(e)}"
-            ))
-    
+            self.results.append(
+                CheckResult(
+                    name"TypeScript Type Checking",
+                    statusCheckStatus.FAIL,
+                    messagef"Error during type checking: {str(e)}",
+                )
+            )
+
     def check_linting(self):
         """Check ESLint"""
         try:
-            result = subprocess.run(
-                ["npm", "run", "lint"],
-                cwd=self.project_root,
-                capture_output=True,
-                timeout=30
+            result  subprocess.run(
+                ["npm", "run", "lint"], cwdself.project_root, capture_outputTrue, timeout30
             )
-            if result.returncode == 0:
-                self.results.append(CheckResult(
-                    name="ESLint Validation",
-                    status=CheckStatus.PASS,
-                    message="No linting errors or warnings"
-                ))
+            if result.returncode  0:
+                self.results.append(
+                    CheckResult(
+                        name"ESLint Validation",
+                        statusCheckStatus.PASS,
+                        message"No linting errors or warnings",
+                    )
+                )
             else:
-                self.results.append(CheckResult(
-                    name="ESLint Validation",
-                    status=CheckStatus.WARN,
-                    message="Linting issues detected",
-                    details=result.stdout.decode()[:200]
-                ))
+                self.results.append(
+                    CheckResult(
+                        name"ESLint Validation",
+                        statusCheckStatus.WARN,
+                        message"Linting issues detected",
+                        detailsresult.stdout.decode()[:200],
+                    )
+                )
         except Exception as e:
-            self.results.append(CheckResult(
-                name="ESLint Validation",
-                status=CheckStatus.WARN,
-                message=f"Could not run linting: {str(e)}"
-            ))
-    
+            self.results.append(
+                CheckResult(
+                    name"ESLint Validation",
+                    statusCheckStatus.WARN,
+                    messagef"Could not run linting: {str(e)}",
+                )
+            )
+
     def check_build(self):
         """Check Next.js build"""
         try:
-            result = subprocess.run(
-                ["npm", "run", "build"],
-                cwd=self.project_root,
-                capture_output=True,
-                timeout=120
+            result  subprocess.run(
+                ["npm", "run", "build"], cwdself.project_root, capture_outputTrue, timeout120
             )
-            if result.returncode == 0:
-                self.results.append(CheckResult(
-                    name="Next.js Build",
-                    status=CheckStatus.PASS,
-                    message="Production build succeeds"
-                ))
+            if result.returncode  0:
+                self.results.append(
+                    CheckResult(
+                        name"Next.js Build",
+                        statusCheckStatus.PASS,
+                        message"Production build succeeds",
+                    )
+                )
             else:
-                self.results.append(CheckResult(
-                    name="Next.js Build",
-                    status=CheckStatus.FAIL,
-                    message="Build failed",
-                    details=result.stderr.decode()[:200]
-                ))
+                self.results.append(
+                    CheckResult(
+                        name"Next.js Build",
+                        statusCheckStatus.FAIL,
+                        message"Build failed",
+                        detailsresult.stderr.decode()[:200],
+                    )
+                )
         except subprocess.TimeoutExpired:
-            self.results.append(CheckResult(
-                name="Next.js Build",
-                status=CheckStatus.FAIL,
-                message="Build timed out"
-            ))
+            self.results.append(
+                CheckResult(
+                    name"Next.js Build", statusCheckStatus.FAIL, message"Build timed out"
+                )
+            )
         except Exception as e:
-            self.results.append(CheckResult(
-                name="Next.js Build",
-                status=CheckStatus.FAIL,
-                message=f"Error during build: {str(e)}"
-            ))
-    
+            self.results.append(
+                CheckResult(
+                    name"Next.js Build",
+                    statusCheckStatus.FAIL,
+                    messagef"Error during build: {str(e)}",
+                )
+            )
+
     def check_environment(self):
         """Check environment configuration"""
-        required_keys = [
+        required_keys  [
             "NEXT_PUBLIC_SUPABASE_URL",
             "NEXT_PUBLIC_SUPABASE_ANON_KEY",
         ]
-        
-        missing = [k for k in required_keys if not os.getenv(k)]
-        
+
+        missing  [k for k in required_keys if not os.getenv(k)]
+
         if not missing:
-            self.results.append(CheckResult(
-                name="Environment Variables",
-                status=CheckStatus.PASS,
-                message="All required environment variables set"
-            ))
+            self.results.append(
+                CheckResult(
+                    name"Environment Variables",
+                    statusCheckStatus.PASS,
+                    message"All required environment variables set",
+                )
+            )
         else:
-            self.results.append(CheckResult(
-                name="Environment Variables",
-                status=CheckStatus.WARN,
-                message=f"Missing environment variables: {', '.join(missing)}"
-            ))
-    
+            self.results.append(
+                CheckResult(
+                    name"Environment Variables",
+                    statusCheckStatus.WARN,
+                    messagef"Missing environment variables: {', '.join(missing)}",
+                )
+            )
+
     def check_dependencies(self):
         """Check npm dependencies"""
         try:
-            result = subprocess.run(
-                ["npm", "list", "--depth=0"],
-                cwd=self.project_root,
-                capture_output=True,
-                timeout=30
+            result  subprocess.run(
+                ["npm", "list", "--depth0"], cwdself.project_root, capture_outputTrue, timeout30
             )
-            if result.returncode == 0:
-                self.results.append(CheckResult(
-                    name="NPM Dependencies",
-                    status=CheckStatus.PASS,
-                    message="All dependencies installed"
-                ))
+            if result.returncode  0:
+                self.results.append(
+                    CheckResult(
+                        name"NPM Dependencies",
+                        statusCheckStatus.PASS,
+                        message"All dependencies installed",
+                    )
+                )
             else:
-                self.results.append(CheckResult(
-                    name="NPM Dependencies",
-                    status=CheckStatus.WARN,
-                    message="Some dependency issues detected"
-                ))
+                self.results.append(
+                    CheckResult(
+                        name"NPM Dependencies",
+                        statusCheckStatus.WARN,
+                        message"Some dependency issues detected",
+                    )
+                )
         except Exception as e:
-            self.results.append(CheckResult(
-                name="NPM Dependencies",
-                status=CheckStatus.WARN,
-                message=f"Could not check dependencies: {str(e)}"
-            ))
-    
+            self.results.append(
+                CheckResult(
+                    name"NPM Dependencies",
+                    statusCheckStatus.WARN,
+                    messagef"Could not check dependencies: {str(e)}",
+                )
+            )
+
     def check_migrations(self):
         """Check Supabase migrations"""
-        migrations_dir = self.project_root / "supabase" / "migrations"
+        migrations_dir  self.project_root / "supabase" / "migrations"
         if migrations_dir.exists():
-            migration_files = list(migrations_dir.glob("*.sql"))
+            migration_files  list(migrations_dir.glob("*.sql"))
             if migration_files:
-                self.results.append(CheckResult(
-                    name="Supabase Migrations",
-                    status=CheckStatus.PASS,
-                    message=f"Found {len(migration_files)} migrations"
-                ))
+                self.results.append(
+                    CheckResult(
+                        name"Supabase Migrations",
+                        statusCheckStatus.PASS,
+                        messagef"Found {len(migration_files)} migrations",
+                    )
+                )
             else:
-                self.results.append(CheckResult(
-                    name="Supabase Migrations",
-                    status=CheckStatus.WARN,
-                    message="No migration files found"
-                ))
+                self.results.append(
+                    CheckResult(
+                        name"Supabase Migrations",
+                        statusCheckStatus.WARN,
+                        message"No migration files found",
+                    )
+                )
         else:
-            self.results.append(CheckResult(
-                name="Supabase Migrations",
-                status=CheckStatus.WARN,
-                message="Migrations directory not found"
-            ))
-    
+            self.results.append(
+                CheckResult(
+                    name"Supabase Migrations",
+                    statusCheckStatus.WARN,
+                    message"Migrations directory not found",
+                )
+            )
+
     def check_api_routes(self):
         """Check API routes"""
-        api_dir = self.project_root / "app" / "api"
+        api_dir  self.project_root / "app" / "api"
         if api_dir.exists():
-            route_files = list(api_dir.rglob("route.ts"))
+            route_files  list(api_dir.rglob("route.ts"))
             if route_files:
-                self.results.append(CheckResult(
-                    name="API Routes",
-                    status=CheckStatus.PASS,
-                    message=f"Found {len(route_files)} API routes"
-                ))
+                self.results.append(
+                    CheckResult(
+                        name"API Routes",
+                        statusCheckStatus.PASS,
+                        messagef"Found {len(route_files)} API routes",
+                    )
+                )
             else:
-                self.results.append(CheckResult(
-                    name="API Routes",
-                    status=CheckStatus.WARN,
-                    message="No API routes found"
-                ))
+                self.results.append(
+                    CheckResult(
+                        name"API Routes", statusCheckStatus.WARN, message"No API routes found"
+                    )
+                )
         else:
-            self.results.append(CheckResult(
-                name="API Routes",
-                status=CheckStatus.WARN,
-                message="API directory not found"
-            ))
-    
+            self.results.append(
+                CheckResult(
+                    name"API Routes", statusCheckStatus.WARN, message"API directory not found"
+                )
+            )
+
     def check_python_runtime(self):
         """Check Python runtime"""
         try:
-            result = subprocess.run(
+            result  subprocess.run(
                 ["python3", "abaco_runtime/showcase_agents.py"],
-                cwd=self.project_root,
-                capture_output=True,
-                timeout=30
+                cwdself.project_root,
+                capture_outputTrue,
+                timeout30,
             )
-            if result.returncode == 0:
-                self.results.append(CheckResult(
-                    name="Python Runtime (AI Agents)",
-                    status=CheckStatus.PASS,
-                    message="AI agent system runs successfully"
-                ))
+            if result.returncode  0:
+                self.results.append(
+                    CheckResult(
+                        name"Python Runtime (AI Agents)",
+                        statusCheckStatus.PASS,
+                        message"AI agent system runs successfully",
+                    )
+                )
             else:
-                self.results.append(CheckResult(
-                    name="Python Runtime (AI Agents)",
-                    status=CheckStatus.FAIL,
-                    message="AI agent system error"
-                ))
+                self.results.append(
+                    CheckResult(
+                        name"Python Runtime (AI Agents)",
+                        statusCheckStatus.FAIL,
+                        message"AI agent system error",
+                    )
+                )
         except Exception as e:
-            self.results.append(CheckResult(
-                name="Python Runtime (AI Agents)",
-                status=CheckStatus.WARN,
-                message=f"Could not test Python runtime: {str(e)}"
-            ))
-    
+            self.results.append(
+                CheckResult(
+                    name"Python Runtime (AI Agents)",
+                    statusCheckStatus.WARN,
+                    messagef"Could not test Python runtime: {str(e)}",
+                )
+            )
+
     def check_secrets(self):
         """Check for exposed secrets"""
-        sensitive_patterns = [
+        sensitive_patterns  [
             "sk-",
             "xai-",
             "hf_",
             "Bearer ",
         ]
-        
-        suspicious_files = []
+
+        suspicious_files  []
         for pattern in sensitive_patterns:
-            result = subprocess.run(
+            result  subprocess.run(
                 ["grep", "-r", pattern, "app/", "lib/", "components/"],
-                cwd=self.project_root,
-                capture_output=True
+                cwdself.project_root,
+                capture_outputTrue,
             )
-            if result.returncode == 0:
-                suspicious_files.extend(result.stdout.decode().split('\n')[:3])
-        
+            if result.returncode  0:
+                suspicious_files.extend(result.stdout.decode().split("\n")[:3])
+
         if not suspicious_files:
-            self.results.append(CheckResult(
-                name="Secrets Exposure Check",
-                status=CheckStatus.PASS,
-                message="No exposed secrets detected"
-            ))
+            self.results.append(
+                CheckResult(
+                    name"Secrets Exposure Check",
+                    statusCheckStatus.PASS,
+                    message"No exposed secrets detected",
+                )
+            )
         else:
-            self.results.append(CheckResult(
-                name="Secrets Exposure Check",
-                status=CheckStatus.WARN,
-                message="Potential secrets found (verify not hardcoded)"
-            ))
-    
+            self.results.append(
+                CheckResult(
+                    name"Secrets Exposure Check",
+                    statusCheckStatus.WARN,
+                    message"Potential secrets found (verify not hardcoded)",
+                )
+            )
+
     def check_git_status(self):
         """Check git status"""
         try:
-            result = subprocess.run(
-                ["git", "status", "--short"],
-                cwd=self.project_root,
-                capture_output=True,
-                timeout=10
+            result  subprocess.run(
+                ["git", "status", "--short"], cwdself.project_root, capture_outputTrue, timeout10
             )
-            modified_count = len([l for l in result.stdout.decode().split('\n') if l.strip()])
-            
-            if modified_count == 0:
-                self.results.append(CheckResult(
-                    name="Git Status",
-                    status=CheckStatus.PASS,
-                    message="Working directory clean"
-                ))
+            modified_count  len([l for l in result.stdout.decode().split("\n") if l.strip()])
+
+            if modified_count  0:
+                self.results.append(
+                    CheckResult(
+                        name"Git Status",
+                        statusCheckStatus.PASS,
+                        message"Working directory clean",
+                    )
+                )
             else:
-                self.results.append(CheckResult(
-                    name="Git Status",
-                    status=CheckStatus.WARN,
-                    message=f"{modified_count} files with uncommitted changes"
-                ))
+                self.results.append(
+                    CheckResult(
+                        name"Git Status",
+                        statusCheckStatus.WARN,
+                        messagef"{modified_count} files with uncommitted changes",
+                    )
+                )
         except Exception as e:
-            self.results.append(CheckResult(
-                name="Git Status",
-                status=CheckStatus.SKIP,
-                message=f"Could not check git status: {str(e)}"
-            ))
-    
+            self.results.append(
+                CheckResult(
+                    name"Git Status",
+                    statusCheckStatus.SKIP,
+                    messagef"Could not check git status: {str(e)}",
+                )
+            )
+
     def print_report(self, passed: int, failed: int):
         """Print validation report"""
-        print("\n" + "="*80)
+        print("\n" + "" * 80)
         print("VALIDATION RESULTS")
-        print("="*80 + "\n")
-        
+        print("" * 80 + "\n")
+
         for result in self.results:
             print(f"{result.status.value} {result.name}")
             print(f"   {result.message}")
             if result.details:
                 print(f"   Details: {result.details[:100]}...")
             print()
-        
-        print("="*80)
+
+        print("" * 80)
         print(f"Summary: {passed} passed, {failed} failed")
-        print("="*80 + "\n")
-        
-        if failed > 0:
+        print("" * 80 + "\n")
+
+        if failed  0:
             print("❌ DEPLOYMENT NOT READY - Fix the failures above\n")
             sys.exit(1)
         else:
             print("✅ READY FOR DEPLOYMENT\n")
             sys.exit(0)
 
-def main():
-    project_root = Path(__file__).parent.parent
-    checker = PreDeploymentChecker(project_root)
-    passed, failed = checker.run_all_checks()
 
-if __name__ == "__main__":
+def main():
+    project_root  Path(__file__).parent.parent
+    checker  PreDeploymentChecker(project_root)
+    passed, failed  checker.run_all_checks()
+
+
+if __name__  "__main__":
     main()

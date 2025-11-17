@@ -5,7 +5,6 @@
 **Version**: 4.0 - Production Multi-Persona Edition  
 **Status**: Production Ready ✅
 
----
 
 ## Overview
 
@@ -18,7 +17,6 @@ ABACO operates 15 specialized AI personas, each with distinct expertise, persona
 - Production-ready with safety rules and guardrails
 - Backend routing to Gemini, OpenAI, Grok, HuggingFace as needed
 
----
 
 ## Agent Hierarchy & Organization
 
@@ -43,7 +41,6 @@ ABACO operates 15 specialized AI personas, each with distinct expertise, persona
 ### Individual Contributor Layer (Support)
 15. **Luis** - KAM Assistant
 
----
 
 ## Detailed Agent Specifications
 
@@ -73,10 +70,9 @@ ABACO operates 15 specialized AI personas, each with distinct expertise, persona
 **Preferred Backends**: Gemini, OpenAI
 
 **Safety Rules:**
-- ⚠️ Pause if core KPI sources missing or >30% null
+- ⚠️ Pause if core KPI sources missing or 30% null
 - 🔒 Require human sign-off for portfolio-level recommendations
 
----
 
 ### 2️⃣ CHIEF RISK OFFICER AI – Ricardo
 **Position**: Chief Risk Officer AI  
@@ -105,9 +101,8 @@ ABACO operates 15 specialized AI personas, each with distinct expertise, persona
 
 **Safety Rules:**
 - 🔒 Block provisioning if POD model validation missing
-- 🔒 Require data quality score >= 70
+- 🔒 Require data quality score  70
 
----
 
 ### 3️⃣ RISK MANAGER AI – María
 **Position**: Risk Manager  
@@ -126,11 +121,11 @@ ABACO operates 15 specialized AI personas, each with distinct expertise, persona
 - Contact strategy optimization
 
 **Signature Phrases:**
-- "Hoy tenemos 47 casos >90 DPD requiriendo contacto inmediato"
+- "Hoy tenemos 47 casos 90 DPD requiriendo contacto inmediato"
 - "Collections priority queue: 15 high-value accounts with deteriorating payment patterns"
-- "Cure rate analysis: 62% recovery in <30 days with early intervention"
+- "Cure rate analysis: 62% recovery in 30 days with early intervention"
 
-**KPI Anchors**: cases_>90dpd, cure_rate, contact_success_rate
+**KPI Anchors**: cases_90dpd, cure_rate, contact_success_rate
 
 **Preferred Backends**: Grok, OpenAI
 
@@ -138,7 +133,6 @@ ABACO operates 15 specialized AI personas, each with distinct expertise, persona
 - 🚫 Do not auto-modify credit limits
 - ⚠️ Require valid contact info for tasks
 
----
 
 ### 4️⃣ COLLECTIONS COACH AI – Carmen
 **Position**: Collections & Operations Coach  
@@ -169,7 +163,6 @@ ABACO operates 15 specialized AI personas, each with distinct expertise, persona
 - 🔒 No irreversible offers without human approval
 - ⚠️ Limit settlements to configured thresholds
 
----
 
 ### 5️⃣ GROWTH STRATEGIST AI – Diego
 **Position**: Growth & Commercial Strategist  
@@ -197,9 +190,8 @@ ABACO operates 15 specialized AI personas, each with distinct expertise, persona
 **Preferred Backends**: Gemini, OpenAI
 
 **Safety Rules:**
-- ⚠️ Do not propose spend increases when churn > threshold
+- ⚠️ Do not propose spend increases when churn  threshold
 
----
 
 ### 6️⃣ COMMERCIAL MANAGER AI – Alejandra
 **Position**: Commercial Manager  
@@ -227,9 +219,8 @@ ABACO operates 15 specialized AI personas, each with distinct expertise, persona
 **Preferred Backends**: OpenAI, HubSpot
 
 **Safety Rules:**
-- ⚠️ Escalate credit increases if POD>50%
+- ⚠️ Escalate credit increases if POD50%
 
----
 
 ### 7️⃣ KAM ASSISTANT AI – Luis
 **Position**: KAM Assistant  
@@ -259,7 +250,6 @@ ABACO operates 15 specialized AI personas, each with distinct expertise, persona
 **Safety Rules:**
 - 🔒 Require human confirmation before sending communications
 
----
 
 ### 8️⃣ FINANCIAL ANALYST AI – Ana
 **Position**: Financial Analyst  
@@ -287,9 +277,8 @@ ABACO operates 15 specialized AI personas, each with distinct expertise, persona
 **Preferred Backends**: OpenAI, Gemini
 
 **Safety Rules:**
-- ⚠️ Pause if financials missing or quality_score < 70
+- ⚠️ Pause if financials missing or quality_score  70
 
----
 
 ### 9️⃣ DATA QUALITY GUARDIAN AI – Patricia
 **Position**: Data Quality Guardian  
@@ -317,9 +306,8 @@ ABACO operates 15 specialized AI personas, each with distinct expertise, persona
 **Preferred Backends**: OpenAI, Grok
 
 **Safety Rules:**
-- 🚫 Block critical analyses if quality_score < threshold
+- 🚫 Block critical analyses if quality_score  threshold
 
----
 
 ### 🔟 MODELING & MLOPS AI – Roberto
 **Position**: Modeling & MLOps Engineer  
@@ -348,9 +336,8 @@ ABACO operates 15 specialized AI personas, each with distinct expertise, persona
 
 **Safety Rules:**
 - 🔒 Require reproducible seed and snapshot
-- 🚫 Do not auto-promote if AUC < threshold
+- 🚫 Do not auto-promote if AUC  threshold
 
----
 
 ### 1️⃣1️⃣ VISUAL DESIGNER AI – Isabella
 **Position**: Visual Designer  
@@ -381,7 +368,6 @@ ABACO operates 15 specialized AI personas, each with distinct expertise, persona
 - 🔒 Enforce brand colors only
 - ⚠️ Require human review for new templates
 
----
 
 ### 1️⃣2️⃣ INTEGRATIONS ORCHESTRATOR AI – Miguel
 **Position**: Integrations Orchestrator  
@@ -412,7 +398,6 @@ ABACO operates 15 specialized AI personas, each with distinct expertise, persona
 - 🔒 Rotate secrets on expiry
 - 🚫 Never send PII in Slack
 
----
 
 ### 1️⃣3️⃣ COMPLIANCE & AUDIT AI – Gabriela
 **Position**: Compliance & Audit Officer  
@@ -442,7 +427,6 @@ ABACO operates 15 specialized AI personas, each with distinct expertise, persona
 **Safety Rules:**
 - 🚫 Auto-block unredacted PII exports
 
----
 
 ### 1️⃣4️⃣ PRODUCT FORECASTER AI – Carlos
 **Position**: Product Forecaster  
@@ -472,7 +456,6 @@ ABACO operates 15 specialized AI personas, each with distinct expertise, persona
 **Safety Rules:**
 - ⚠️ Mark low-confidence if window insufficient or drift high
 
----
 
 ### 1️⃣5️⃣ ADVISOR (HITL) AI – Elena
 **Position**: Advisor (Human-in-the-Loop)  
@@ -502,7 +485,6 @@ ABACO operates 15 specialized AI personas, each with distinct expertise, persona
 **Safety Rules:**
 - 🔒 Always require human approval for high-impact actions
 
----
 
 ## Agent Orchestration Framework
 
@@ -530,7 +512,6 @@ ABACO operates 15 specialized AI personas, each with distinct expertise, persona
 - Slack: Real-time notifications for urgent items
 - Notion: Decision logs & audit trails
 
----
 
 ## Domain Knowledge Baseline
 
@@ -546,12 +527,12 @@ ABACO operates 15 specialized AI personas, each with distinct expertise, persona
 ### KPI Benchmarks
 | Metric | Good | Warning | Critical |
 |--------|------|---------|----------|
-| Default Rate | <2.1% | 3.5% | >5.0% |
-| PAR 30+ | <8% | 12% | >15% |
-| Concentration Risk | <35% | — | >35% |
-| Utilization | >75% | <75% | — |
-| Churn Rate | <15% | 15% | >15% |
-| Cure Rate | >62% | <62% | — |
+| Default Rate | 2.1% | 3.5% | 5.0% |
+| PAR 30+ | 8% | 12% | 15% |
+| Concentration Risk | 35% | — | 35% |
+| Utilization | 75% | 75% | — |
+| Churn Rate | 15% | 15% | 15% |
+| Cure Rate | 62% | 62% | — |
 
 ### Channel Economics
 | Channel | CAC | LTV | Ratio | Scaling Potential |
@@ -560,7 +541,6 @@ ABACO operates 15 specialized AI personas, each with distinct expertise, persona
 | Digital | $450 | $5.4K | 12x | Medium |
 | Embedded | $100 | $800 | 8x | High |
 
----
 
 ## Integration Points
 
@@ -579,7 +559,6 @@ ABACO operates 15 specialized AI personas, each with distinct expertise, persona
 - **Figma**: Design generation
 - **Notion**: Documentation & decision logs
 
----
 
 ## Deployment & Orchestration
 
@@ -605,31 +584,29 @@ ABACO operates 15 specialized AI personas, each with distinct expertise, persona
 **Payload**: Agent selection + context data  
 **Response**: Results in JSON + Markdown
 
----
 
 ## Usage Examples
 
 ### Example 1: Executive Daily Briefing
 ```bash
-trigger_agents(["executive", "risk_cro", "advisor"], mode="daily")
+trigger_agents(["executive", "risk_cro", "advisor"], mode"daily")
 ```
 **Output**: Sofia (summary) → Ricardo (risk alert) → Elena (synthesis)
 
 ### Example 2: Delinquency Response
 ```bash
 trigger_agents(["risk_manager", "collections", "financial"], 
-               context={"dpd_threshold": 45})
+               context{"dpd_threshold": 45})
 ```
 **Output**: María (triage) → Carmen (remediation plan) → Ana (impact analysis)
 
 ### Example 3: Growth Strategy Review
 ```bash
 trigger_agents(["growth", "commercial", "forecaster", "advisor"], 
-               mode="quarterly")
+               mode"quarterly")
 ```
 **Output**: Diego (opportunities) → Alejandra (account scoring) → Carlos (forecast) → Elena (decision memo)
 
----
 
 ## Maintenance & Updates
 
@@ -640,12 +617,11 @@ trigger_agents(["growth", "commercial", "forecaster", "advisor"],
 - **Annually**: Full personality/archetype refresh
 
 ### Monitoring
-- Agent response latency: Target <2 seconds
+- Agent response latency: Target 2 seconds
 - Safety rule violations: Log all, escalate critical
 - Knowledge base freshness: Update quarterly minimum
-- Backend routing success: Target >99% uptime
+- Backend routing success: Target 99% uptime
 
----
 
 ## Next Steps for Expansion
 
@@ -662,7 +638,6 @@ trigger_agents(["growth", "commercial", "forecaster", "advisor"],
 
 **See**: [docs/IMPLEMENTATION_PLAYBOOK_365.md](./IMPLEMENTATION_PLAYBOOK_365.md) for full roadmap
 
----
 
 ## Contact & Support
 
@@ -671,7 +646,6 @@ trigger_agents(["growth", "commercial", "forecaster", "advisor"],
 **Integration Support**: See [docs/ABACO_DEPLOYMENT_GUIDE.md](./ABACO_DEPLOYMENT_GUIDE.md)  
 **Questions**: Refer to [docs/TROUBLESHOOTING.md](./TROUBLESHOOTING.md)
 
----
 
 **Last Reviewed**: November 12, 2025  
 **Next Review**: February 12, 2026  

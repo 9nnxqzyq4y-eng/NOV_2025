@@ -21,13 +21,13 @@ This guide explains how to configure Model Context Protocol (MCP) servers for th
 ### 3. GitHub Personal Access Token
 
 - **Purpose**: Repository management and code analysis
-- **Create**: GitHub Settings > Developer settings > Personal access tokens
+- **Create**: GitHub Settings  Developer settings  Personal access tokens
 - **Scopes**: `repo`, `read:org`
 
 ### 4. Google Search API Key
 
 - **Purpose**: Enhanced web search capabilities
-- **Setup**: Google Cloud Console > APIs & Services > Credentials
+- **Setup**: Google Cloud Console  APIs & Services  Credentials
 - **Also need**: Custom Search Engine ID
 
 ## Quick Setup
@@ -42,14 +42,14 @@ npm install @modelcontextprotocol/sdk
 Create or update `.env.local`:
 
 # MCP Server API Keys
-PERPLEXITY_API_KEY=pplx-your-api-key-here
-BRAVE_API_KEY=your-brave-api-key-here
-GITHUB_PERSONAL_ACCESS_TOKEN=your-github-token-here
-GOOGLE_SEARCH_API_KEY=your-google-api-key-here
-GOOGLE_SEARCH_ENGINE_ID=your-search-engine-id-here
+PERPLEXITY_API_KEYpplx-your-api-key-here
+BRAVE_API_KEYyour-brave-api-key-here
+GITHUB_PERSONAL_ACCESS_TOKENyour-github-token-here
+GOOGLE_SEARCH_API_KEYyour-google-api-key-here
+GOOGLE_SEARCH_ENGINE_IDyour-search-engine-id-here
 
 # xAI Grok API (for AI insights)
-NEXT_PUBLIC_GROK_API_KEY=your-grok-api-key-here
+NEXT_PUBLIC_GROK_API_KEYyour-grok-api-key-here
 
 ### 3. Test MCP Configuration
 
@@ -63,7 +63,7 @@ npx -y @modelcontextprotocol/server-fetch --help
 import { useMCPIntegration } from '@/app/dashboard/financial/hooks/useMCPIntegration'
 
 function FinancialDashboard() {
-  const { isInitialized, searchFinancialInsights } = useMCPIntegration()
+  const { isInitialized, searchFinancialInsights }  useMCPIntegration()
 
   // Use MCP capabilities in your components
 }
@@ -90,13 +90,13 @@ function FinancialDashboard() {
 
 ### Financial Market Research
 
-const insights = await searchFinancialInsights(
+const insights  await searchFinancialInsights(
   'Current trends in lending market and default rates'
 )
 
 ### Market Data Fetching
 
-const marketData = await fetchMarketData(
+const marketData  await fetchMarketData(
   'https://api.abaco.finance/financial-data'
 
 ### Analysis Storage
@@ -164,16 +164,16 @@ If MCP servers fail to initialize, the ABACO platform will automatically fall ba
 
 Add environment variables in Vercel dashboard:
 
-PERPLEXITY_API_KEY=@perplexity_api_key
-BRAVE_API_KEY=@brave_api_key
-GITHUB_PERSONAL_ACCESS_TOKEN=@github_token
+PERPLEXITY_API_KEY@perplexity_api_key
+BRAVE_API_KEY@brave_api_key
+GITHUB_PERSONAL_ACCESS_TOKEN@github_token
 
 ### Docker Environment
 
 ```dockerfile
-ENV PERPLEXITY_API_KEY=${PERPLEXITY_API_KEY}
-ENV BRAVE_API_KEY=${BRAVE_API_KEY}
-ENV GITHUB_PERSONAL_ACCESS_TOKEN=${GITHUB_PERSONAL_ACCESS_TOKEN}
+ENV PERPLEXITY_API_KEY${PERPLEXITY_API_KEY}
+ENV BRAVE_API_KEY${BRAVE_API_KEY}
+ENV GITHUB_PERSONAL_ACCESS_TOKEN${GITHUB_PERSONAL_ACCESS_TOKEN}
 
 ## Support
 
@@ -191,7 +191,6 @@ For MCP-related issues:
 - Next.js: 14+
 - TypeScript: 5+
 
----
 
 _This guide is part of the ABACO Financial Intelligence Platform documentation._
 

@@ -2,7 +2,7 @@
 ABACO Financial Intelligence Platform - 4K Theme Configuration
 Enterprise-grade dark theme with purple gradients for superior visual analytics
 
-ABACO_THEME = {
+ABACO_THEME  {
     # Primary Brand Colors (Purple Gradient Palette)
     "brand_primary_light": "#9b87f5",
     "brand_primary_medium": "#7E69AB",
@@ -72,7 +72,7 @@ ABACO_THEME = {
 }
 
 # Plotly Layout Template for 4K Resolution
-PLOTLY_LAYOUT_4K = {
+PLOTLY_LAYOUT_4K  {
     "template": "plotly_dark",
     "paper_bgcolor": ABACO_THEME["bg_primary"],
     "plot_bgcolor": ABACO_THEME["bg_card"],
@@ -102,10 +102,10 @@ PLOTLY_LAYOUT_4K = {
     "margin": {"l": 80, "r": 80, "t": 100, "b": 80},
 
 # Custom CSS for Streamlit
-CUSTOM_CSS = f"""
-<style>
+CUSTOM_CSS  f"""
+style
     /* Import Inter Font */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?familyInter:wght@300;400;500;600;700;800&displayswap');
     
     /* Global Styles */
     .stApp {{
@@ -115,7 +115,7 @@ CUSTOM_CSS = f"""
     }}
     
     /* Sidebar Styling */
-    .css-1d391kg, [data-testid="stSidebar"] {{
+    .css-1d391kg, [data-testid"stSidebar"] {{
         background: {ABACO_THEME["bg_secondary"]};
         border-right: 1px solid {ABACO_THEME["brand_primary_dark"]};
     
@@ -139,23 +139,23 @@ CUSTOM_CSS = f"""
         box-shadow: {ABACO_THEME["shadow_md"]};
     
     /* Metric Cards */
-    [data-testid="stMetricValue"] {{
+    [data-testid"stMetricValue"] {{
         font-size: {ABACO_THEME["font_size_large"]};
         color: {ABACO_THEME["brand_primary_light"]};
     
-    [data-testid="stMetricLabel"] {{
+    [data-testid"stMetricLabel"] {{
         color: {ABACO_THEME["text_secondary"]};
         font-size: 14px;
         font-weight: 500;
     
     /* Button Styling */
-    .stButton > button {{
+    .stButton  button {{
         border: none;
         padding: {ABACO_THEME["spacing_xs"]} {ABACO_THEME["spacing_md"]};
         font-weight: 600;
         transition: all 0.3s ease;
     
-    .stButton > button:hover {{
+    .stButton  button:hover {{
         transform: translateY(-2px);
         box-shadow: {ABACO_THEME["shadow_lg"]};
     
@@ -173,9 +173,9 @@ CUSTOM_CSS = f"""
         padding: 10px;
     
     /* Input Fields */
-    .stTextInput > div > div > input,
-    .stNumberInput > div > div > input,
-    .stSelectbox > div > div > div {{
+    .stTextInput  div  div  input,
+    .stNumberInput  div  div  input,
+    .stSelectbox  div  div  div {{
         background: {ABACO_THEME["bg_tertiary"]};
         border: 1px solid {ABACO_THEME["brand_primary_dark"]};
         border-radius: {ABACO_THEME["border_radius_sm"]};
@@ -186,27 +186,27 @@ CUSTOM_CSS = f"""
         padding: {ABACO_THEME["spacing_md"]};
     
     /* Tabs */
-    .stTabs [data-baseweb="tab-list"] {{
+    .stTabs [data-baseweb"tab-list"] {{
         gap: 8px;
         padding: 8px;
     
-    .stTabs [data-baseweb="tab"] {{
+    .stTabs [data-baseweb"tab"] {{
         background: transparent;
     
-    .stTabs [aria-selected="true"] {{
+    .stTabs [aria-selected"true"] {{
     
     /* Spinner */
-    .stSpinner > div {{
+    .stSpinner  div {{
         border-top-color: {ABACO_THEME["brand_primary_light"]};
     
     /* Progress Bar */
-    .stProgress > div > div > div {{
+    .stProgress  div  div  div {{
     
     /* Expander */
     .streamlit-expanderHeader {{
     
     /* File Uploader */
-    [data-testid="stFileUploadDropzone"] {{
+    [data-testid"stFileUploadDropzone"] {{
         border: 2px dashed {ABACO_THEME["brand_primary_medium"]};
         border-radius: {ABACO_THEME["border_radius_lg"]};
     
@@ -214,10 +214,10 @@ CUSTOM_CSS = f"""
     .stToast {{
         border-left: 4px solid {ABACO_THEME["brand_primary_light"]};
         box-shadow: {ABACO_THEME["shadow_xl"]};
-</style>
+/style
 
 # Plotly Chart Configuration for 4K Export
-PLOTLY_CONFIG_4K = {
+PLOTLY_CONFIG_4K  {
     "displayModeBar": True,
     "displaylogo": False,
     "modeBarButtonsToRemove": ["lasso2d", "select2d"],

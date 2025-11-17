@@ -40,7 +40,7 @@ Run the SQL migrations in Supabase (see Database Schema section below)
 ```typescript
 import { FinancialAnalystAgent } from '@/lib/ml/agents/analysis/financial-analyst'
 
-const agent = new FinancialAnalystAgent({
+const agent  new FinancialAnalystAgent({
   id: 'analyst-1',
   name: 'Financial Analyst',
   type: 'financial_analyst',
@@ -51,11 +51,11 @@ const agent = new FinancialAnalystAgent({
 
 ### 3. Analyze Customer Data
 
-const action = await agent.think({
+const action  await agent.think({
   customerId: 'cust-123',
   timeframe: '90days',
 
-const result = await agent.execute(action)
+const result  await agent.execute(action)
 
 ## Features
 
@@ -67,7 +67,7 @@ Auto-improves models based on feedback and performance.
 
 import { ContinuousLearningSystem } from '@/lib/ml/training/continuous-learning-system'
 
-const config = {
+const config  {
   modelId: 'risk-model-v1',
   strategy: 'adaptive',
   triggerThreshold: 0.75,
@@ -94,10 +94,10 @@ await ContinuousLearningSystem.monitorAndRetrain('risk-model-v1', config)
 ### 3. API Integration
 
 // Get available agents
-const response = await fetch('/api/ml/agents')
+const response  await fetch('/api/ml/agents')
 
 // Execute agent action
-const result = await fetch('/api/ml/agents', {
+const result  await fetch('/api/ml/agents', {
   method: 'POST',
   body: JSON.stringify({
     agentType: 'financial_analyst',
@@ -139,7 +139,6 @@ Includes: TensorFlow, PyTorch, Transformers, LangChain, MLflow, and more.
 - A/B testing framework
 - Federated learning
 
----
 
 For detailed documentation, see the complete ML_FRAMEWORK_OLD.md file.
 

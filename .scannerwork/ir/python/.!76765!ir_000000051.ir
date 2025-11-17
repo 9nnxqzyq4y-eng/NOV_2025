@@ -1,0 +1,19 @@
+
+
+22int
+,,#"Dataset has minor quality issues."str
+"quality_thresholds"str
+bY"Invalid or empty dataset. Expected a dictionary with a 'records' key containing a list."str
+	"warning"str
+	"details"str
+"reject"str
+$
+"APPROVED"str
+-&$"Dataset passed all quality checks."str
+"score"str
+0.0float
+9"issues"str
+"status"str
+*	"WARNING"str
+ 100.0float
+85.0float

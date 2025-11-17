@@ -25,10 +25,10 @@ RUN addgroup -g 1001 -S nodejs && \
     adduser -S nextjs -u 1001
 
 # Copy built application from builder
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
-COPY --from=builder --chown=nextjs:nodejs /app/package.json /app/package-lock.json ./
-COPY --from=builder --chown=nextjs:nodejs /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
+COPY --frombuilder --chownnextjs:nodejs /app/.next ./.next
+COPY --frombuilder --chownnextjs:nodejs /app/package.json /app/package-lock.json ./
+COPY --frombuilder --chownnextjs:nodejs /app/public ./public
+COPY --frombuilder --chownnextjs:nodejs /app/node_modules ./node_modules
 
 # Switch to non-root user
 USER nextjs
@@ -36,10 +36,10 @@ USER nextjs
 EXPOSE 3000
 
 # Add runtime configuration
-ENV NEXT_TELEMETRY_DISABLED=1
-ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED1
+ENV NODE_ENVproduction
 
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node -e "require('http').get('http://localhost:3000', (r) => {if (r.statusCode !== 200) throw new Error(r.statusCode)})"
+HEALTHCHECK --interval30s --timeout3s --start-period5s --retries3 \
+  CMD node -e "require('http').get('http://localhost:3000', (r)  {if (r.statusCode ! 200) throw new Error(r.statusCode)})"
 
 CMD ["npm", "start"]

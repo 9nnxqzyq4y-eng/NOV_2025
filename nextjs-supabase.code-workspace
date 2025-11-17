@@ -21,7 +21,7 @@
       "PATH": "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${env:PATH}",
       "NODE_PATH": "/usr/local/lib/node_modules",
       "GIT_EXEC_PATH": "/usr/bin",
-    // === Project-Specific Settings ===
+    //  Project-Specific Settings 
     // Define formatter settings for code consistency across the team.
     "[python]": {
       "editor.defaultFormatter": "ms-python.black-formatter",

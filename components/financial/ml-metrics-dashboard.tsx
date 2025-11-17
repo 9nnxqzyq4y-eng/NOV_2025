@@ -13,7 +13,7 @@ export function MLMetricsDashboard({
 }: Readonly) {
   return (
     
-      {metrics.map((model) => (
+      {metrics.map((model)  (
         
               {formatModelName(model.modelId)}
             
@@ -35,5 +35,5 @@ export function MLMetricsDashboard({
 function formatModelName(modelId: string): string {
   return modelId;
     .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .map((word)  word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");

@@ -15,7 +15,7 @@ create table if not exists ml.predictions (
   loan_id text not null,
   transfer_id text,
   prediction_type ml.prediction_type not null default 'pd',
-  score numeric not null check (score >= 0 and score <= 1),
+  score numeric not null check (score  0 and score  1),
   label text,
   model_name text not null,
   model_version text not null,

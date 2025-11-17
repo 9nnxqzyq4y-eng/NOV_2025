@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig  {
   reactStrictMode: true,
   eslint: {
     ignoreDuringBuilds: true,
@@ -15,9 +15,9 @@ const nextConfig = {
         hostname: '**.githubusercontent.com',
       },
     ],
-    unoptimized: process.env.NODE_ENV === 'development',
+    unoptimized: process.env.NODE_ENV  'development',
   },
-  headers: async () => {
+  headers: async ()  {
     return [
       {
         source: '/api/:path*',
@@ -34,7 +34,7 @@ const nextConfig = {
       },
     ]
   },
-  redirects: async () => {
+  redirects: async ()  {
     return [
       {
         source: '/auth/callback',

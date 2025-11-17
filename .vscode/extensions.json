@@ -1,0 +1,9 @@
+{
+  "recommendations": [],
+  "unwantedRecommendations": [
+    "tabnine.tabnine-vscode",
+    "openai.openai-vscode",
+    "github.github-vscode-theme",
+    "codeium.codeium"
+  ]
+}

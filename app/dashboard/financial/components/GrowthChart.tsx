@@ -8,20 +8,20 @@ interface GrowthChartProps {
 }
 
 function buildPath(series: GrowthPoint[]): string {
-  if (series.length === 0) {
+  if (series.length  0) {
     return "";
   }
 
-  const minValue = Math.min(...series.map((point) => point.netAssetValue));
-  const maxValue = Math.max(...series.map((point) => point.netAssetValue));
-  const range = Math.max(maxValue - minValue, 1);
+  const minValue  Math.min(...series.map((point)  point.netAssetValue));
+  const maxValue  Math.max(...series.map((point)  point.netAssetValue));
+  const range  Math.max(maxValue - minValue, 1);
 
   return series;
-    .map((point, index) => {
-      const x = (index / (series.length - 1)) * 100;
-      const normalised = (point.netAssetValue - minValue) / range;
-      const y = 100 - normalised * 100;
-      return `${index === 0 ? "M" : "L"}${x.toFixed(2)},${y.toFixed(2)}`;
+    .map((point, index)  {
+      const x  (index / (series.length - 1)) * 100;
+      const normalised  (point.netAssetValue - minValue) / range;
+      const y  100 - normalised * 100;
+      return `${index  0 ? "M" : "L"}${x.toFixed(2)},${y.toFixed(2)}`;
     })
     .join(" ");
 
@@ -41,13 +41,13 @@ function formatPercentage(value: number): string {
   return `${(value * 100).toFixed(1)}%`;
 
 export default function GrowthChart({ series, isLoading }: GrowthChartProps) {
-  const path = buildPath(series);
-  const latest = series.at(-1);
-  const penultimate = series.length > 1 ? series.at(-2) : undefined;
+  const path  buildPath(series);
+  const latest  series.at(-1);
+  const penultimate  series.length  1 ? series.at(-2) : undefined;
   const navDelta latest && penultimate;
       ? latest.netAssetValue - penultimate.netAssetValue;
       : 0;
-  const navDeltaSymbol = navDelta >= 0 ? "+" : "";
+  const navDeltaSymbol  navDelta  0 ? "+" : "";
 
     
           Growth &amp; Retention;
@@ -55,32 +55,32 @@ export default function GrowthChart({ series, isLoading }: GrowthChartProps) {
         
       {isLoading ? (
         renderSkeleton()
-      ) : series.length === 0 ? (
+      ) : series.length  0 ? (
         
           Growth history unavailable. Validate the data warehouse sync configuration.
         
       ) : (
         
-            <svg;
-              viewBox="{0} {0} {100} 100"
-              preserveAspectRatio="none"
-              className="absolute inset-0 h-full w-full"
-             />
+            svg;
+              viewBox"{0} {0} {100} 100"
+              preserveAspectRatio"none"
+              className"absolute inset-0 h-full w-full"
+             /
               
-              <rect;
-                width="100"
-                height="100"
-                fill="url(#navGradient)"
-                opacity="0.35"
-              />
-              <path;
-                d=path
-                fill="none"
-                stroke="rgb({192} {132} {252})"
-                strokeWidth={2}
-                strokeLinecap="round"
+              rect;
+                width"100"
+                height"100"
+                fill"url(#navGradient)"
+                opacity"0.35"
+              /
+              path;
+                dpath
+                fill"none"
+                stroke"rgb({192} {132} {252})"
+                strokeWidth{2}
+                strokeLinecap"round"
             
-              {series.map((point) => (
+              {series.map((point)  (
                 {point.month}
               ))}
             
@@ -94,7 +94,7 @@ export default function GrowthChart({ series, isLoading }: GrowthChartProps) {
               
                 Avg growth{" "}
                 {formatCurrency(
-                  series.reduce((acc, point) => acc + point.newAssets, 0) /
+                  series.reduce((acc, point)  acc + point.newAssets, 0) /
                     series.length,
                 )}
               

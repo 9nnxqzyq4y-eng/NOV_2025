@@ -4,7 +4,6 @@
 
 Medir la satisfacción de clientes actuales y profundizar en las tesis de factoraje de Abaco.
 
----
 
 ## Sección 1: Perfil del Cliente
 
@@ -135,7 +134,7 @@ Medir la satisfacción de clientes actuales y profundizar en las tesis de factor
 
 ## Sección 5: Profundización en Tesis
 
-### 5.1 Ticket Promedio (Tesis: Tickets <$10k necesitan canal digital)
+### 5.1 Ticket Promedio (Tesis: Tickets $10k necesitan canal digital)
 
 **¿Cuál es el monto típico de sus facturas con Abaco?**
 
@@ -145,7 +144,7 @@ Medir la satisfacción de clientes actuales y profundizar en las tesis de factor
 - [ ] $50,001 - $150,000
 - [ ] Más de $150,000
 
-**Si sus facturas son <$10k, ¿preferiría:**
+**Si sus facturas son $10k, ¿preferiría:**
 
 - [ ] Proceso 100% digital (app/web)
 - [ ] Proceso híbrido (digital + ejecutivo ocasional)
@@ -166,7 +165,7 @@ Medir la satisfacción de clientes actuales y profundizar en las tesis de factor
 - [ ] Tal vez, dependiendo de condiciones
 - [ ] No, la frecuencia actual es suficiente
 
-### 5.3 DPD (Days Past Due) - Tesis: Mejorar a <12%
+### 5.3 DPD (Days Past Due) - Tesis: Mejorar a 12%
 
 **¿Alguna vez ha tenido retrasos en el pago de sus clientes finales?**
 
@@ -174,7 +173,7 @@ Medir la satisfacción de clientes actuales y profundizar en las tesis de factor
 - [ ] Rara vez (1-5%)
 - [ ] Ocasionalmente (6-15%)
 - [ ] Frecuentemente (16-30%)
-- [ ] Muy frecuentemente (>30%)
+- [ ] Muy frecuentemente (30%)
 
 **Si ha tenido retrasos, ¿cómo los maneja?**
 

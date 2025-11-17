@@ -22,11 +22,11 @@ def render_risk_dashboard(features_df: pd.DataFrame):
     
     st.info("""
     **Risk Classification based on MYPE 2025 Standards**  
-    High-risk criteria: DPD >90 days OR LTV >80% OR Avg DPD >60 OR Collection Rate <70%
+    High-risk criteria: DPD 90 days OR LTV 80% OR Avg DPD 60 OR Collection Rate 70%
     """)
     
     # Apply MYPE business rules
-    features_df['is_high_risk'] = features_df.apply(
+    features_df['is_high_risk']  features_df.apply(
         lambda row: MYPEBusinessRules.classify_high_risk({
             'dpd_mean': row.get('dpd_mean', 0),
             'ltv': row.get('utilization', 0) * 100,  # Convert to percentage
@@ -34,37 +34,37 @@ def render_risk_dashboard(features_df: pd.DataFrame):
             'collection_rate': row.get('collection_rate', 1.0),
             'avg_risk_severity': row.get('default_risk_score', 0)
         })[0],
-        axis=1
+        axis1
     )
     
     # Calculate NPL status
-    features_df['is_npl'] = features_df['dpd_mean'].apply(
+    features_df['is_npl']  features_df['dpd_mean'].apply(
         lambda dpd: MYPEBusinessRules.classify_npl(dpd)[0]
     
     # Summary metrics
-    col1, col2, col3, col4, col5 = st.columns(5)
+    col1, col2, col3, col4, col5  st.columns(5)
     
-    total_clients = len(features_df)
-    high_risk_count = features_df['is_high_risk'].sum()
-    npl_count = features_df['is_npl'].sum()
-    avg_collection = features_df['collection_rate'].mean()
-    avg_dpd = features_df['dpd_mean'].mean()
+    total_clients  len(features_df)
+    high_risk_count  features_df['is_high_risk'].sum()
+    npl_count  features_df['is_npl'].sum()
+    avg_collection  features_df['collection_rate'].mean()
+    avg_dpd  features_df['dpd_mean'].mean()
     
     col1.metric("Total Clients", f"{total_clients:,}")
     col2.metric(
         "High-Risk", 
         f"{high_risk_count:,}",
-        delta=f"{high_risk_count/total_clients*100:.1f}%",
-        delta_color="inverse"
+        deltaf"{high_risk_count/total_clients*100:.1f}%",
+        delta_color"inverse"
     col3.metric(
         "NPL (180+ days)",
         f"{npl_count:,}",
-        delta=f"{npl_count/total_clients*100:.1f}%",
+        deltaf"{npl_count/total_clients*100:.1f}%",
     col4.metric(
         "Avg Collection Rate",
         f"{avg_collection*100:.1f}%",
-        delta=f"{(avg_collection - MYPEBusinessRules.TARGET_COLLECTION_RATE)*100:+.1f}%",
-        delta_color="normal"
+        deltaf"{(avg_collection - MYPEBusinessRules.TARGET_COLLECTION_RATE)*100:+.1f}%",
+        delta_color"normal"
     col5.metric(
         "Avg DPD",
         f"{avg_dpd:.0f} days",
@@ -72,53 +72,53 @@ def render_risk_dashboard(features_df: pd.DataFrame):
     st.divider()
     
     # Risk distribution visualization
-    col_left, col_right = st.columns(2)
+    col_left, col_right  st.columns(2)
     
     with col_left:
         st.subheader("DPD Distribution by Risk Level")
         
         # Create DPD buckets
-        features_df['dpd_bucket'] = pd.cut(
+        features_df['dpd_bucket']  pd.cut(
             features_df['dpd_mean'],
-            bins=[0, 15, 30, 60, 90, 180, float('inf')],
-            labels=['Current (0-15)', 'Watch (15-30)', 'Substandard (30-60)', 
+            bins[0, 15, 30, 60, 90, 180, float('inf')],
+            labels['Current (0-15)', 'Watch (15-30)', 'Substandard (30-60)', 
                    'Doubtful (60-90)', 'High Risk (90-180)', 'NPL (180+)']
         )
         
-        dpd_dist = features_df['dpd_bucket'].value_counts().sort_index()
+        dpd_dist  features_df['dpd_bucket'].value_counts().sort_index()
         
-        fig_dpd = go.Figure(data=[
+        fig_dpd  go.Figure(data[
             go.Bar(
-                x=dpd_dist.index,
-                y=dpd_dist.values,
-                marker_color=ABACO_THEME['brand_primary_light'],
-                text=dpd_dist.values,
-                textposition='outside'
+                xdpd_dist.index,
+                ydpd_dist.values,
+                marker_colorABACO_THEME['brand_primary_light'],
+                textdpd_dist.values,
+                textposition'outside'
             )
         ])
         
         fig_dpd.update_layout(**PLOTLY_LAYOUT_4K)
         fig_dpd.update_layout(
-            title="DPD Bucket Distribution",
-            xaxis_title="DPD Range",
-            yaxis_title="Number of Clients",
-            showlegend=False
-        fig_dpd.update_xaxis(tickangle=-45)
+            title"DPD Bucket Distribution",
+            xaxis_title"DPD Range",
+            yaxis_title"Number of Clients",
+            showlegendFalse
+        fig_dpd.update_xaxis(tickangle-45)
         
-        st.plotly_chart(fig_dpd, use_container_width=True, config=PLOTLY_CONFIG_4K)
+        st.plotly_chart(fig_dpd, use_container_widthTrue, configPLOTLY_CONFIG_4K)
     
     with col_right:
         st.subheader("Collection Rate vs DPD")
         
-        fig_scatter = px.scatter(
+        fig_scatter  px.scatter(
             features_df,
-            x='dpd_mean',
-            y='collection_rate',
-            size='total_balance' if 'total_balance' in features_df.columns else None,
-            color='is_high_risk',
-            color_discrete_map={True: ABACO_THEME['accent_danger'], False: ABACO_THEME['accent_success']},
-            hover_data=['customer_id', 'name'] if 'name' in features_df.columns else ['customer_id'],
-            labels={
+            x'dpd_mean',
+            y'collection_rate',
+            size'total_balance' if 'total_balance' in features_df.columns else None,
+            color'is_high_risk',
+            color_discrete_map{True: ABACO_THEME['accent_danger'], False: ABACO_THEME['accent_success']},
+            hover_data['customer_id', 'name'] if 'name' in features_df.columns else ['customer_id'],
+            labels{
                 'dpd_mean': 'Average DPD (days)',
                 'collection_rate': 'Collection Rate',
                 'is_high_risk': 'High Risk'
@@ -126,28 +126,28 @@ def render_risk_dashboard(features_df: pd.DataFrame):
         
         # Add threshold lines
         fig_scatter.add_hline(
-            y=MYPEBusinessRules.HIGH_RISK_CRITERIA['collection_rate_threshold'],
-            line_dash="dash",
-            line_color=ABACO_THEME['accent_warning'],
-            annotation_text="70% Collection Threshold"
+            yMYPEBusinessRules.HIGH_RISK_CRITERIA['collection_rate_threshold'],
+            line_dash"dash",
+            line_colorABACO_THEME['accent_warning'],
+            annotation_text"70% Collection Threshold"
         fig_scatter.add_vline(
-            x=MYPEBusinessRules.HIGH_RISK_CRITERIA['dpd_threshold'],
-            annotation_text="90 Days Threshold"
+            xMYPEBusinessRules.HIGH_RISK_CRITERIA['dpd_threshold'],
+            annotation_text"90 Days Threshold"
         
         fig_scatter.update_layout(**PLOTLY_LAYOUT_4K)
-        fig_scatter.update_layout(title="Risk Profile Matrix")
+        fig_scatter.update_layout(title"Risk Profile Matrix")
         
-        st.plotly_chart(fig_scatter, use_container_width=True, config=PLOTLY_CONFIG_4K)
+        st.plotly_chart(fig_scatter, use_container_widthTrue, configPLOTLY_CONFIG_4K)
     
     
     # High-risk clients table
     st.subheader("🚨 High-Risk Clients Requiring Attention")
     
-    high_risk_df = features_df[features_df['is_high_risk']].copy()
+    high_risk_df  features_df[features_df['is_high_risk']].copy()
     
-    if len(high_risk_df) > 0:
+    if len(high_risk_df)  0:
         # Get risk reasons for each client
-        high_risk_df['risk_reasons'] = high_risk_df.apply(
+        high_risk_df['risk_reasons']  high_risk_df.apply(
             lambda row: ', '.join(MYPEBusinessRules.classify_high_risk({
                 'dpd_mean': row.get('dpd_mean', 0),
                 'ltv': row.get('utilization', 0) * 100,
@@ -155,37 +155,37 @@ def render_risk_dashboard(features_df: pd.DataFrame):
                 'collection_rate': row.get('collection_rate', 1.0),
                 'avg_risk_severity': row.get('default_risk_score', 0)
             })[1]),
-            axis=1
+            axis1
         
         # Get NPL classification
-        high_risk_df['npl_status'] = high_risk_df['dpd_mean'].apply(
+        high_risk_df['npl_status']  high_risk_df['dpd_mean'].apply(
             lambda dpd: MYPEBusinessRules.classify_npl(int(dpd))[1]
         
-        display_cols = ['customer_id', 'name', 'dpd_mean', 'collection_rate', 
+        display_cols  ['customer_id', 'name', 'dpd_mean', 'collection_rate', 
                        'default_risk_score', 'npl_status', 'risk_reasons']
-        available_cols = [col for col in display_cols if col in high_risk_df.columns]
+        available_cols  [col for col in display_cols if col in high_risk_df.columns]
         
         # Format and display
-        display_df = high_risk_df[available_cols].sort_values('dpd_mean', ascending=False)
+        display_df  high_risk_df[available_cols].sort_values('dpd_mean', ascendingFalse)
         
         # Format percentages
         if 'collection_rate' in display_df.columns:
-            display_df['collection_rate'] = (display_df['collection_rate'] * 100).round(1).astype(str) + '%'
+            display_df['collection_rate']  (display_df['collection_rate'] * 100).round(1).astype(str) + '%'
         if 'default_risk_score' in display_df.columns:
-            display_df['default_risk_score'] = (display_df['default_risk_score'] * 100).round(1).astype(str) + '%'
+            display_df['default_risk_score']  (display_df['default_risk_score'] * 100).round(1).astype(str) + '%'
         
         st.dataframe(
             display_df,
-            use_container_width=True,
-            hide_index=True
+            use_container_widthTrue,
+            hide_indexTrue
         
         # Export button
-        csv = display_df.to_csv(index=False)
+        csv  display_df.to_csv(indexFalse)
         st.download_button(
-            label="📥 Download High-Risk Report (CSV)",
-            data=csv,
-            file_name=f"high_risk_clients_{pd.Timestamp.now().strftime('%Y%m%d')}.csv",
-            mime="text/csv"
+            label"📥 Download High-Risk Report (CSV)",
+            datacsv,
+            file_namef"high_risk_clients_{pd.Timestamp.now().strftime('%Y%m%d')}.csv",
+            mime"text/csv"
     else:
         st.success("✅ No high-risk clients identified")
     
@@ -193,28 +193,28 @@ def render_risk_dashboard(features_df: pd.DataFrame):
     # NPL Analysis
     st.subheader("📊 Non-Performing Loans (NPL) Analysis")
     
-    npl_df = features_df[features_df['is_npl']].copy()
+    npl_df  features_df[features_df['is_npl']].copy()
     
-    col_a, col_b, col_c = st.columns(3)
+    col_a, col_b, col_c  st.columns(3)
     
     with col_a:
-        npl_total_balance = npl_df['total_balance'].sum() if 'total_balance' in npl_df.columns else 0
-        total_portfolio_balance = features_df['total_balance'].sum() if 'total_balance' in features_df.columns else 1
-        npl_ratio = npl_total_balance / total_portfolio_balance * 100 if total_portfolio_balance > 0 else 0
+        npl_total_balance  npl_df['total_balance'].sum() if 'total_balance' in npl_df.columns else 0
+        total_portfolio_balance  features_df['total_balance'].sum() if 'total_balance' in features_df.columns else 1
+        npl_ratio  npl_total_balance / total_portfolio_balance * 100 if total_portfolio_balance  0 else 0
         
         st.metric(
             "NPL Balance",
             f"${npl_total_balance:,.0f}",
-            delta=f"{npl_ratio:.1f}% of portfolio",
-            delta_color="inverse"
+            deltaf"{npl_ratio:.1f}% of portfolio",
+            delta_color"inverse"
     
     with col_b:
-        avg_npl_dpd = npl_df['dpd_mean'].mean() if len(npl_df) > 0 else 0
+        avg_npl_dpd  npl_df['dpd_mean'].mean() if len(npl_df)  0 else 0
             "Avg NPL DPD",
             f"{avg_npl_dpd:.0f} days"
     
     with col_c:
-        npl_collection = npl_df['collection_rate'].mean() if len(npl_df) > 0 else 0
+        npl_collection  npl_df['collection_rate'].mean() if len(npl_df)  0 else 0
             "NPL Collection Rate",
             f"{npl_collection*100:.1f}%",
 
@@ -223,61 +223,61 @@ def render_approval_simulator():
     st.header("🎯 Loan Approval Simulator")
     
     **MYPE 2025 Approval Standards**
-    - Micro (<$50K): POD <35%, Collateral 1.0x
-    - Small ($50K-$200K): POD <30%, Collateral 1.2x  
-    - Medium (>$200K): POD <20%, Collateral 1.5x
+    - Micro ($50K): POD 35%, Collateral 1.0x
+    - Small ($50K-$200K): POD 30%, Collateral 1.2x  
+    - Medium ($200K): POD 20%, Collateral 1.5x
     
-    col1, col2 = st.columns(2)
+    col1, col2  st.columns(2)
     
     with col1:
-        facility_amount = st.number_input(
+        facility_amount  st.number_input(
             "Requested Facility Amount (USD)",
-            min_value=1000,
-            max_value=1_000_000,
-            value=25_000,
-            step=1000
+            min_value1000,
+            max_value1_000_000,
+            value25_000,
+            step1000
         
-        collateral_value = st.number_input(
+        collateral_value  st.number_input(
             "Collateral Value (USD)",
-            min_value=0,
-            max_value=2_000_000,
-            value=30_000,
+            min_value0,
+            max_value2_000_000,
+            value30_000,
         
-        pod = st.slider(
+        pod  st.slider(
             "Probability of Default (POD)",
-            min_value=0.0,
-            max_value=1.0,
-            value=0.25,
-            step=0.01,
-            format="%.2f"
+            min_value0.0,
+            max_value1.0,
+            value0.25,
+            step0.01,
+            format"%.2f"
     
     with col2:
-        dpd_mean = st.number_input(
+        dpd_mean  st.number_input(
             "Average DPD (days)",
-            max_value=365,
-            value=15,
-            step=1
+            max_value365,
+            value15,
+            step1
         
-        collection_rate = st.slider(
+        collection_rate  st.slider(
             "Collection Rate",
-            value=0.85,
+            value0.85,
         
-        avg_risk_severity = st.slider(
+        avg_risk_severity  st.slider(
             "Risk Severity Score",
-            value=0.3,
+            value0.3,
     
-    if st.button("🔍 Evaluate Approval", type="primary", use_container_width=True):
-        customer_metrics = {
+    if st.button("🔍 Evaluate Approval", type"primary", use_container_widthTrue):
+        customer_metrics  {
             'pod': pod,
             'dpd_mean': dpd_mean,
             'collection_rate': collection_rate,
             'avg_risk_severity': avg_risk_severity
         }
         
-        decision = MYPEBusinessRules.evaluate_facility_approval(
-            facility_amount=facility_amount,
-            customer_metrics=customer_metrics,
-            collateral_value=collateral_value
+        decision  MYPEBusinessRules.evaluate_facility_approval(
+            facility_amountfacility_amount,
+            customer_metricscustomer_metrics,
+            collateral_valuecollateral_value
         
         # Display decision
         if decision.approved:
@@ -286,7 +286,7 @@ def render_approval_simulator():
             st.error(f"❌ **DECLINED** - {decision.risk_level.value.upper()} Risk")
         
         # Decision details
-        col_a, col_b, col_c = st.columns(3)
+        col_a, col_b, col_c  st.columns(3)
         
         with col_a:
             st.metric("Recommended Amount", f"${decision.recommended_amount:,.0f}")

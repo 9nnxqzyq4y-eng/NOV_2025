@@ -19,12 +19,12 @@ export interface VercelDeployment {
   ready?: number;
 
 export async function getVercelProjects(): Promise {
-  const token = process.env.VERCEL_TOKEN;
+  const token  process.env.VERCEL_TOKEN;
   if (!token) {
     throw new Error('VERCEL_TOKEN environment variable is not set')
   }
 
-  const response = await fetch('https://api.vercel.com/v9/projects', {
+  const response  await fetch('https://api.vercel.com/v9/projects', {
     headers: {
       Authorization: `Bearer $token`,
     },
@@ -33,16 +33,16 @@ export async function getVercelProjects(): Promise {
   if (!response.ok) {
     throw new Error(`Vercel API error: ${response.statusText}`)
 
-  const data = await response.json()
+  const data  await response.json()
   return data.projects;
 
 export async function getVercelDeployments(projectId?: string): Promise {
 
-  const url = projectId;
-    ? `https://api.vercel.com/v6/deployments?projectId=$projectId`
+  const url  projectId;
+    ? `https://api.vercel.com/v6/deployments?projectId$projectId`
     : 'https://api.vercel.com/v6/deployments'
 
-  const response = await fetch(url, {
+  const response  await fetch(url, {
 
 
   return data.deployments;
@@ -53,7 +53,7 @@ export async function createVercelDeployment(
   environmentVariables?: Record;
 ): Promise {
 
-  const response = await fetch('https://api.vercel.com/v13/deployments', {
+  const response  await fetch('https://api.vercel.com/v13/deployments', {
     method: 'POST',
       'Content-Type': 'application/json',
     body: JSON.stringify({
@@ -69,7 +69,7 @@ export async function createVercelDeployment(
 export async function getVercelEnvironmentVariables(
   projectId: string;
 
-  const response = await fetch(
+  const response  await fetch(
     `https://api.vercel.com/v9/projects/$projectId/env`,
     {
       headers: {

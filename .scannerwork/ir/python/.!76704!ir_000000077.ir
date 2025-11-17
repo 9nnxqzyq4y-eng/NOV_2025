@@ -1,0 +1,9 @@
+
+","str
+"coerce"str
+""str
+"object"str
+!"date"str
+"[\$,₡,€,%]"str
+truebool
+;2"Normalize DataFrame column names and data types."strdf

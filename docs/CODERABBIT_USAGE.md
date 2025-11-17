@@ -178,7 +178,6 @@ Add to `.coderabbit.yaml`:
 1. ✅ Review the existing PR #1 or close it
 1. ✅ Enjoy automated code reviews!
 
----
 
 **Last Updated:** November 9, 2025
 **Configuration:** `.coderabbit.yaml`

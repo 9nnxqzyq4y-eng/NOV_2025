@@ -4,7 +4,6 @@
 
 Identificar nuevas oportunidades de mercado y validar tesis de expansión.
 
----
 
 ## Sección 1: Segmentación de Mercado
 
@@ -31,7 +30,7 @@ Identificar nuevas oportunidades de mercado y validar tesis de expansión.
 
 ## Sección 2: Buckets de Líneas de Crédito
 
-### 2.1 Anchors (>$50k-$150k) - KAM Only
+### 2.1 Anchors ($50k-$150k) - KAM Only
 
 **¿Conoce empresas que necesiten líneas de $50k-$150k+?**
 
@@ -58,7 +57,7 @@ Identificar nuevas oportunidades de mercado y validar tesis de expansión.
 
 ### 2.3 Digital Small (≤$10k) - Meta/WA Only
 
-**¿Qué tan común es la necesidad de factoraje <$10k?**
+**¿Qué tan común es la necesidad de factoraje $10k?**
 
 - [ ] Muy común - Necesidad frecuente
 - [ ] Común - Necesidad ocasional
@@ -128,7 +127,7 @@ Identificar nuevas oportunidades de mercado y validar tesis de expansión.
 
 **¿Qué es lo más valioso de Abaco para usted?**
 
-- [ ] Velocidad (cash en <48h)
+- [ ] Velocidad (cash en 48h)
 - [ ] Simplicidad digital
 - [ ] Sin garantías hipotecarias
 - [ ] Flexibilidad en montos
@@ -142,7 +141,7 @@ Identificar nuevas oportunidades de mercado y validar tesis de expansión.
 
 **¿Planea crecer su uso de factoraje en los próximos 6 meses?**
 
-- [ ] Sí, significativamente (>50% más)
+- [ ] Sí, significativamente (50% más)
 - [ ] Sí, moderadamente (20-50% más)
 - [ ] Sí, ligeramente (5-20% más)
 - [ ] Mantener nivel actual

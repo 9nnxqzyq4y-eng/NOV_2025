@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import type React from "react";
 import "./globals.css";
 
-const APP_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://abaco.finance";
+const APP_URL  process.env.NEXT_PUBLIC_SITE_URL ?? "https://abaco.finance";
 
-export const metadata: Metadata = {
+export const metadata: Metadata  {
   title: "ABACO Financial Intelligence Platform",
   description: "Financial intelligence and risk assessment platform",
   metadataBase: new URL(APP_URL),
@@ -18,12 +18,12 @@ export default function RootLayout({
 }) {
   return (
     
-        <ThemeProvider;
-          attribute="class"
-          defaultTheme="system"
+        ThemeProvider;
+          attribute"class"
+          defaultTheme"system"
           enableSystem;
           disableTransitionOnChange;
-         />
+         /
           children
         
   );

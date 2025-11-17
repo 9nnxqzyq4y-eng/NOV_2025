@@ -19,12 +19,12 @@ export interface ClientRiskProfile {
 
  * Calculate average days to pay from invoice history;
 export function calculateAverageDaysToPay(invoices: InvoiceData[]): number {
-  const paidInvoices = invoices.filter(
-    (inv) => inv.payment_date && inv.payment_status === 'paid'
+  const paidInvoices  invoices.filter(
+    (inv)  inv.payment_date && inv.payment_status  'paid'
   )
 
-  if (paidInvoices.length === 0) return {0} const totalDays = paidInvoices.reduce((sum, inv) => {
-    const days = Math.floor(
+  if (paidInvoices.length  0) return {0} const totalDays  paidInvoices.reduce((sum, inv)  {
+    const days  Math.floor(
       (inv.payment_date!.getTime() - inv.issue_date.getTime()) /
         (1000 * 60 * 60 * 24)
     )
@@ -34,56 +34,56 @@ export function calculateAverageDaysToPay(invoices: InvoiceData[]): number {
   return totalDays / paidInvoices.length;
 
  * Calculate payment consistency score (0-100)
- * Higher score = more consistent payment behavior;
+ * Higher score  more consistent payment behavior;
 export function calculatePaymentConsistency(invoices: InvoiceData[]): number {
-  const paidInvoices = invoices.filter((inv) => inv.payment_date)
+  const paidInvoices  invoices.filter((inv)  inv.payment_date)
 
-  if (paidInvoices.length < 3) return 50 // Not enough data
+  if (paidInvoices.length  3) return 50 // Not enough data
 
-  const daysToPay = paidInvoices.map((inv) =>
+  const daysToPay  paidInvoices.map((inv) 
     Math.floor(
 
-  const mean = daysToPay.reduce((a, b) => a + b, 0) / daysToPay.length const variance
-  daysToPay.reduce((sum, days) => sum + Math.pow(days - mean, 2), 0) /
-    daysToPay.length const stdDev = Math.sqrt(variance)
+  const mean  daysToPay.reduce((a, b)  a + b, 0) / daysToPay.length const variance
+  daysToPay.reduce((sum, days)  sum + Math.pow(days - mean, 2), 0) /
+    daysToPay.length const stdDev  Math.sqrt(variance)
 
-  // Lower standard deviation = more consistent = higher score const consistencyScore = Math.max(0, 100 - stdDev * 2)
+  // Lower standard deviation  more consistent  higher score const consistencyScore  Math.max(0, 100 - stdDev * 2)
 
   return Math.min(100, consistencyScore)
 
  * Calculate default risk score (0-100)
- * Higher score = lower risk (100 = safest)
+ * Higher score  lower risk (100  safest)
  * Uses industry-standard risk factors and weights;
 export function calculateDefaultRisk(profile: ClientRiskProfile): number {
-  let riskScore = 100;
+  let riskScore  100;
   // Payment behavior (weighted 40% of total risk)
-  const paymentWeight = 40;
-  if (profile.avgDaysToPay > 60) {
-    riskScore -= paymentWeight;
-  } else if (profile.avgDaysToPay > 30) {
-    riskScore -= paymentWeight * 0.5;
-  } else if (profile.avgDaysToPay > 15) {
-    riskScore -= paymentWeight * 0.25;
+  const paymentWeight  40;
+  if (profile.avgDaysToPay  60) {
+    riskScore - paymentWeight;
+  } else if (profile.avgDaysToPay  30) {
+    riskScore - paymentWeight * 0.5;
+  } else if (profile.avgDaysToPay  15) {
+    riskScore - paymentWeight * 0.25;
   }
 
   // Business maturity (weighted 30% of total risk)
-  const maturityWeight = 30;
-  if (profile.yearsInBusiness < 1) {
-    riskScore -= maturityWeight;
-  } else if (profile.yearsInBusiness < 3) {
-    riskScore -= maturityWeight * 0.5;
-  } else if (profile.yearsInBusiness < 5) {
-    riskScore -= maturityWeight * 0.17;
+  const maturityWeight  30;
+  if (profile.yearsInBusiness  1) {
+    riskScore - maturityWeight;
+  } else if (profile.yearsInBusiness  3) {
+    riskScore - maturityWeight * 0.5;
+  } else if (profile.yearsInBusiness  5) {
+    riskScore - maturityWeight * 0.17;
 
   // Industry risk (weighted 20% of total risk)
-  const industryWeight = 20;
-  riskScore -= (profile.industryRiskScore / 20) * industryWeight;
+  const industryWeight  20;
+  riskScore - (profile.industryRiskScore / 20) * industryWeight;
   // Payment consistency (weighted 10% of total risk)
-  const consistencyWeight = 10;
-  if (profile.paymentConsistency < 50) {
-    riskScore -= consistencyWeight;
-  } else if (profile.paymentConsistency < 70) {
-    riskScore -= consistencyWeight * 0.5;
+  const consistencyWeight  10;
+  if (profile.paymentConsistency  50) {
+    riskScore - consistencyWeight;
+  } else if (profile.paymentConsistency  70) {
+    riskScore - consistencyWeight * 0.5;
 
   return Math.max(0, Math.min(100, riskScore))
 
@@ -94,23 +94,23 @@ export function calculatePortfolioMetrics(invoices: InvoiceData[]): {
   avgDPD: number;
   defaultRate: number;
 } {
-  const activeInvoices = invoices.filter((inv) => inv.payment_status !== 'paid')
+  const activeInvoices  invoices.filter((inv)  inv.payment_status ! 'paid')
 
-  const totalAUM = activeInvoices.reduce(
-    (sum, inv) => sum + inv.invoice_amount,
+  const totalAUM  activeInvoices.reduce(
+    (sum, inv)  sum + inv.invoice_amount,
     0;
 
-  const overdueDays = activeInvoices.map((inv) =>
+  const overdueDays  activeInvoices.map((inv) 
     Math.max(
       0,
       Math.floor((Date.now() - inv.due_date.getTime()) / (1000 * 60 * 60 * 24))
 
-  const avgDPD overdueDays.length > 0;
-    ? overdueDays.reduce((a, b) => a + b, 0) / overdueDays.length;
-    : {0} const defaultedCount = invoices.filter(
-    (inv) => inv.payment_status === 'defaulted'
+  const avgDPD overdueDays.length  0;
+    ? overdueDays.reduce((a, b)  a + b, 0) / overdueDays.length;
+    : {0} const defaultedCount  invoices.filter(
+    (inv)  inv.payment_status  'defaulted'
   ).length const defaultRate
-  invoices.length > 0 ? defaultedCount / invoices.length : 0;
+  invoices.length  0 ? defaultedCount / invoices.length : 0;
   return {
     totalAUM,
     activeLoans: activeInvoices.length,
@@ -121,7 +121,7 @@ export function calculatePortfolioMetrics(invoices: InvoiceData[]): {
  * Based on historical default rates and market volatility;
  * Data source: Industry risk analysis reports;
 export function getIndustryRiskScore(industry: string): number {
-  const industryRisks: Record = {
+  const industryRisks: Record  {
     // High-risk industries (15-18)
     construction: 18, // High project dependency, cash flow issues
     hospitality: 15, // Seasonal, high fixed costs

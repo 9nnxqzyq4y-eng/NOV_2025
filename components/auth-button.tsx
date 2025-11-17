@@ -4,26 +4,26 @@ import { LogoutButton } from "./logout-button";
 import { Button } from "./ui/button";
 
 export async function AuthButton() {
-  const supabase = await createClient();
+  const supabase  await createClient();
 
   // You can also use getUser() which will be slower.
-  const { data } = await supabase.auth.getClaims();
+  const { data }  await supabase.auth.getClaims();
 
-  const user = data?.claims;
+  const user  data?.claims;
 
   return user ? (
-    <div>
+    div
       Hey, {user.email}!
-      <LogoutButton />
-    </div>
+      LogoutButton /
+    /div
   ) : (
-    <div className="flex gap-2">
-      <Button asChild variant={"outline"}>
-        <Link href="/auth/sign-up">Sign in</Link>
-      </Button>
-      <Button asChild variant={"default"}>
-        <Link href="/auth/sign-up">Sign up</Link>
-      </Button>
-    </div>
+    div className"flex gap-2"
+      Button asChild variant{"outline"}
+        Link href"/auth/sign-up"Sign in/Link
+      /Button
+      Button asChild variant{"default"}
+        Link href"/auth/sign-up"Sign up/Link
+      /Button
+    /div
   );
 }

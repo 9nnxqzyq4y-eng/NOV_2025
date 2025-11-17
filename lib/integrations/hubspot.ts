@@ -1,4 +1,4 @@
-interface HubSpotResponse<T = any> {
+interface HubSpotResponseT  any {
   data?: T;
   error?: string;
   status: number;
@@ -21,18 +21,18 @@ interface HubSpotDeal {
 
 class HubSpotIntegration {
   private apiKey: string;
-  private baseUrl = 'https://api.hubapi.com';
+  private baseUrl  'https://api.hubapi.com';
 
   constructor(apiKey: string) {
-    this.apiKey = apiKey;
+    this.apiKey  apiKey;
   }
 
-  private async makeRequest<T>(
+  private async makeRequestT(
     endpoint: string,
-    options: RequestInit = {}
-  ): Promise<HubSpotResponse<T>> {
+    options: RequestInit  {}
+  ): PromiseHubSpotResponseT {
     try {
-      const response = await fetch(`${this.baseUrl}$endpoint`, {
+      const response  await fetch(`${this.baseUrl}$endpoint`, {
         ...options,
         headers: {
           'Authorization': `Bearer ${this.apiKey}`,
@@ -41,7 +41,7 @@ class HubSpotIntegration {
         },
       });
 
-      const data = await response.json().catch(() => undefined);
+      const data  await response.json().catch(()  undefined);
       
       return {
         data,
@@ -53,10 +53,10 @@ class HubSpotIntegration {
         error: error instanceof Error ? error.message : 'Unknown error',
     }
 
-  async getContacts(): Promise<HubSpotResponse<HubSpotContact[]>> {
-    return this.makeRequest<HubSpotContact[]>('/crm/v3/objects/contacts');
+  async getContacts(): PromiseHubSpotResponseHubSpotContact[] {
+    return this.makeRequestHubSpotContact[]('/crm/v3/objects/contacts');
 
-  async getDeals(): Promise<HubSpotResponse<HubSpotDeal[]>> {
-    return this.makeRequest<HubSpotDeal[]>('/crm/v3/objects/deals');
+  async getDeals(): PromiseHubSpotResponseHubSpotDeal[] {
+    return this.makeRequestHubSpotDeal[]('/crm/v3/objects/deals');
 
 export { HubSpotIntegration, type HubSpotContact, type HubSpotDeal, type HubSpotResponse };

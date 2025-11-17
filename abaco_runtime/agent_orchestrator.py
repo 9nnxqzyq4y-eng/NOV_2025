@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """
+ABACO Agent Orchestrator
 ABACO Agent Orchestrator - Production Agent Trigger System
 Version: 1.0 - Orchestration Engine
 
@@ -18,20 +19,20 @@ Features:
 import json
 import sys
 import logging
-import argparse
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Any, Optional
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass
 from enum import Enum
+import argparse
 
 sys.path.insert(0, str(Path(__file__).parent))
-
 from standalone_ai import get_ai_engine  # noqa: E402
 
 
 class AgentTriggerType(Enum):
     """Agent trigger types"""
+
     ALL = "all"
     EXECUTIVE = "executive"
     RISK = "risk"
@@ -44,6 +45,7 @@ class AgentTriggerType(Enum):
 
 class ExecutionStatus(Enum):
     """Execution status codes"""
+
     SUCCESS = "success"
     PARTIAL = "partial"
     FAILED = "failed"
@@ -53,6 +55,7 @@ class ExecutionStatus(Enum):
 @dataclass
 class AgentExecutionResult:
     """Result of a single agent execution"""
+
     agent_id: str
     agent_name: str
     status: ExecutionStatus
@@ -66,6 +69,7 @@ class AgentExecutionResult:
 @dataclass
 class OrchestrationResult:
     """Result of orchestration run"""
+
     run_id: str
     trigger_type: AgentTriggerType
     timestamp: str
@@ -79,6 +83,7 @@ class OrchestrationResult:
 
 class _SerializationKeys:
     """Defines keys for serialization to avoid magic strings."""
+
     RUN_ID = "run_id"
     TRIGGER_TYPE = "trigger_type"
     TIMESTAMP = "timestamp"
@@ -87,6 +92,7 @@ class _SerializationKeys:
     AGENTS_FAILED = "agents_failed"
     STATUS = "status"
     METADATA = "metadata"
+    AGENT_STATUS = "status"
     RESULTS = "results"
 
 
@@ -122,7 +128,7 @@ class AgentOrchestrator:
         AgentTriggerType.ALL: list(AGENT_MAPPING.keys()),
     }
 
-    def __init__(self, output_dir: Path = None, log_file: Path = None):
+    def __init__(self, output_dir: Optional[Path] = None, log_file: Optional[Path] = None):
         """Initialize orchestrator"""
         self.engine = get_ai_engine()
         self.output_dir = output_dir or Path(__file__).parent.parent / "outputs"
@@ -130,14 +136,12 @@ class AgentOrchestrator:
 
         self.logger = self._setup_logging(log_file)
 
-    def _setup_logging(self, log_file: Path = None) -> logging.Logger:
+    def _setup_logging(self, log_file: Optional[Path] = None) -> logging.Logger:
         """Setup structured logging"""
         logger = logging.getLogger("AgentOrchestrator")
         logger.setLevel(logging.INFO)
 
-        formatter = logging.Formatter(
-            '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-        )
+        formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 
         console_handler = logging.StreamHandler()
         console_handler.setFormatter(formatter)
@@ -164,8 +168,8 @@ class AgentOrchestrator:
 
         try:
             output = self.engine.generate_response(agent_id, {}, demo_data)
-        except Exception as e:
-            self.logger.error(f"Agent '{agent_key}' execution failed: {e}", exc_info=True)
+        except (KeyError, AttributeError, ValueError) as e:
+            self.logger.error("Agent '%s' execution failed: %s", agent_key, e, exc_info=True)
             status = ExecutionStatus.FAILED
             error_message = str(e)
 
@@ -178,13 +182,11 @@ class AgentOrchestrator:
             duration_ms=duration,
             output=output,
             error=error_message,
-            lines_generated=len(output.split('\n')) if output else 0,
+            lines_generated=len(output.split("\n")) if output else 0,
         )
 
     def trigger_agents(
-        self,
-        trigger_type: AgentTriggerType,
-        demo_data: Optional[Dict[str, Any]] = None
+        self, trigger_type: AgentTriggerType, demo_data: Optional[Dict[str, Any]] = None
     ) -> OrchestrationResult:
         """
         Trigger agents based on trigger type
@@ -216,8 +218,10 @@ class AgentOrchestrator:
                 failed_count += 1
 
             self.logger.info(
-                f"Agent {result.agent_name} executed: "
-                f"status={result.status.value}, duration={result.duration_ms}ms"
+                "Agent %s executed: status%s, duration%dms",
+                result.agent_name,
+                result.status.value,
+                result.duration_ms,
             )
 
         end_time = datetime.now()
@@ -226,25 +230,27 @@ class AgentOrchestrator:
         execution_status = self._determine_run_status(failed_count, len(agents_to_run))
 
         orchestration_result = OrchestrationResult(
-            run_id=run_id,
-            trigger_type=trigger_type,
-            timestamp=start_time.isoformat(),
-            total_duration_ms=total_duration,
-            agents_executed=len(agents_to_run),
+            run_id=run_id,  # type: ignore
+            trigger_type=trigger_type,  # type: ignore
+            timestamp=start_time.isoformat(),  # type: ignore
+            total_duration_ms=total_duration,  # type: ignore
+            agents_executed=len(agents_to_run),  # type: ignore
             agents_failed=failed_count,
             status=execution_status,
             results=results,
             metadata={
                 "version": "1.0",
                 "environment": "production",
-                "trigger_groups": list(agents_to_run)
-            }
+                "trigger_groups": list(agents_to_run),
+            },
         )
 
         self.logger.info(
-            f"Orchestration complete: {run_id}, "
-            f"executed={len(agents_to_run)}, failed={failed_count}, "
-            f"total_duration={total_duration}ms"
+            "Orchestration complete: %s, executed%d, failed%d, total_duration%dms",
+            run_id,
+            len(agents_to_run),
+            failed_count,
+            total_duration,
         )
 
         return orchestration_result
@@ -253,9 +259,10 @@ class AgentOrchestrator:
         """Determines the final status of the orchestration run."""
         if failed_count == 0:
             return ExecutionStatus.SUCCESS
-        if failed_count < total_agents:
+        elif failed_count < total_agents:
             return ExecutionStatus.PARTIAL
-        return ExecutionStatus.FAILED
+        else:
+            return ExecutionStatus.FAILED
 
     def save_results(self, result: OrchestrationResult) -> Path:
         """Save orchestration results to disk"""
@@ -271,7 +278,7 @@ class AgentOrchestrator:
             _SerializationKeys.AGENTS_FAILED: result.agents_failed,
             _SerializationKeys.STATUS: result.status.value,
             _SerializationKeys.METADATA: result.metadata,
-            _SerializationKeys.RESULTS: [asdict(r) for r in result.results]
+            _SerializationKeys.RESULTS: [r.__dict__ for r in result.results],
         }
 
         result_dict[_SerializationKeys.RESULTS] = [
@@ -281,13 +288,13 @@ class AgentOrchestrator:
                     r[_SerializationKeys.STATUS].value
                     if isinstance(r[_SerializationKeys.STATUS], ExecutionStatus)
                     else r[_SerializationKeys.STATUS]
-                )
+                ),
             }
             for r in result_dict[_SerializationKeys.RESULTS]
         ]
 
-        with open(result_file, 'w') as f:
-            json.dump(result_dict, f, indent=2)
+        with open(result_file, "w", encoding="utf-8") as f:
+            json.dump(result_dict, f, indent=2, ensure_ascii=False)
 
         self.logger.info(f"Results saved to: {result_file}")
 
@@ -302,7 +309,9 @@ class AgentOrchestrator:
         if result.agents_executed == 0:
             success_rate = 0.0
         else:
-            success_rate = ((result.agents_executed - result.agents_failed) / result.agents_executed) * 100
+            success_rate = (
+                (result.agents_executed - result.agents_failed) / result.agents_executed
+            ) * 100
 
         report = f"""# ABACO Agent Orchestration Report
 
@@ -323,7 +332,7 @@ class AgentOrchestrator:
 
         for r in result.results:
             report += f"""### {r.agent_name}
-- **Status**: {r.status.value}
+- **{_SerializationKeys.AGENT_STATUS.capitalize()}**: {r.status.value}
 - **Duration**: {r.duration_ms}ms
 - **Lines Generated**: {r.lines_generated}
 """
@@ -331,8 +340,8 @@ class AgentOrchestrator:
                 report += f"- **Error**: {r.error}\n"
             report += "\n"
 
-        with open(file_path, 'w') as f:
-            f.write(report)
+        with open(file_path, "w", encoding="utf-8") as f:
+            f.write(report.strip())
 
         self.logger.info(f"Report saved to: {file_path}")
 
@@ -345,20 +354,16 @@ class AgentOrchestrator:
                 "default_rate": 0.021,
                 "npa": 0.032,
                 "growth_mom": 0.128,
-                "default_trend": -0.003
+                "default_trend": -0.003,
             },
             "portfolio": {
                 "par30": 0.085,
                 "concentration": 0.382,
                 "avg_pod": 0.18,
                 "olb": 5200000,
-                "high_risk_pct": 15.2
+                "high_risk_pct": 15.2,
             },
-            "dpd_cases": {
-                "over_90": 47,
-                "60_90": 32,
-                "30_60": 58
-            }
+            "dpd_cases": {"over_90": 47, "60_90": 32, "30_60": 58},
         }
 
 
@@ -369,20 +374,13 @@ def main():
         "--trigger",
         type=str,
         default="all",
-        choices=[t.value for t in AgentTriggerType],
-        help="Type of agents to trigger"
+        choices=[t.value for t in list(AgentTriggerType)],
+        help="Type of agents to trigger",
     )
     parser.add_argument(
-        "--output-dir",
-        type=Path,
-        default=None,
-        help="Output directory for results"
+        "--output-dir", type=Path, default=None, help="Output directory for results"
     )
-    parser.add_argument(
-        "--save-results",
-        action="store_true",
-        help="Save results to disk"
-    )
+    parser.add_argument("--save-results", action="store_true", help="Save results to disk")
 
     args = parser.parse_args()
 
@@ -395,13 +393,13 @@ def main():
         orchestrator.save_results(result)
 
     # Use logger for final output
-    orchestrator.logger.info("\n" + "="*80)
-    orchestrator.logger.info(f"Orchestration Complete: {result.run_id}")
-    orchestrator.logger.info(f"Status: {result.status.value}")
-    orchestrator.logger.info(f"Agents Executed: {result.agents_executed}")
-    orchestrator.logger.info(f"Agents Failed: {result.agents_failed}")
-    orchestrator.logger.info(f"Total Duration: {result.total_duration_ms}ms")
-    orchestrator.logger.info("="*80 + "\n")
+    orchestrator.logger.info("\n%s", "=" * 80)
+    orchestrator.logger.info("Orchestration Complete: %s", result.run_id)
+    orchestrator.logger.info("Status: %s", result.status.value)
+    orchestrator.logger.info("Agents Executed: %d", result.agents_executed)
+    orchestrator.logger.info("Agents Failed: %d", result.agents_failed)
+    orchestrator.logger.info("Total Duration: %dms", result.total_duration_ms)
+    orchestrator.logger.info("%s\n", "=" * 80)
 
 
 if __name__ == "__main__":

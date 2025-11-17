@@ -1,0 +1,11 @@
+{
+  "tabnine.disable": true,
+  "[tabnine]": {
+    "disable": true
+  },
+  "extensions.ignoreRecommendations": true,
+  "openaiapi.disable": true,
+  "github.copilot.enable": {
+    "*": false
+  }
+}

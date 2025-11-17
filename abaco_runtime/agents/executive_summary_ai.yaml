@@ -49,7 +49,7 @@ primary_outputs:
     description: 'Executive one-pager with key metrics and recommendations'
   - type: 'slide_text.md'
     description: 'Board presentation narrative and talking points'
-  - type: 'slack:channel=#exec-digest'
+  - type: 'slack:channel#exec-digest'
     description: 'Daily executive summary posted to Slack'
   - type: 'looker:executive_table'
     description: 'KPI table for executive dashboard'
@@ -80,7 +80,7 @@ safety_rules:
   - rule: 'Pause execution if any core KPI source missing'
     severity: 'critical'
     action: 'Block report generation and alert data team'
-  - rule: 'Pause if >30% null values in loan or customer data'
+  - rule: 'Pause if 30% null values in loan or customer data'
     severity: 'critical'
     action: 'Run data quality check before proceeding'
   - rule: 'Require human sign-off for portfolio-level action recommendations'
@@ -95,7 +95,7 @@ frequency:
     - 'daily at 06:00 CST - morning executive brief'
     - 'weekly Monday 08:00 CST - weekly summary for board'
   event_triggered:
-    - 'immediate on critical alerts (NPA >5%, concentration >40%)'
+    - 'immediate on critical alerts (NPA 5%, concentration 40%)'
     - 'immediate on regulatory compliance flags'
 
 escalation:
@@ -103,9 +103,9 @@ escalation:
   secondary_contact: 'Head of Analytics'
   escalation_triggers:
     - 'NPA exceeds 5%'
-    - 'Default rate increases >50% MoM'
+    - 'Default rate increases 50% MoM'
     - 'Credit concentration exceeds 40%'
-    - 'TPV declines >10% MoM'
+    - 'TPV declines 10% MoM'
 
 run_mode: 'batch_daily + event_trigger'
 

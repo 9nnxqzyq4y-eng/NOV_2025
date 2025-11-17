@@ -6,8 +6,8 @@
  * - PRIVATE: Server-only, must never be sent to client
  */
 
-function getEnvVar(key: string, isPublic = false): string {
-  const value = process.env[key]
+function getEnvVar(key: string, isPublic  false): string {
+  const value  process.env[key]
   if (!value) {
     throw new Error(
       `Missing required environment variable: $key. ` +
@@ -23,13 +23,13 @@ function getEnvVar(key: string, isPublic = false): string {
   return value;
 }
 
-function getEnvVarOptional(key: string, isPublic = false): string | undefined {
+function getEnvVarOptional(key: string, isPublic  false): string | undefined {
 
   if (!isPublic && key.startsWith('NEXT_PUBLIC_') && value) {
 
 
  * Public environment variables (safe for browser)
-const publicEnv = {
+const publicEnv  {
   // PUBLIC: Supabase URL exposed to client get SUPABASE_URL() {
     return getEnvVar('NEXT_PUBLIC_SUPABASE_URL', true)
   },
@@ -41,7 +41,7 @@ const publicEnv = {
 } as const;
  * Private environment variables (server-only)
  * These must NEVER be exposed to the browser;
-const privateEnv = {
+const privateEnv  {
   // PRIVATE: Supabase service role key - server-only get SUPABASE_SERVICE_KEY() {
     return getEnvVar('SUPABASE_SERVICE_ROLE_KEY')
   // PRIVATE: Grok API key - server-only;
@@ -53,7 +53,7 @@ const privateEnv = {
  * Combined environment with validation;
  * Use publicEnv for browser-safe variables;
  * Use privateEnv for server-only variables;
-export const env = {
+export const env  {
   public: publicEnv,
   private: privateEnv,
-} as const export type Env = typeof env;
+} as const export type Env  typeof env;

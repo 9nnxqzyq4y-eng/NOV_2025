@@ -49,7 +49,7 @@ primary_outputs:
     description: 'Quarterly risk assessment for CRO and board'
   - type: 'provisioning_scenarios.csv'
     description: 'Provisioning recommendations under multiple scenarios'
-  - type: 'slack:channel=#risk-ops'
+  - type: 'slack:channel#risk-ops'
     description: 'Real-time risk alerts to Risk Operations channel'
   - type: 'dashboard:risk_overview'
     description: 'Real-time risk dashboard with POD distribution'
@@ -71,7 +71,7 @@ kpi_anchors:
     threshold_warning: 0.45
     threshold_critical: 0.60
   - name: 'high_risk_concentration'
-    description: 'Percentage of portfolio in high-risk segment (POD>30%)'
+    description: 'Percentage of portfolio in high-risk segment (POD30%)'
     threshold_good: 0.10
     threshold_warning: 0.20
     threshold_critical: 0.30
@@ -80,10 +80,10 @@ safety_rules:
   - rule: 'Block provisioning recommendations if POD model validation missing'
     severity: 'critical'
     action: 'Require model validation report before publishing provisioning guidance'
-  - rule: 'Require data quality score >= 70 to auto-publish provisioning'
+  - rule: 'Require data quality score  70 to auto-publish provisioning'
     severity: 'high'
     action: 'Run data quality audit before provisioning calculations'
-  - rule: 'Flag if >30% of portfolio has missing POD scores'
+  - rule: 'Flag if 30% of portfolio has missing POD scores'
     severity: 'critical'
     action: 'Alert MLOps team and CRO, block risk reports'
   - rule: 'Never auto-execute provisioning without CFO review'
@@ -96,9 +96,9 @@ frequency:
     - 'monthly last Friday - monthly risk package for board'
     - 'quarterly end of quarter - full risk assessment'
   event_triggered:
-    - 'real-time alerts when POD >50% for any account'
-    - 'immediate alert if concentration >35%'
-    - 'immediate alert if PAR30 >12%'
+    - 'real-time alerts when POD 50% for any account'
+    - 'immediate alert if concentration 35%'
+    - 'immediate alert if PAR30 12%'
 
 escalation:
   primary_contact: 'Head of Risk'
@@ -106,7 +106,7 @@ escalation:
   escalation_triggers:
     - 'POD model AUC drops below 0.70'
     - 'Average POD exceeds 0.30'
-    - 'High-risk concentration >30%'
+    - 'High-risk concentration 30%'
     - 'BCR regulatory limit breached'
 
 run_mode: 'real-time alerts + weekly snapshot'

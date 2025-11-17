@@ -36,13 +36,13 @@ npm run build
 Create `.env.local` with:
 
 # Supabase
-NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+NEXT_PUBLIC_SUPABASE_URLhttps://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEYyour-anon-key
+SUPABASE_SERVICE_ROLE_KEYyour-service-role-key
 
 # Optional
-GROK_API_KEY=your-grok-key
-GDRIVE_FOLDER_ID=your-folder-id
+GROK_API_KEYyour-grok-key
+GDRIVE_FOLDER_IDyour-folder-id
 
 ## Optional: Python/Streamlit Environment
 
@@ -108,7 +108,7 @@ Open two terminals:
 ### Port Already in Use
 
 # Use different port
-PORT=3001 npm run dev
+PORT3001 npm run dev
 
 ### Flake8 Connection Error
 

@@ -30,16 +30,16 @@ This guide covers deploying a Streamlit dashboard alongside the Next.js applicat
 
    ```toml
    # Supabase Configuration
-   SUPABASE_URL = "https://your-project.supabase.co"
-   SUPABASE_SERVICE_KEY = "your-service-role-key"
+   SUPABASE_URL  "https://your-project.supabase.co"
+   SUPABASE_SERVICE_KEY  "your-service-role-key"
 
    # Google Drive Integration
-   GDRIVE_FOLDER_ID = "your-google-drive-folder-id"
-   GDRIVE_SERVICE_ACCOUNT = '{"type":"service_account","project_id":"...","private_key":"..."}'
+   GDRIVE_FOLDER_ID  "your-google-drive-folder-id"
+   GDRIVE_SERVICE_ACCOUNT  '{"type":"service_account","project_id":"...","private_key":"..."}'
 
    # Optional: API Configuration
-   STREAMLIT_SERVER_PORT = 8501
-   STREAMLIT_SERVER_ADDRESS = "0.0.0.0"
+   STREAMLIT_SERVER_PORT  8501
+   STREAMLIT_SERVER_ADDRESS  "0.0.0.0"
 
    ⚠️ **Security**: Never commit `.streamlit/secrets.toml` to version control. It should be in `.gitignore`.
 
@@ -109,14 +109,14 @@ This guide covers deploying a Streamlit dashboard alongside the Next.js applicat
    EXPOSE 8501
 
    # Health check
-   HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+   HEALTHCHECK --interval30s --timeout3s --start-period5s --retries3 \
      CMD curl -f http://localhost:8501/_stcore/health || exit 1
 
    # Start Streamlit
    CMD ["streamlit", "run", "streamlit_app.py", \
-        "--server.port=8501", \
-        "--server.address=0.0.0.0", \
-        "--logger.level=info"]
+        "--server.port8501", \
+        "--server.address0.0.0.0", \
+        "--logger.levelinfo"]
 
 2. **Deploy to Railway**
 
@@ -132,10 +132,10 @@ This guide covers deploying a Streamlit dashboard alongside the Next.js applicat
 
 3. **Set Environment Variables in Railway Dashboard**
 
-   SUPABASE_URL=https://your-project.supabase.co
-   SUPABASE_SERVICE_KEY=your-service-role-key
-   GDRIVE_FOLDER_ID=your-folder-id
-   GDRIVE_SERVICE_ACCOUNT={"type":"service_account",...}
+   SUPABASE_URLhttps://your-project.supabase.co
+   SUPABASE_SERVICE_KEYyour-service-role-key
+   GDRIVE_FOLDER_IDyour-folder-id
+   GDRIVE_SERVICE_ACCOUNT{"type":"service_account",...}
 
 ### Option 3: Docker Compose (Local/Self-hosted)
 
@@ -376,7 +376,6 @@ The Streamlit dashboard complements the Next.js application:
 - [Supabase Documentation](https://supabase.com/docs)
 - [GitHub Copilot Instructions](./.github/copilot-instructions.md)
 
----
 
 **Last Updated**: 2025-01-06  
 **Environment**: Debian 12 (bookworm), Node.js 20.x, npm, Python 3.11+  

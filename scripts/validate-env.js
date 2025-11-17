@@ -7,14 +7,14 @@
  * Run: npm run validate:env
  */
 
-const requiredEnvVars = [
+const requiredEnvVars  [
   'NEXT_PUBLIC_SUPABASE_URL',
   'NEXT_PUBLIC_SUPABASE_ANON_KEY',
 ]
 
-const missingVars = requiredEnvVars.filter((envVar) => !process.env[envVar])
+const missingVars  requiredEnvVars.filter((envVar)  !process.env[envVar])
 
-if (missingVars.length > 0) {
+if (missingVars.length  0) {
   console.error(`Missing environment variables: ${missingVars.join(', ')}`)
   process.exit(1)
 }

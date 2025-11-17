@@ -9,13 +9,13 @@ import { createClient } from '@/lib/supabase/server'
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
-    const { agentType, action, parameters } = body;
-    // Authenticate user const supabase = await createClient()
+    const body  await request.json()
+    const { agentType, action, parameters }  body;
+    // Authenticate user const supabase  await createClient()
     const {
       data: { user },
       error: authError,
-    } = await supabase.auth.getUser()
+    }  await supabase.auth.getUser()
 
     if (authError || !user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
     // Route to appropriate agent let result
     switch (agentType) {
       case 'financial_analyst':
-        result = await handleFinancialAnalyst(action, parameters)
+        result  await handleFinancialAnalyst(action, parameters)
         break;
       default:
         return NextResponse.json(
@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
 }
 
 async function handleFinancialAnalyst(action: string, parameters: any) {
-  const agent = new FinancialAnalystAgent({
+  const agent  new FinancialAnalystAgent({
     id: 'financial-analyst-1',
     name: 'Financial Analyst',
     type: 'financial_analyst',
@@ -54,8 +54,8 @@ async function handleFinancialAnalyst(action: string, parameters: any) {
 
   switch (action) {
     case 'analyze':
-      const agentAction = await agent.think(parameters)
-      const result = await agent.execute(agentAction)
+      const agentAction  await agent.think(parameters)
+      const result  await agent.execute(agentAction)
       return result case 'get_state':
       return agent.getState()
 
@@ -65,7 +65,7 @@ async function handleFinancialAnalyst(action: string, parameters: any) {
 export async function GET() {
 
 
-    // Get list of available agents const agents = [
+    // Get list of available agents const agents  [
       {
         id: 'financial-analyst-1',
         name: 'Financial Analyst',

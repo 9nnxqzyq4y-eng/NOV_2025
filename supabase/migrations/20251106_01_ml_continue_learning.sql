@@ -38,11 +38,11 @@ alter table ml_model_metrics enable row level security;
 -- Allow service role full access
 create policy "Service role full access on ml_predictions"
   on ml_predictions for all
-  using (auth.jwt()->>'role' = 'service_role');
+  using (auth.jwt()-'role'  'service_role');
 
 create policy "Service role full access on ml_model_metrics"
   on ml_model_metrics for all
-  using (auth.jwt()->>'role' = 'service_role');
+  using (auth.jwt()-'role'  'service_role');
 
 comment on table ml_predictions is 'Tracks all ML predictions for continue learning feedback loop';
 comment on table ml_model_metrics is 'Aggregated model performance metrics';

@@ -21,7 +21,7 @@ This is a **Next.js/TypeScript-first project** where Python support is optional 
 
 Per **Copilot Instructions** (`/.github/copilot-instructions.md`):
 
-> Python dependencies are managed **separately** in a virtual environment, isolated from the Node.js development environment.
+ Python dependencies are managed **separately** in a virtual environment, isolated from the Node.js development environment.
 
 This design choice provides:
 
@@ -102,7 +102,7 @@ streamlit run streamlit_app.py
 # Activate environment
 
 # Run linters
-flake8 streamlit_app.py --count --select=E9,F63,F7,F82
+flake8 streamlit_app.py --count --selectE9,F63,F7,F82
 black streamlit_app.py --check
 
 ### Formatting Python Files
@@ -122,7 +122,7 @@ autopep8 --in-place --aggressive --aggressive streamlit_app.py
 pytest tests/
 
 # With coverage
-pytest --cov=streamlit_app tests/
+pytest --covstreamlit_app tests/
 
 ## Deactivating Virtual Environment
 

@@ -1,19 +1,16 @@
-<<<<<<< HEAD
 # My Awesome Project
-=======
 # ABACO Financial Intelligence Platform - Master Project Summary
 
-<p align="center">
-  <a href="https://github.com/jenineferderas/my-awesome-project/actions/workflows/nightly_pipeline.yml"><img src="https://github.com/jenineferderas/my-awesome-project/actions/workflows/nightly_pipeline.yml/badge.svg" alt="Nightly Pipeline Status"></a>
-  <a href="https://github.com/jenineferderas/my-awesome-project/actions/workflows/markdown_lint.yml"><img src="https://github.com/jenineferderas/my-awesome-project/actions/workflows/markdown_lint.yml/badge.svg" alt="Markdown Lint Status"></a>
-  <a href="#"><img src="https://img.shields.io/badge/TypeScript-Strict-blue" alt="TypeScript Strict"></a>
-  <a href="./License"><img src="https://img.shields.io/badge/License-MIT-green" alt="License"></a>
-</p>
+p align"center"
+  a href"https://github.com/jenineferderas/my-awesome-project/actions/workflows/nightly_pipeline.yml"img src"https://github.com/jenineferderas/my-awesome-project/actions/workflows/nightly_pipeline.yml/badge.svg" alt"Nightly Pipeline Status"/a
+  a href"https://github.com/jenineferderas/my-awesome-project/actions/workflows/markdown_lint.yml"img src"https://github.com/jenineferderas/my-awesome-project/actions/workflows/markdown_lint.yml/badge.svg" alt"Markdown Lint Status"/a
+  a href"#"img src"https://img.shields.io/badge/TypeScript-Strict-blue" alt"TypeScript Strict"/a
+  a href"./License"img src"https://img.shields.io/badge/License-MIT-green" alt"License"/a
+/p
 
 **Date**: November 12, 2025  
 **Status**: ✅ **PRODUCTION READY**
 
----
 
 ## 🎯 Project Overview
 
@@ -32,7 +29,6 @@ The ABACO Financial Intelligence Platform is an enterprise-grade, full-stack app
 | **CI/CD**       | GitHub Actions                           |
 | **Deployment**  | Vercel, Railway, Docker                  |
 
----
 
 ## 🏛️ System Architecture
 
@@ -45,27 +41,26 @@ graph TD
     end
 
     subgraph "CI/CD & Orchestration (GitHub Actions)"
-        B(Nightly Pipeline<br>.github/workflows/nightly_pipeline.yml) -- runs --> C(Orchestrator<br>tools/run_all.sh)
-        C -- executes --> D(KPI Engine<br>tools/compute_kpis_from_local_csvs.py)
+        B(Nightly Pipelinebr.github/workflows/nightly_pipeline.yml) -- runs -- C(Orchestratorbrtools/run_all.sh)
+        C -- executes -- D(KPI Enginebrtools/compute_kpis_from_local_csvs.py)
     end
 
     subgraph "Data & AI Core"
-        D -- generates --> E[KPI Artifacts<br>artifacts/*.csv]
-        E -- feeds --> F(AI Engine<br>abaco_runtime/standalone_ai.py)
-        E -- backfills --> G(Supabase Backend<br>Database & MLOps Schema)
+        D -- generates -- E[KPI Artifactsbrartifacts/*.csv]
+        E -- feeds -- F(AI Enginebrabaco_runtime/standalone_ai.py)
+        E -- backfills -- G(Supabase BackendbrDatabase & MLOps Schema)
     end
 
     subgraph "User-Facing Applications"
-        H(Next.js Frontend<br>Vercel) -- queries --> G
-        I(Streamlit Dashboard<br>Analytics & Visuals) -- reads --> G
-        F -- provides insights to --> H
-        F -- provides insights to --> I
+        H(Next.js FrontendbrVercel) -- queries -- G
+        I(Streamlit DashboardbrAnalytics & Visuals) -- reads -- G
+        F -- provides insights to -- H
+        F -- provides insights to -- I
     end
 
-    A --> D
+    A -- D
 ```
 
----
 
 ## 🚀 Quick Start
 
@@ -98,7 +93,6 @@ Get the project up and running on your local machine in a few steps.
     ./tools/run_all.sh
     ```
 
----
 
 ## 🤖 AI System Status
 
@@ -109,7 +103,6 @@ The project includes a complete, offline-first AI system with 16 distinct person
 - **Key Feature**: Works 100% offline without external API keys, but can be enhanced by providing them.
 - **Documentation**: `docs/` contains detailed specifications for each agent.
 
----
 
 ## 📊 Data & KPI Pipeline
 
@@ -127,7 +120,6 @@ The platform features a robust data pipeline for ingesting loan tape data and ca
 
 **Output Artifacts**: `artifacts/monthly_kpis.csv`, `artifacts/unit_economics.csv`, `artifacts/risk_kpis.csv`.
 
----
 
 ## 🔍 Code Quality & Review Status
 
@@ -146,7 +138,6 @@ The repository is under continuous analysis by a suite of 4 advanced AI and stat
 - **Type Safety**: 100% (TypeScript strict mode).
 - **Linting**: 0 errors, 0 warnings.
 
----
 
 ## 🚀 Deployment & Operations
 
@@ -164,7 +155,6 @@ The project is fully configured for production deployment across multiple platfo
 - **Secondary Target**: Railway (with Docker support)
 - **Workflows**: All CI/CD workflows are passing.
 
----
 
 ## 📖 Key Documentation
 
@@ -180,7 +170,6 @@ This repository is extensively documented. Here are the most important files to 
 | **docs/INGESTION_RUNBOOK.md** | Instructions for running the data ingestion pipeline.   |
 | **DESIGN_SYSTEM.md** | Visual identity, color palette, and component design.   |
 
----
 
 ## ✅ Final Status
 
@@ -196,4 +185,3 @@ This repository is extensively documented. Here are the most important files to 
 1.  Proceed with production deployment to Vercel or Railway.
 2.  Monitor the nightly data pipeline via GitHub Actions.
 3.  Begin leveraging the AI personas for strategic insights.
->>>>>>> 5cd10e89d79b83a51249f0b0c92ecc36aff2eba3

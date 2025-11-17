@@ -12,7 +12,7 @@ from standalone_ai import get_ai_engine
 
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
+    format="%(asctime)s - %(levelname)s - %(message)s",
 )
 
 
@@ -43,9 +43,7 @@ def main():
 
     agent_id_to_trigger = "executive-summary-ai-001"
 
-    request_context = RequestContext(
-        task="Generate Q2 portfolio review for board meeting"
-    )
+    request_context = RequestContext(task="Generate Q2 portfolio review for board meeting")
     kpi_data = KpiData(
         tpv=3150000,
         clients=280,
@@ -60,9 +58,7 @@ def main():
     logging.info(f"🎯 Sending trigger to agent: {agent_id_to_trigger}")
     logging.info("-" * 40)
 
-    response = ai_engine.generate_response(
-        agent_id_to_trigger, asdict(request_context), input_data
-    )
+    response = ai_engine.generate_response(agent_id_to_trigger, asdict(request_context), input_data)
 
     logging.info(f"Response received:\n{response}")
     logging.info("-" * 40)

@@ -14,20 +14,20 @@ interface SlackResponse {
 
 export class SlackIntegration extends Integration {
   private readonly baseUrl: string private readonly token: string | undefined;
-  constructor(options: IntegrationOptions = {}) {
+  constructor(options: IntegrationOptions  {}) {
     super(options)
-    this.baseUrl = 'https://slack.com/api'
-    this.token = process.env.SLACK_BOT_TOKEN;
+    this.baseUrl  'https://slack.com/api'
+    this.token  process.env.SLACK_BOT_TOKEN;
   }
 
   async postMessage(message: SlackMessage): Promise {
-    return this.executeWithRateLimit(async () => {
-      const response = await this.fetchWithAuth('chat.postMessage', {
+    return this.executeWithRateLimit(async ()  {
+      const response  await this.fetchWithAuth('chat.postMessage', {
         method: 'POST',
         body: JSON.stringify(message),
       })
 
-      const payload = await response.json().catch(() => undefined)
+      const payload  await response.json().catch(()  undefined)
 
       if (!response.ok || !payload?.ok) {
         throw new IntegrationError('Failed to send Slack message', payload)
@@ -44,9 +44,9 @@ export class SlackIntegration extends Integration {
       throw new IntegrationError('Missing Slack bot token')
     }
 
-    const headers: HeadersInit = {
+    const headers: HeadersInit  {
       Authorization: `Bearer ${this.token}`,
-      'Content-Type': 'application/json; charset=utf-8',
+      'Content-Type': 'application/json; charsetutf-8',
       ...init.headers,
 
     return fetch(`${this.baseUrl}/$path`, {

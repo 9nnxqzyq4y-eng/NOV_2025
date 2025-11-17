@@ -8,13 +8,13 @@ This project uses SonarQube (SonarCloud) for continuous code quality analysis.
 
 - **Organization**: jenineferderas
 - **Project Key**: jenineferderas_abaco-sim-e
-- **Dashboard**: https://sonarcloud.io/dashboard?id=jenineferderas_abaco-sim-e
+- **Dashboard**: https://sonarcloud.io/dashboard?idjenineferderas_abaco-sim-e
 
 ### Running Analysis
 
 ```bash
 # Set SonarQube token
-export SONARQUBE_TOKEN="your-token-here"
+export SONARQUBE_TOKEN"your-token-here"
 
 # Run analysis
 npm run sonar
@@ -114,7 +114,7 @@ SonarQube analysis runs automatically via GitHub Actions:
 - On push to main branch
 - On pull requests
 - As part of the quality assurance workflow
-- Results available at: https://sonarcloud.io/dashboard?id=jenineferderas_abaco-sim-e
+- Results available at: https://sonarcloud.io/dashboard?idjenineferderas_abaco-sim-e
 
 ### Interpreting Results
 

@@ -1,5 +1,5 @@
 [tool.pylint.messages_control]
-disable = [
+disable  [
     "C0301",  # line-too-long
     "C0303",  # trailing-whitespace
     "C0415",  # import-outside-toplevel
@@ -9,8 +9,8 @@ disable = [
 ]
 
 [tool.pylint.format]
-max-line-length = 100
+max-line-length  100
 
 [tool.black]
-line-length = 100
-target-version = ['py39']
+line-length  100
+target-version  ['py39']

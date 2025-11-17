@@ -1,0 +1,7 @@
+
+80int
+"-"str
+'"Print formatted agent output"str
+"\n"str
+NoneNoneType
+,#"🤖 {agent_name} ({personality})"str

@@ -1,6 +1,6 @@
 import { createClient } from '@/utils/supabase/server'
 
-export type MetricUnit = 'currency' | 'percentage' | 'count' | 'ratio'
+export type MetricUnit  'currency' | 'percentage' | 'count' | 'ratio'
 
 export interface FinancialDashboardDataset {
   // Define the structure of your data from the 'financial_intelligence' table
@@ -18,9 +18,9 @@ export interface FinancialDashboardDataset {
   refreshIntervalMinutes: number
 }
 
-export async function getFinancialDashboardDataset(): Promise<FinancialDashboardDataset | null> {
-  const supabase = createClient()
-  const { data, error } = await supabase
+export async function getFinancialDashboardDataset(): PromiseFinancialDashboardDataset | null {
+  const supabase  createClient()
+  const { data, error }  await supabase
     .from('financial_intelligence')
     .select('*')
     .order('generatedAt', { ascending: false })

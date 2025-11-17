@@ -1,6 +1,9 @@
+"""Data Quality Guardian Agent for validating and assessing data quality."""
+
 import re
 import math
 from typing import Dict, Any, List
+
 
 class DataQualityGuardianAgent:
     """
@@ -14,7 +17,7 @@ class DataQualityGuardianAgent:
 
     def _validate_records(self, records: Any) -> bool:
         """Checks if the records object is a non-empty list."""
-        return isinstance(records, list) and records
+        return bool(isinstance(records, list) and records)
 
     def _find_issues(self, records: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """Iterates through records to find all data quality issues."""
@@ -26,33 +29,53 @@ class DataQualityGuardianAgent:
             record_id = record.get("id")
             if record_id is not None:
                 if record_id in seen_ids:
-                    issues.append({
-                        "record_index": i, "field": "id", "issue_type": "DUPLICATE_ID",
-                        "value": record_id, "message": f"Duplicate ID '{record_id}' found at record {i+1}."
-                    })
+                    issues.append(
+                        {
+                            "record_index": i,
+                            "field": "id",
+                            "issue_type": "DUPLICATE_ID",
+                            "value": record_id,
+                            "message": f"Duplicate ID '{record_id}' found at record {i+1}.",
+                        }
+                    )
                 else:
                     seen_ids.add(record_id)
 
             # Check for issues in each field
             for key, value in record.items():
                 if value is None:
-                    issues.append({
-                        "record_index": i, "field": key, "issue_type": "MISSING_VALUE",
-                        "message": f"Missing value for '{key}' in record {i+1}."
-                    })
-                elif key == "email" and isinstance(value, str) and not re.match(r"[^@]+@[^@]+\.[^@]+", value):
-                    issues.append({
-                        "record_index": i, "field": "email", "issue_type": "INVALID_FORMAT",
-                        "value": value, "message": f"Invalid email format for '{value}' in record {i+1}."
-                    })
+                    issues.append(
+                        {
+                            "record_index": i,
+                            "field": key,
+                            "issue_type": "MISSING_VALUE",
+                            "message": f"Missing value for '{key}' in record {i+1}.",
+                        }
+                    )
+                elif (
+                    key  "email"
+                    and isinstance(value, str)
+                    and not re.match(r"[^@]+@[^@]+\.[^@]+", value)
+                ):
+                    issues.append(
+                        {
+                            "record_index": i,
+                            "field": "email",
+                            "issue_type": "INVALID_FORMAT",
+                            "value": value,
+                            "message": f"Invalid email format for '{value}' in record {i+1}.",
+                        }
+                    )
         return issues
 
-    def _calculate_score(self, records: List[Dict[str, Any]], issues: List[Dict[str, Any]]) -> float:
+    def _calculate_score(
+        self, records: List[Dict[str, Any]], issues: List[Dict[str, Any]]
+    ) -> float:
         """Calculates a quality score based on the number of issues found."""
         total_possible_issues = len(records) * len(records[0].keys()) if records else 0
         if total_possible_issues == 0:
             return 100.0
-        
+
         penalty_per_issue = 100.0 / total_possible_issues
         score = 100.0 - (len(issues) * penalty_per_issue)
         return max(0.0, score)
@@ -78,28 +101,32 @@ class DataQualityGuardianAgent:
             A dictionary containing the quality score, a status, and details.
         """
         records = data.get("records")
-        # Return early to avoid deep nesting (Guard Clause)
+
         if not self._validate_records(records):
             return {
                 "score": 0.0,
                 "status": "REJECTED",
-                "details": "Invalid or empty dataset. Expected a dictionary with a 'records' key containing a list.",
+                "details": (
+                    "Invalid or empty dataset. Expected a dictionary with a "
+                    "'records' key containing a list."
+                ),
             }
 
-        issues = self._find_issues(records)
-        score = self._calculate_score(records, issues)
-        
+        # The guard clause ensures `records` is a non-empty list here.
+        # We can now safely cast records to the expected type.
+        validated_records: List[Dict[str, Any]] = records or []
+
+        issues = self._find_issues(validated_records)
+        score = self._calculate_score(validated_records, issues)
+
         # Get thresholds from context, with sensible defaults
-        thresholds = context.get("quality_thresholds", {
-            "warning": 85.0,
-            "reject": 70.0
-        })
+        thresholds = context.get("quality_thresholds", {"warning": 85.0, "reject": 70.0})
 
         # Determine status
         if math.isclose(score, 100.0):
             status = "APPROVED"
             details = "Dataset passed all quality checks."
-        elif score >= thresholds["reject"]:
+        elif score > thresholds["reject"]:
             status = "WARNING"
             details = "Dataset has minor quality issues."
         else:

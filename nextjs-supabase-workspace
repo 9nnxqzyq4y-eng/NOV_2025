@@ -6,7 +6,7 @@
     },
   ],
   "settings": {
-    // === Project-Specific Settings ===
+    //  Project-Specific Settings 
     // It's a good practice to define formatter settings for consistency
     "[python]": {
       "editor.defaultFormatter": "ms-python.black-formatter",

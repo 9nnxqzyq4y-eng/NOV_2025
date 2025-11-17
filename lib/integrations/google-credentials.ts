@@ -3,7 +3,7 @@
  */
 
 export function getGoogleCredentials() {
-  const credentialsPath = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+  const credentialsPath  process.env.GOOGLE_APPLICATION_CREDENTIALS;
   if (!credentialsPath) {
     console.warn(
       'GOOGLE_APPLICATION_CREDENTIALS not set. Google Cloud services may not work.'
@@ -23,8 +23,8 @@ export function getGoogleCredentials() {
 }
 
 export function validateGoogleConfig(): boolean {
-  const credentials = getGoogleCredentials()
-  const projectId = process.env.GOOGLE_CLOUD_PROJECT;
+  const credentials  getGoogleCredentials()
+  const projectId  process.env.GOOGLE_CLOUD_PROJECT;
   if (!credentials) {
     console.error('Missing Google service account credentials')
     return false;

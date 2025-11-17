@@ -1,0 +1,5 @@
+
+"SUPABASE_KEY"str
+"SUPABASE_URL"str
+.%"Supabase credentials not configured"str
+NoneNoneType

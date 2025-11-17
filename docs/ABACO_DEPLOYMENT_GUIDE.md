@@ -4,7 +4,6 @@
 
 This guide covers deploying the complete ABACO Financial Intelligence Platform with Google Drive → Supabase ingestion pipeline.
 
----
 
 ## Prerequisites
 
@@ -32,9 +31,9 @@ This guide covers deploying the complete ABACO Financial Intelligence Platform w
 ```bash
 # Navigate to Settings → API
 # Copy these values:
-SUPABASE_URL=https://xxxxx.supabase.co
-SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-SUPABASE_SERVICE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+SUPABASE_URLhttps://xxxxx.supabase.co
+SUPABASE_ANON_KEYeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+SUPABASE_SERVICE_KEYeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ### Configure Cron (Optional - for scheduled ingestion)
 
@@ -43,10 +42,10 @@ SUPABASE_SERVICE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 ```sql
 -- Replace with your Vercel app URL
-ALTER DATABASE postgres SET app.vercel_ingest_url = 'https://your-app.vercel.app/api/ingest';
+ALTER DATABASE postgres SET app.vercel_ingest_url  'https://your-app.vercel.app/api/ingest';
 
 -- Service key (keep secret!)
-ALTER DATABASE postgres SET app.supabase_service_key = 'your-service-role-key';
+ALTER DATABASE postgres SET app.supabase_service_key  'your-service-role-key';
 
 
 ## 2. Google Drive Setup
@@ -88,9 +87,9 @@ vercel
 In **Vercel Dashboard** → **Settings** → **Environment Variables**:
 
 ```env
-NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGci...
-SUPABASE_SERVICE_KEY=eyJhbGci... (secret - not public)
+NEXT_PUBLIC_SUPABASE_URLhttps://xxxxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEYeyJhbGci...
+SUPABASE_SERVICE_KEYeyJhbGci... (secret - not public)
 
 ### Test API Endpoint
 

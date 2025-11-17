@@ -50,7 +50,7 @@ primary_outputs:
     description: 'Critical quality issues that block downstream work'
   - type: 'github:issue_drafts'
     description: 'Auto-generated issues for data owners (via Copilot)'
-  - type: 'slack:channel=#data-quality'
+  - type: 'slack:channel#data-quality'
     description: 'Real-time quality alerts and daily summaries'
 
 kpi_anchors:
@@ -65,19 +65,19 @@ kpi_anchors:
     threshold_warning: 0.01
     threshold_critical: 0.05
   - name: 'schema_drift_score'
-    description: 'Schema changes detected (0=stable, 1=major drift)'
+    description: 'Schema changes detected (0stable, 1major drift)'
     threshold_good: 0.0
     threshold_warning: 0.1
     threshold_critical: 0.3
 
 safety_rules:
-  - rule: 'Block downstream critical analyses if quality_score < threshold (configurable, default 70)'
+  - rule: 'Block downstream critical analyses if quality_score  threshold (configurable, default 70)'
     severity: 'critical'
     action: 'Set blocking flag, alert data team, prevent report generation'
   - rule: 'Auto-create GitHub issues for quality violations'
     severity: 'medium'
     action: 'Generate issue draft with details, assign to data owner'
-  - rule: 'Escalate to CTO if quality degradation >2 consecutive days'
+  - rule: 'Escalate to CTO if quality degradation 2 consecutive days'
     severity: 'high'
     action: 'Slack alert to CTO, email summary with root cause analysis'
 
@@ -88,26 +88,26 @@ frequency:
     - 'weekly Sunday 00:00 CST - deep schema validation'
   event_triggered:
     - 'immediate on schema drift detection'
-    - 'immediate if null% >20% on critical fields'
+    - 'immediate if null% 20% on critical fields'
 
 escalation:
   primary_contact: 'Data Steward'
   secondary_contact: 'CTO'
   escalation_triggers:
-    - 'Quality score <50 for 2+ consecutive days'
+    - 'Quality score 50 for 2+ consecutive days'
     - 'Schema drift on primary keys or critical fields'
-    - 'Null rate >30% on customer_id or loan_id'
+    - 'Null rate 30% on customer_id or loan_id'
 
 run_mode: 'on ingestion + daily comprehensive'
 
 quality_score_formula: |
-  quality_score = 100 - (null_pct * 500) - (duplicate_pct * 1000) - (schema_drift * 200)
+  quality_score  100 - (null_pct * 500) - (duplicate_pct * 1000) - (schema_drift * 200)
 
   Thresholds:
-  - >= 90: Excellent
-  - >= 70: Acceptable (APPROVED)
-  - >= 50: Warning (requires review)
-  - <  50: Critical (BLOCKED)
+  -  90: Excellent
+  -  70: Acceptable (APPROVED)
+  -  50: Warning (requires review)
+  -   50: Critical (BLOCKED)
 
 critical_fields:
   must_be_complete:
@@ -151,12 +151,12 @@ audit_types:
     check: 'Data freshness (hours since last update)'
     fail_threshold: 48
   accuracy:
-    check: 'Value range validation (e.g., DPD >= 0)'
+    check: 'Value range validation (e.g., DPD  0)'
     fail_threshold: 0.02
 
 notes: |
   Patricia is the meticulous data quality guardian.
   Zero tolerance for critical quality issues - will block reports if necessary.
   Auto-creates GitHub issues for data owners to fix quality problems.
-  Quality score must be >=70 to approve downstream analytics.
+  Quality score must be 70 to approve downstream analytics.
   Uses OpenAI for detailed reports, Grok for fast Slack alerts.

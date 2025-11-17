@@ -1,4 +1,4 @@
-export const customColors = {
+export const customColors  {
   // Add your custom colors here brand: {
     50: '#f0f9ff',
     100: '#e0f2fe',

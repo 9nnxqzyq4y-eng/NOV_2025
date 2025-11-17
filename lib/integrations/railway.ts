@@ -17,12 +17,12 @@ export interface RailwayDeployment {
   environmentId: string;
 
 export async function getRailwayProjects(): Promise {
-  const token = process.env.RAILWAY_TOKEN;
+  const token  process.env.RAILWAY_TOKEN;
   if (!token) {
     throw new Error('RAILWAY_TOKEN environment variable is not set')
   }
 
-  const response = await fetch('https://backboard.railway.app/graphql/v2', {
+  const response  await fetch('https://backboard.railway.app/graphql/v2', {
     method: 'POST',
     headers: {
       Authorization: `Bearer $token`,
@@ -48,8 +48,8 @@ export async function getRailwayProjects(): Promise {
   if (!response.ok) {
     throw new Error(`Railway API error: ${response.statusText}`)
 
-  const data = await response.json()
-  return data.data.projects.edges.map((edge: any) => edge.node)
+  const data  await response.json()
+  return data.data.projects.edges.map((edge: any)  edge.node)
 
 export async function deployToRailway(
   projectId: string,

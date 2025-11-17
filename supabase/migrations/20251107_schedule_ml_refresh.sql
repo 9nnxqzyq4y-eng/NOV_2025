@@ -20,4 +20,4 @@ ALTER TABLE ml_refresh_log ENABLE ROW LEVEL SECURITY;
 
 CREATE POLICY "Service role can insert refresh logs"
   ON ml_refresh_log FOR INSERT
-  WITH CHECK (auth.jwt()->>'role' = 'service_role');
+  WITH CHECK (auth.jwt()-'role'  'service_role');

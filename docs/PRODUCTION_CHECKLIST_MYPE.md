@@ -24,14 +24,14 @@
 ### 2. Business Rules Engine ✅
 
 - [x] **Risk Classification**
-  - High-risk criteria: DPD >90, LTV >80%, Collection <70%
+  - High-risk criteria: DPD 90, LTV 80%, Collection 70%
   - NPL classification: 180+ days threshold
   - Risk levels: LOW, MEDIUM, HIGH, CRITICAL
 
 - [x] **Approval Thresholds**
-  - Micro facilities (<$50K): POD <35%, Collateral 1.0x
-  - Small facilities ($50K-$200K): POD <30%, Collateral 1.2x
-  - Medium facilities (>$200K): POD <20%, Collateral 1.5x
+  - Micro facilities ($50K): POD 35%, Collateral 1.0x
+  - Small facilities ($50K-$200K): POD 30%, Collateral 1.2x
+  - Medium facilities ($200K): POD 20%, Collateral 1.5x
 
 - [x] **Industry Standards (MYPE 2025)**
   - GDP contribution by sector (Trade 25%, Services 30%, etc.)
@@ -239,7 +239,6 @@
 - [x] Async ingestion ready
 - [x] Horizontal scaling possible (stateless API)
 
----
 
 ## 📋 Pre-Deployment Checklist
 
@@ -329,7 +328,7 @@
 - ✅ 0 vulnerabilities (npm audit)
 - ✅ 0 TypeScript errors
 - ✅ 4K resolution (3840x2160) on all charts
-- ✅ < 3 second dashboard load time
+- ✅  3 second dashboard load time
 - ✅ 99.9% uptime SLA ready
 
 **MYPE Alignment:**

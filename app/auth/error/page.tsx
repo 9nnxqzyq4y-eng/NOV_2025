@@ -5,7 +5,7 @@ export default async function Page({
 }: {
   searchParams: Promise;
 }) {
-  const params = await searchParams;
+  const params  await searchParams;
 
   return (
     

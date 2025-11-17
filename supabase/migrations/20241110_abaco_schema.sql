@@ -1,16 +1,16 @@
--- ================================================================
+-- 
 -- ABACO Financial Intelligence Platform - Supabase Schema
 -- Production-ready database schema for financial analytics
--- ================================================================
+-- 
 
 -- Enable required extensions
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE EXTENSION IF NOT EXISTS "pg_cron";
 CREATE EXTENSION IF NOT EXISTS "http";
 
--- ================================================================
+-- 
 -- STAGING TABLES (Raw Data Ingestion)
--- ================================================================
+-- 
 
 -- Raw Portfolios
 CREATE TABLE IF NOT EXISTS raw_portfolios (
@@ -148,9 +148,9 @@ CREATE TABLE IF NOT EXISTS raw_industry (
 
 CREATE INDEX idx_raw_industry_customer ON raw_industry(customer_id);
 
--- ================================================================
+-- 
 -- ML FEATURES TABLE (Engineered Features)
--- ================================================================
+-- 
 
 CREATE TABLE IF NOT EXISTS ml_feature_snapshots (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -227,9 +227,9 @@ CREATE INDEX idx_ml_features_segment ON ml_feature_snapshots(segment);
 CREATE INDEX idx_ml_features_type ON ml_feature_snapshots(customer_type);
 CREATE INDEX idx_ml_features_risk ON ml_feature_snapshots(default_risk_score);
 
--- ================================================================
+-- 
 -- INGESTION LOGS TABLE
--- ================================================================
+-- 
 
 CREATE TABLE IF NOT EXISTS ingestion_logs (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -245,9 +245,9 @@ CREATE TABLE IF NOT EXISTS ingestion_logs (
 
 CREATE INDEX idx_ingestion_logs_created ON ingestion_logs(created_at DESC);
 
--- ================================================================
+-- 
 -- STORED PROCEDURES / RPC FUNCTIONS
--- ================================================================
+-- 
 
 -- Refresh ML Features (called after ingestion)
 CREATE OR REPLACE FUNCTION refresh_ml_features()
@@ -257,7 +257,7 @@ AS $$
 BEGIN
     -- This is a placeholder - actual feature engineering happens in Python
     -- We just update the timestamp
-    UPDATE ml_feature_snapshots SET updated_at = NOW();
+    UPDATE ml_feature_snapshots SET updated_at  NOW();
     
     RAISE NOTICE 'ML features refresh completed';
 END;
@@ -283,9 +283,9 @@ BEGIN
 END;
 $$;
 
--- ================================================================
+-- 
 -- ROW LEVEL SECURITY (RLS) POLICIES
--- ================================================================
+-- 
 
 -- Enable RLS on all tables
 ALTER TABLE raw_portfolios ENABLE ROW LEVEL SECURITY;
@@ -301,25 +301,25 @@ ALTER TABLE ml_feature_snapshots ENABLE ROW LEVEL SECURITY;
 ALTER TABLE ingestion_logs ENABLE ROW LEVEL SECURITY;
 
 -- Service role bypass (for ingestion)
-CREATE POLICY "Service role full access" ON raw_portfolios FOR ALL USING (auth.role() = 'service_role');
-CREATE POLICY "Service role full access" ON raw_facilities FOR ALL USING (auth.role() = 'service_role');
-CREATE POLICY "Service role full access" ON raw_customers FOR ALL USING (auth.role() = 'service_role');
-CREATE POLICY "Service role full access" ON raw_payments FOR ALL USING (auth.role() = 'service_role');
-CREATE POLICY "Service role full access" ON raw_risk_events FOR ALL USING (auth.role() = 'service_role');
-CREATE POLICY "Service role full access" ON raw_revenue FOR ALL USING (auth.role() = 'service_role');
-CREATE POLICY "Service role full access" ON raw_collections FOR ALL USING (auth.role() = 'service_role');
-CREATE POLICY "Service role full access" ON raw_marketing FOR ALL USING (auth.role() = 'service_role');
-CREATE POLICY "Service role full access" ON raw_industry FOR ALL USING (auth.role() = 'service_role');
-CREATE POLICY "Service role full access" ON ml_feature_snapshots FOR ALL USING (auth.role() = 'service_role');
-CREATE POLICY "Service role full access" ON ingestion_logs FOR ALL USING (auth.role() = 'service_role');
+CREATE POLICY "Service role full access" ON raw_portfolios FOR ALL USING (auth.role()  'service_role');
+CREATE POLICY "Service role full access" ON raw_facilities FOR ALL USING (auth.role()  'service_role');
+CREATE POLICY "Service role full access" ON raw_customers FOR ALL USING (auth.role()  'service_role');
+CREATE POLICY "Service role full access" ON raw_payments FOR ALL USING (auth.role()  'service_role');
+CREATE POLICY "Service role full access" ON raw_risk_events FOR ALL USING (auth.role()  'service_role');
+CREATE POLICY "Service role full access" ON raw_revenue FOR ALL USING (auth.role()  'service_role');
+CREATE POLICY "Service role full access" ON raw_collections FOR ALL USING (auth.role()  'service_role');
+CREATE POLICY "Service role full access" ON raw_marketing FOR ALL USING (auth.role()  'service_role');
+CREATE POLICY "Service role full access" ON raw_industry FOR ALL USING (auth.role()  'service_role');
+CREATE POLICY "Service role full access" ON ml_feature_snapshots FOR ALL USING (auth.role()  'service_role');
+CREATE POLICY "Service role full access" ON ingestion_logs FOR ALL USING (auth.role()  'service_role');
 
 -- Authenticated users read-only
-CREATE POLICY "Authenticated read" ON ml_feature_snapshots FOR SELECT USING (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated read" ON ingestion_logs FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "Authenticated read" ON ml_feature_snapshots FOR SELECT USING (auth.role()  'authenticated');
+CREATE POLICY "Authenticated read" ON ingestion_logs FOR SELECT USING (auth.role()  'authenticated');
 
--- ================================================================
+-- 
 -- CRON JOBS SETUP
--- ================================================================
+-- 
 
 -- Schedule daily ingestion at 6 AM UTC
 SELECT cron.schedule(
@@ -327,8 +327,8 @@ SELECT cron.schedule(
     '0 6 * * *',
     $$
     SELECT net.http_post(
-        url := current_setting('app.vercel_ingest_url'),
-        headers := jsonb_build_object(
+        url : current_setting('app.vercel_ingest_url'),
+        headers : jsonb_build_object(
             'Authorization', 'Bearer ' || current_setting('app.supabase_service_key'),
             'Content-Type', 'application/json'
         )
@@ -336,13 +336,13 @@ SELECT cron.schedule(
     $$
 );
 
--- ================================================================
+-- 
 -- INITIAL DATA & CONFIGURATION
--- ================================================================
+-- 
 
 -- Set configuration parameters
 -- Run these commands in psql or Supabase SQL Editor:
--- ALTER DATABASE postgres SET app.vercel_ingest_url = 'https://your-app.vercel.app/api/ingest';
--- ALTER DATABASE postgres SET app.supabase_service_key = 'your-service-key';
+-- ALTER DATABASE postgres SET app.vercel_ingest_url  'https://your-app.vercel.app/api/ingest';
+-- ALTER DATABASE postgres SET app.supabase_service_key  'your-service-key';
 
 COMMENT ON SCHEMA public IS 'ABACO Financial Intelligence Platform - Production Schema';

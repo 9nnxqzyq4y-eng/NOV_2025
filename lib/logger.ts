@@ -6,10 +6,10 @@
  */
 
 export enum LogLevel {
-  DEBUG = 0,
-  INFO = 1,
-  WARN = 2,
-  ERROR = 3,
+  DEBUG  0,
+  INFO  1,
+  WARN  2,
+  ERROR  3,
 }
 
 export interface LogContext {
@@ -30,15 +30,15 @@ export interface LogEntry {
 }
 
 class Logger {
-  private level: LogLevel = LogLevel.INFO
-  private context: LogContext = {}
+  private level: LogLevel  LogLevel.INFO
+  private context: LogContext  {}
 
   constructor() {
     // Set log level based on environment
-    if (process.env.NODE_ENV === 'development') {
-      this.level = LogLevel.DEBUG
+    if (process.env.NODE_ENV  'development') {
+      this.level  LogLevel.DEBUG
     } else if (process.env.LOG_LEVEL) {
-      this.level = LogLevel[process.env.LOG_LEVEL as keyof typeof LogLevel] ?? LogLevel.INFO
+      this.level  LogLevel[process.env.LOG_LEVEL as keyof typeof LogLevel] ?? LogLevel.INFO
     }
   }
 
@@ -46,14 +46,14 @@ class Logger {
    * Set global context that will be included in all log entries
    */
   setContext(context: LogContext): void {
-    this.context = { ...this.context, ...context }
+    this.context  { ...this.context, ...context }
   }
 
   /**
    * Clear global context
    */
   clearContext(): void {
-    this.context = {}
+    this.context  {}
   }
 
   /**
@@ -82,11 +82,11 @@ class Logger {
    * Format log entry for console output
    */
   private formatLogEntry(entry: LogEntry): string {
-    const levelName = LogLevel[entry.level]
-    const contextStr = entry.context && Object.keys(entry.context).length > 0
+    const levelName  LogLevel[entry.level]
+    const contextStr  entry.context && Object.keys(entry.context).length  0
       ? ` ${JSON.stringify(entry.context)}`
       : ''
-    const errorStr = entry.error
+    const errorStr  entry.error
       ? `\n${entry.error.stack || entry.error.message}`
       : ''
 
@@ -97,8 +97,8 @@ class Logger {
    * Log a debug message
    */
   debug(message: string, context?: LogContext): void {
-    if (this.level <= LogLevel.DEBUG) {
-      const entry = this.createLogEntry(LogLevel.DEBUG, message, context)
+    if (this.level  LogLevel.DEBUG) {
+      const entry  this.createLogEntry(LogLevel.DEBUG, message, context)
       console.debug(this.formatLogEntry(entry))
     }
   }
@@ -107,8 +107,8 @@ class Logger {
    * Log an info message
    */
   info(message: string, context?: LogContext): void {
-    if (this.level <= LogLevel.INFO) {
-      const entry = this.createLogEntry(LogLevel.INFO, message, context)
+    if (this.level  LogLevel.INFO) {
+      const entry  this.createLogEntry(LogLevel.INFO, message, context)
       console.info(this.formatLogEntry(entry))
     }
   }
@@ -117,8 +117,8 @@ class Logger {
    * Log a warning message
    */
   warn(message: string, context?: LogContext, error?: Error): void {
-    if (this.level <= LogLevel.WARN) {
-      const entry = this.createLogEntry(LogLevel.WARN, message, context, error)
+    if (this.level  LogLevel.WARN) {
+      const entry  this.createLogEntry(LogLevel.WARN, message, context, error)
       console.warn(this.formatLogEntry(entry))
     }
   }
@@ -127,8 +127,8 @@ class Logger {
    * Log an error message
    */
   error(message: string, context?: LogContext, error?: Error): void {
-    if (this.level <= LogLevel.ERROR) {
-      const entry = this.createLogEntry(LogLevel.ERROR, message, context, error)
+    if (this.level  LogLevel.ERROR) {
+      const entry  this.createLogEntry(LogLevel.ERROR, message, context, error)
       console.error(this.formatLogEntry(entry))
     }
   }
@@ -163,7 +163,7 @@ class Logger {
 }
 
 // Export singleton instance
-export const logger = new Logger()
+export const logger  new Logger()
 
 // Export types for external use
 export type { LogContext, LogEntry }

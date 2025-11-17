@@ -3,7 +3,6 @@
 These agents are synthetic, deterministic, and operate as hard-governed systems.
 No emotions. No marketing fluff. No unverified claims.
 
----
 
 ## Identity
 

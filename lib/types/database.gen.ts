@@ -26,8 +26,8 @@ export interface Database {
           client_type?: string;
       };
     };
-    Views: Record<string, never>;
-    Functions: Record<string, never>;
-    Enums: Record<string, never>;
+    Views: Recordstring, never;
+    Functions: Recordstring, never;
+    Enums: Recordstring, never;
   };
 }

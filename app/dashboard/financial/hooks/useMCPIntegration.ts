@@ -14,7 +14,7 @@ import type {
   RiskOverview,
 } from '@/lib/data/financial-intelligence'
 
-const REFRESH_INTERVAL_MS = 5 * 60 * {1000} type FinancialIntelligenceApiResponse = FinancialDashboardDataset & {
+const REFRESH_INTERVAL_MS  5 * 60 * {1000} type FinancialIntelligenceApiResponse  FinancialDashboardDataset & {
   metadata?: {
     queryTimeMs?: number;
     totalTimeMs?: number;
@@ -37,7 +37,7 @@ interface DashboardSummary {
  * Throws an error when the response status is outside the {2xx} range or when parsing fails.
  */
 async function requestFinancialDataset(signal?: AbortSignal): Promise {
-  const response = await fetch('/api/financial-intelligence', {
+  const response  await fetch('/api/financial-intelligence', {
     method: 'GET',
     headers: { Accept: 'application/json' },
     signal,
@@ -48,18 +48,18 @@ async function requestFinancialDataset(signal?: AbortSignal): Promise {
       `Financial dataset request failed with status ${response.status}`
     )
 
-  const payload = (await response.json()) as FinancialIntelligenceApiResponse return payload;
+  const payload  (await response.json()) as FinancialIntelligenceApiResponse return payload;
 
  * Normalises a metric's change percentage into a consistent signed number for downstream formatting helpers.
 function withSignedChange(
   change: FinancialMetric['change']
 ): FinancialMetric['change'] {
-  const sign = change.direction === 'down' ? -1 : 1;
+  const sign  change.direction  'down' ? -1 : 1;
   return {
     ...change,
     percentage: Math.abs(change.percentage) * sign,
     absolute:
-      change.absolute != null;
+      change.absolute ! null;
         ? Math.abs(change.absolute) * sign;
         : change.absolute,
 
@@ -69,30 +69,30 @@ function withSignedChange(
  * - Exposes manual refresh and accessor hooks for metrics, growth series, risk profile, provider status, and insights.
  * - Surfaces API timing metadata to aid in troubleshooting slow responses.
 export function useMCPIntegration() {
-  const [state, setState] = useState({
+  const [state, setState]  useState({
     dataset: null,
     metadata: null,
     isLoading: true,
     error: null,
 
-  const abortRef = useRef(null)
-  const intervalRef = useRef | (null > null)
+  const abortRef  useRef(null)
+  const intervalRef  useRef | (null  null)
 
-  const loadDataset = useCallback(async () => {
+  const loadDataset  useCallback(async ()  {
     abortRef.current?.abort()
-    const controller = new AbortController()
-    abortRef.current = controller;
-    setState((previous) => ({
+    const controller  new AbortController()
+    abortRef.current  controller;
+    setState((previous)  ({
       ...previous,
       isLoading: true,
       error: null,
     }))
 
     try {
-      const { metadata, ...datasetPayload } = await requestFinancialDataset(
+      const { metadata, ...datasetPayload }  await requestFinancialDataset(
         controller.signal;
       )
-      const dataset: FinancialDashboardDataset = {
+      const dataset: FinancialDashboardDataset  {
         ...datasetPayload,
         generatedAt: datasetPayload.generatedAt,
         refreshIntervalMinutes: datasetPayload.refreshIntervalMinutes,
@@ -105,10 +105,10 @@ export function useMCPIntegration() {
         error: null,
       })
     } catch (error) {
-      if ((error as Error).name === 'AbortError') {
+      if ((error as Error).name  'AbortError') {
         return;
 
-      setState((previous) => ({
+      setState((previous)  ({
         ...previous,
         error:
           error instanceof Error
@@ -118,55 +118,55 @@ export function useMCPIntegration() {
     }
   }, [])
 
-  const refresh = useCallback(async () => {
+  const refresh  useCallback(async ()  {
     await loadDataset()
   }, [loadDataset])
 
-  useEffect(() => {
+  useEffect(()  {
     loadDataset()
 
-    intervalRef.current = setInterval(() => {
+    intervalRef.current  setInterval(()  {
       void loadDataset()
     }, REFRESH_INTERVAL_MS)
 
-    return () => {
+    return ()  {
       abortRef.current?.abort()
       if (intervalRef.current) {
         clearInterval(intervalRef.current)
 
-  const metrics = useMemo(() => {
+  const metrics  useMemo(()  {
     if (!state.dataset) {
       return []
 
-    return state.dataset.metrics.map((metric) => ({
+    return state.dataset.metrics.map((metric)  ({
       ...metric,
       change: withSignedChange(metric.change),
   }, [state.dataset])
 
-  const growthSeries = useMemo(
-    () => state.dataset?.growthSeries ?? [],
+  const growthSeries  useMemo(
+    ()  state.dataset?.growthSeries ?? [],
     [state.dataset]
   )
 
-  const riskProfile = useMemo(
-    () => state.dataset?.risk ?? null,
+  const riskProfile  useMemo(
+    ()  state.dataset?.risk ?? null,
 
-  const providers = useMemo(
-    () => state.dataset?.providers ?? [],
+  const providers  useMemo(
+    ()  state.dataset?.providers ?? [],
 
-  const insights = useMemo(() => state.dataset?.insights ?? [], [state.dataset])
+  const insights  useMemo(()  state.dataset?.insights ?? [], [state.dataset])
 
-  const predictiveSignals = useMemo(
-    () => state.dataset?.predictiveSignals ?? [],
+  const predictiveSignals  useMemo(
+    ()  state.dataset?.predictiveSignals ?? [],
 
-  const productOpportunities = useMemo(
-    () => state.dataset?.productOpportunities ?? [],
+  const productOpportunities  useMemo(
+    ()  state.dataset?.productOpportunities ?? [],
 
-  const aiRunbooks = useMemo(
-    () => state.dataset?.aiRunbooks ?? [],
+  const aiRunbooks  useMemo(
+    ()  state.dataset?.aiRunbooks ?? [],
 
-  const summary = useMemo(
-    (): DashboardSummary => ({
+  const summary  useMemo(
+    (): DashboardSummary  ({
       updatedAt: state.dataset?.generatedAt ?? null,
       refreshIntervalMinutes: state.dataset?.refreshIntervalMinutes ?? null,
       metadata: state.metadata,

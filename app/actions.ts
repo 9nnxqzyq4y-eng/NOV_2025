@@ -20,12 +20,12 @@ export interface ActionState {
 export async function updatePasswordAction(
   _prevState: ActionState,
   formData: FormData
-): Promise<ActionState> {
-  const startTime = Date.now()
+): PromiseActionState {
+  const startTime  Date.now()
 
   try {
-    const password = formData.get('password') as string
-    const confirmPassword = formData.get('confirm_password') as string
+    const password  formData.get('password') as string
+    const confirmPassword  formData.get('confirm_password') as string
 
     // Input validation
     if (!password || !confirmPassword) {
@@ -42,7 +42,7 @@ export async function updatePasswordAction(
     }
 
     // Password matching validation
-    if (password !== confirmPassword) {
+    if (password ! confirmPassword) {
       logger.warn('Password update failed: Passwords do not match', {
         component: 'auth',
         action: 'update_password',
@@ -54,7 +54,7 @@ export async function updatePasswordAction(
     }
 
     // Comprehensive password strength validation
-    const passwordValidation = validatePasswordStrength(password)
+    const passwordValidation  validatePasswordStrength(password)
     if (!passwordValidation.isValid) {
       logger.warn('Password update failed: Weak password', {
         component: 'auth',
@@ -75,8 +75,8 @@ export async function updatePasswordAction(
     }
 
     // Supabase password update
-    const supabase = await createClient()
-    const { data, error } = await supabase.auth.updateUser({
+    const supabase  await createClient()
+    const { data, error }  await supabase.auth.updateUser({
       password,
     })
 
@@ -110,7 +110,7 @@ export async function updatePasswordAction(
       },
     }
   } catch (err) {
-    const error = err instanceof Error ? err : new Error('Unknown error occurred')
+    const error  err instanceof Error ? err : new Error('Unknown error occurred')
     logger.error('Password update failed: Unexpected error', {
       component: 'auth',
       action: 'update_password',
@@ -130,12 +130,12 @@ export async function updatePasswordAction(
 export async function signUpAction(
   _prevState: ActionState,
   formData: FormData
-): Promise<ActionState> {
-  const startTime = Date.now()
+): PromiseActionState {
+  const startTime  Date.now()
 
   try {
-    const email = formData.get('email') as string
-    const password = formData.get('password') as string
+    const email  formData.get('email') as string
+    const password  formData.get('password') as string
 
     // Input validation
     if (!email || !password) {
@@ -165,7 +165,7 @@ export async function signUpAction(
     }
 
     // Password strength validation
-    const passwordValidation = validatePasswordStrength(password)
+    const passwordValidation  validatePasswordStrength(password)
     if (!passwordValidation.isValid) {
       logger.warn('Sign up failed: Weak password', {
         component: 'auth',
@@ -187,8 +187,8 @@ export async function signUpAction(
     }
 
     // Supabase user registration
-    const supabase = await createClient()
-    const { data, error } = await supabase.auth.signUp({
+    const supabase  await createClient()
+    const { data, error }  await supabase.auth.signUp({
       email: email.toLowerCase().trim(), // Normalize email
       password,
       options: {
@@ -230,7 +230,7 @@ export async function signUpAction(
       },
     }
   } catch (err) {
-    const error = err instanceof Error ? err : new Error('Unknown error occurred')
+    const error  err instanceof Error ? err : new Error('Unknown error occurred')
     logger.error('Sign up failed: Unexpected error', {
       component: 'auth',
       action: 'signup',

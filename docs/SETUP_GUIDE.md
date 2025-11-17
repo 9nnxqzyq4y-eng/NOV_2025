@@ -15,16 +15,16 @@ Create `.env.local`:
 
 ```bash
 # Required - Get from https://supabase.com/dashboard/project/[project-ref]/settings/api
-NEXT_PUBLIC_SUPABASE_URL=https://[project-ref].supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=[anon-key]
-SUPABASE_SERVICE_ROLE_KEY=[service-role-key]
+NEXT_PUBLIC_SUPABASE_URLhttps://[project-ref].supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY[anon-key]
+SUPABASE_SERVICE_ROLE_KEY[service-role-key]
 
 # Optional - For Google Drive ingestion
-GDRIVE_FOLDER_ID=[folder-id]
-GDRIVE_SERVICE_ACCOUNT={"type":"service_account",...}
+GDRIVE_FOLDER_ID[folder-id]
+GDRIVE_SERVICE_ACCOUNT{"type":"service_account",...}
 
 # Optional - For Grok AI features
-GROK_API_KEY=[api-key]
+GROK_API_KEY[api-key]
 
 ### 2. Validate Environment
 

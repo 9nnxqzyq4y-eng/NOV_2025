@@ -9,12 +9,12 @@ import { validateDataQuality, type QualityAuditResult } from "./abaco-strategy-2
 export interface EnhancedABACOTier1 extends QualityAuditResult {
   // Standard tier 1 fields...
   // NEW: HuggingFace insights
-  financialEntities?: Array<{ type: string; value: string; confidence: number }>;
-  anomalousRecords?: Array<{
+  financialEntities?: Array{ type: string; value: string; confidence: number };
+  anomalousRecords?: Array{
     recordId: string;
     anomalyScore: number;
     indicators: string[];
-  }>;
+  };
   sentimentAnalysis?: {
     overallRisk: number;
     negativeIndicators: string[];
@@ -23,25 +23,25 @@ export interface EnhancedABACOTier1 extends QualityAuditResult {
 
 export async function validateDataQualityWithHF(
   data: any
-): Promise<EnhancedABACOTier1> {
+): PromiseEnhancedABACOTier1 {
   // First: Standard validation
-  const baseValidation = validateDataQuality(data);
+  const baseValidation  validateDataQuality(data);
 
   // Extract financial entities from narratives
-  let financialEntities: any[] = [];
+  let financialEntities: any[]  [];
   if (data.loanNarratives) {
     for (const narrative of data.loanNarratives.slice(0, 5)) {
       // Sample first 5 to control latency
-      const extracted = await hf.extractFinancialEntities(narrative);
+      const extracted  await hf.extractFinancialEntities(narrative);
       financialEntities.push(...extracted.entities);
     }
   }
 
   // Detect anomalous payment patterns
-  let anomalousRecords: any[] = [];
+  let anomalousRecords: any[]  [];
   if (data.payments) {
     for (const payment of data.payments) {
-      const detection = await hf.detectAnomalousPayments(payment.history);
+      const detection  await hf.detectAnomalousPayments(payment.history);
       if (detection.isAnomalous) {
         anomalousRecords.push({
           recordId: payment.customerId,
@@ -53,19 +53,19 @@ export async function validateDataQualityWithHF(
   }
 
   // Analyze sentiment from customer communications
-  let sentimentAnalysis = { overallRisk: 0, negativeIndicators: [] as string[] };
+  let sentimentAnalysis  { overallRisk: 0, negativeIndicators: [] as string[] };
   if (data.communications) {
-    const sentiments = await Promise.all(
-      data.communications.map((comm: string) => hf.analyzeRiskSentiment(comm))
+    const sentiments  await Promise.all(
+      data.communications.map((comm: string)  hf.analyzeRiskSentiment(comm))
     );
-    sentimentAnalysis = {
+    sentimentAnalysis  {
       overallRisk: Math.round(
-        sentiments.reduce((sum, s) => sum + s.riskScore, 0) / sentiments.length
+        sentiments.reduce((sum, s)  sum + s.riskScore, 0) / sentiments.length
       ),
       negativeIndicators: sentiments
-        .filter((s) => s.sentiment === "negative")
+        .filter((s)  s.sentiment  "negative")
         .slice(0, 5)
-        .map((s) => s.sentiment),
+        .map((s)  s.sentiment),
     };
   }
 

@@ -72,7 +72,7 @@
 
     ```javascript
     // Jerarquía de texto
-    const textColors = {
+    const textColors  {
       primary: "text-white", // Títulos principales, números importantes
       secondary: "text-gray-300", // Body text, descripciones
       tertiary: "text-gray-400", // Subtítulos, labels
@@ -100,13 +100,13 @@
     ### Fuentes
 
     // Fuentes principales (Google Fonts)
-    const fonts = {
+    const fonts  {
       titles: "Lato", // Títulos, headers, labels
       numbers: "Poppins", // Números, KPIs, datos
       body: "Lato", // Texto corrido, descripciones
 
     // Pesos de fuente
-    const fontWeights = {
+    const fontWeights  {
       regular: 400,
       semibold: 600,
       bold: 700,
@@ -141,7 +141,7 @@
     ### Line Height y Spacing
 
     // Interlineado por tipo de texto
-    const lineHeight = {
+    const lineHeight  {
       tight: "leading-tight", // Títulos grandes (1.25)
       normal: "leading-normal", // Body text (1.5)
       relaxed: "leading-relaxed", // Texto largo (1.625)
@@ -183,13 +183,13 @@
     ### Gradientes para Highlights
 
     // Gradiente purple-blue (más común)
-    className = "bg-gradient-to-r from-purple-900/30 to-blue-900/30";
+    className  "bg-gradient-to-r from-purple-900/30 to-blue-900/30";
 
     // Gradiente green-blue (success)
-    className = "bg-gradient-to-r from-green-900/30 to-blue-900/30";
+    className  "bg-gradient-to-r from-green-900/30 to-blue-900/30";
 
     // Gradiente completo de fondo
-    className = "bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900";
+    className  "bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900";
 
     ### Sombras y Profundidad
 
@@ -282,10 +282,10 @@
     ### Estructura de Slide (Template)
 
     // Estructura estándar de un slide
-    <div
-      className="h-screen w-full bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900
+    div
+      className"h-screen w-full bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900
                     flex flex-col justify-between p-8 overflow-hidden"
-    >
+    
       {/* Header - Siempre centrado */}
 
         Título del Slide
@@ -322,8 +322,8 @@
 
     // Aunque el deck es para presentaciones (no responsive),
     // las proporciones están optimizadas para 16:9
-    const aspectRatio = "16:9";
-    const resolution = "1920x1080"; // Full HD estándar
+    const aspectRatio  "16:9";
+    const resolution  "1920x1080"; // Full HD estándar
 
     // El contenido usa overflow-y-auto para manejar exceso de contenido
     // en lugar de reducir tamaños de fuente
@@ -334,11 +334,11 @@
     ### Números y Moneda
 
     // Formato de moneda USD
-    const formatCurrency = (value, decimals = 2) => {
-      if (value >= 1000000) {
+    const formatCurrency  (value, decimals  2)  {
+      if (value  1000000) {
         return `$${(value / 1000000).toFixed(decimals)}M`;
       }
-      if (value >= 1000) {
+      if (value  1000) {
         return `$${(value / 1000).toFixed(0)}k`;
       return `$${value.toLocaleString("en-US")}`;
 
@@ -355,12 +355,12 @@
     "~20%"; // Aproximado (usar tilde ~)
     "≥96%"; // Mayor o igual
     "≤4%"; // Menor o igual
-    "<12%"; // Menor que (usar &lt; en JSX)
-    ">$50k"; // Mayor que (usar &gt; en JSX)
+    "12%"; // Menor que (usar &lt; en JSX)
+    "$50k"; // Mayor que (usar &gt; en JSX)
 
     // Cambios y objetivos
     "93.6% → ≥96%"; // Estado actual → Objetivo
-    "15.6% → <12%"; // Mejora esperada
+    "15.6% → 12%"; // Mejora esperada
 
     ### Rangos
 
@@ -398,7 +398,7 @@
     **Principio**: Mezclar español e inglés de forma natural según el contexto técnico y la audiencia.
 
     // ✅ Usar inglés para:
-    const englishTerms = [
+    const englishTerms  [
       "AUM",
       "KPI",
       "KAM",
@@ -421,7 +421,7 @@
     ];
 
     // ✅ Usar español para:
-    const spanishPhrases = [
+    const spanishPhrases  [
       "Objetivo & Oportunidad",
       "Estrategia por canal",
       "Cartera viva",
@@ -433,7 +433,7 @@
     // ✅ Mezclar naturalmente:
     ("Pipeline coverage: ≥3× (3 anchors futuros por cada cierre mensual)");
     ("Meta Q4-2025: 100–160k impresiones → 225–305 leads");
-    ("Convierte tus facturas en cash en <48h");
+    ("Convierte tus facturas en cash en 48h");
 
     ### Tono y Voz
 
@@ -466,8 +466,8 @@
     "/"; // Slash para fracciones o "por"
 
     // En JSX, usar HTML entities:
-    "&lt;"; // <
-    "&gt;"; // >
+    "&lt;"; // 
+    "&gt;"; // 
     "&amp;"; // &
 
 
@@ -496,7 +496,7 @@
 
     // ✅ Bueno - Color indica significado
     +$8.908M  // Crecimiento
-    DPD>15: 15.6%         // Riesgo
+    DPD15: 15.6%         // Riesgo
     Meta/WA Only         // Canal
     $620–700k/mo       // KPI destacado
 
@@ -527,9 +527,9 @@
     ### 5. Contenido Editable
 
     // Agregar interactividad para edición
-    <h2
-      className="text-2xl font-bold text-white mb-2 cursor-pointer hover:text-purple-300"
-      onClick={() => setEditing(true)}
+    h2
+      className"text-2xl font-bold text-white mb-2 cursor-pointer hover:text-purple-300"
+      onClick{()  setEditing(true)}
       {editing ?  : title}
 
 
@@ -549,11 +549,11 @@
     // ✅ Bueno - Usar entities para caracteres especiales
     Target: &lt;$10k
     Pipeline: &gt;3×
-    Efficiency: &gt;=96%
+    Efficiency: &gt;96%
 
     // ❌ Malo - Causa errores de compilación
     Target:      // ❌ JSX error
-    Pipeline: >3×     // ❌ JSX error
+    Pipeline: 3×     // ❌ JSX error
 
 
     ## 📊 Ejemplos Completos
@@ -581,7 +581,7 @@
 
     ### Ejemplo 2: Highlighted Summary Box
 
-      className="bg-gradient-to-r from-purple-900/30 to-blue-900/30
+      className"bg-gradient-to-r from-purple-900/30 to-blue-900/30
                     backdrop-blur-sm rounded-lg p-3 border border-purple-400/30"
       {/* Título */}
 
@@ -696,7 +696,7 @@
     - [ ] Espaciado consistente (`space-y-3` entre cards)
     - [ ] Footer con nota informativa pequeña
     - [ ] HTML entities para `` (`&lt;`, `&gt;`)
-    - [ ] Colores semánticos (green=success, red=risk, etc.)
+    - [ ] Colores semánticos (greensuccess, redrisk, etc.)
 
 
     _Documento vivo - actualizar según evolucione el design system_

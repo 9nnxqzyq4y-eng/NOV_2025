@@ -6,7 +6,7 @@ import {
 import { NextResponse } from 'next/server'
 import { performance } from 'node:perf_hooks'
 
-export const revalidate = 0
+export const revalidate  0
 
 export interface FinancialIntelligenceResponse {
   generatedAt: string;
@@ -22,14 +22,14 @@ export interface FinancialIntelligenceResponse {
  * response headers to simplify performance troubleshooting in production.
  */
 export async function GET() {
-  const startedAt = performance.now()
+  const startedAt  performance.now()
 
   // Static dataset lookup is treated as the "query" step for timing purposes.
-  const queryStart = performance.now()
-  const payload = { ...financialDashboardDataset }
-  const queryDuration = performance.now() - queryStart
-  const generatedAt = new Date().toISOString()
-  const responseBody = {
+  const queryStart  performance.now()
+  const payload  { ...financialDashboardDataset }
+  const queryDuration  performance.now() - queryStart
+  const generatedAt  new Date().toISOString()
+  const responseBody  {
     ...payload,
     generatedAt,
     metadata: {
@@ -37,7 +37,7 @@ export async function GET() {
       totalTimeMs: Number((performance.now() - startedAt).toFixed(2)),
     },
   } satisfies typeof payload & FinancialIntelligenceResponse
-  const headers = new Headers({
+  const headers  new Headers({
     'Content-Type': 'application/json',
     'Cache-Control': 'no-store',
   })
@@ -46,7 +46,7 @@ export async function GET() {
   headers.set('X-Total-Time-ms', responseBody.metadata.totalTimeMs.toString())
   headers.set(
     'Server-Timing',
-    `query;dur=${responseBody.metadata.queryTimeMs}, total;dur=${responseBody.metadata.totalTimeMs}`
+    `query;dur${responseBody.metadata.queryTimeMs}, total;dur${responseBody.metadata.totalTimeMs}`
   )
 
   return NextResponse.json(responseBody, { headers })
@@ -58,14 +58,14 @@ export async function GET() {
  */
 export async function POST(request: Request) {
   try {
-    const body: RiskContext = await request.json()
+    const body: RiskContext  await request.json()
 
     // Validate required fields
     if (
-      typeof body.aum !== 'number' ||
-      typeof body.activeLoans !== 'number' ||
-      typeof body.avgDpd !== 'number' ||
-      typeof body.defaultRate !== 'number'
+      typeof body.aum ! 'number' ||
+      typeof body.activeLoans ! 'number' ||
+      typeof body.avgDpd ! 'number' ||
+      typeof body.defaultRate ! 'number'
     ) {
       return NextResponse.json(
         { error: 'Invalid risk context data' },
@@ -73,7 +73,7 @@ export async function POST(request: Request) {
       )
     }
 
-    const summary = await grokRiskSummary(body)
+    const summary  await grokRiskSummary(body)
 
     return NextResponse.json({
       summary,

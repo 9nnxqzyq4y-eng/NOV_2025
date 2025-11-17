@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-export const runtime = 'nodejs'
+export const runtime  'nodejs'
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json().catch(() => ({}))
-    const { trigger = 'all' } = body
+    const body  await request.json().catch(()  ({}))
+    const { trigger  'all' }  body
 
     if (!['all', 'executive', 'risk', 'operations', 'growth', 'financial', 'quality', 'compliance'].includes(trigger)) {
       return NextResponse.json(
@@ -14,10 +14,10 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const bearer = request.headers.get('authorization')?.replace('Bearer ', '')
-    const expectedToken = process.env.AGENT_ORCHESTRATOR_TOKEN
+    const bearer  request.headers.get('authorization')?.replace('Bearer ', '')
+    const expectedToken  process.env.AGENT_ORCHESTRATOR_TOKEN
 
-    if (expectedToken && bearer !== expectedToken) {
+    if (expectedToken && bearer ! expectedToken) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }

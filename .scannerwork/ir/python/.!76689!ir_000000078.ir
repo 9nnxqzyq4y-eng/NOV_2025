@@ -1,0 +1,18 @@
+
+:1"🚀 Initializing ABACO Standalone AI Engine..."str
+3150000int
+"kpis"str
+40int
+G"Main function to trigger an AI agent and print its response."str
+90"Generate Q2 portfolio review for board meeting"str
+#	"executive-summary-ai-001"str
+)% "Response received:\n{response}"str
++"✅ Task Complete."str
+0.15float
+0.019float
+280int
+""✅ Engine Initialized."str
+NoneNoneType
+"-"str
+0.004float
+?6"🎯 Sending trigger to agent: {agent_id_to_trigger}"str

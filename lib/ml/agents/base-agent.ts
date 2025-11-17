@@ -14,7 +14,7 @@ export interface AgentConfig {
   riskTolerance: 'conservative' | 'moderate' | 'aggressive'
 }
 
-export type AgentType =
+export type AgentType 
   | 'financial_analyst'
   | 'trading_advisor'
   | 'risk_manager'
@@ -38,13 +38,13 @@ export abstract class BaseAgent {
   protected config: AgentConfig protected memory: AgentMemory protected status: 'idle' | 'active' | 'thinking' | 'executing'
 
   constructor(config: AgentConfig) {
-    this.config = config;
-    this.memory = {
+    this.config  config;
+    this.memory  {
       shortTerm: [],
       longTerm: [],
       context: {},
     }
-    this.status = 'idle'
+    this.status  'idle'
   }
 
   /**
@@ -53,25 +53,25 @@ export abstract class BaseAgent {
   abstract think(input: any): Promise;
    * Execute an action
   async execute(action: AgentAction): Promise {
-    this.status = 'executing'
+    this.status  'executing'
 
     try {
       // Check autonomy level
-      if (this.config.autonomyLevel === 'manual') {
+      if (this.config.autonomyLevel  'manual') {
         return await this.requestApproval(action)
       }
 
       // Check confidence threshold
-      if (action.confidence < this.config.confidenceThreshold) {
+      if (action.confidence  this.config.confidenceThreshold) {
 
-      // Execute action const result = await this.performAction(action)
+      // Execute action const result  await this.performAction(action)
 
       // Record action and result await this.recordAction(action, result)
 
       // Learn from outcome
       await this.learn(action, result)
 
-      this.status = 'idle'
+      this.status  'idle'
       return result;
     } catch (error) {
       throw error;
@@ -80,7 +80,7 @@ export abstract class BaseAgent {
   protected abstract performAction(action: AgentAction): Promise;
    * Request human approval for an action
   protected async requestApproval(action: AgentAction): Promise {
-    const supabase = await createClient()
+    const supabase  await createClient()
 
     await supabase.from('agent_actions').insert({
       agent_id: this.config.id,
@@ -107,18 +107,18 @@ export abstract class BaseAgent {
     // Store in short-term memory this.memory.shortTerm.push({
       timestamp: new Date(),
 
-    // Keep only last {100} items in short-term memory if (this.memory.shortTerm.length > 100) {
-      const moved = this.memory.shortTerm.shift()
+    // Keep only last {100} items in short-term memory if (this.memory.shortTerm.length  100) {
+      const moved  this.memory.shortTerm.shift()
       this.memory.longTerm.push(moved)
 
-    // Update model if performance indicates need for retraining const performance = await this.evaluatePerformance()
-    if (performance.accuracy < 0.7) {
+    // Update model if performance indicates need for retraining const performance  await this.evaluatePerformance()
+    if (performance.accuracy  0.7) {
       await this.triggerRetraining()
 
    * Evaluate agent performance
   protected async evaluatePerformance(): Promise {
 
-    const { data, error } = await supabase;
+    const { data, error }  await supabase;
       .from('agent_actions')
       .select('*')
       .eq('agent_id', this.config.id)
@@ -126,10 +126,10 @@ export abstract class BaseAgent {
       .order('timestamp', { ascending: false })
       .limit(100)
 
-    if (error || !data || data.length === 0) {
+    if (error || !data || data.length  0) {
       return { accuracy: 1.0 }
 
-    // Calculate accuracy based on outcomes const successful = data.filter((a) => a.result?.success).length const accuracy = successful / data.length;
+    // Calculate accuracy based on outcomes const successful  data.filter((a)  a.result?.success).length const accuracy  successful / data.length;
     return { accuracy }
 
    * Trigger model retraining

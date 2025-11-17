@@ -24,8 +24,8 @@ This application uses both Edge and Node runtimes strategically:
 import { getServerSupabaseClient } from "@/lib/supabase/safe-server";
 
 export default async function Page() {
-  const supabase = await getServerSupabaseClient();
-  const { data } = await supabase.from("table").select("*");
+  const supabase  await getServerSupabaseClient();
+  const { data }  await supabase.from("table").select("*");
   return {JSON.stringify(data)};
 }
 ```bash
@@ -38,14 +38,14 @@ import { createClient } from "@/lib/supabase/client";
 import { useEffect, useState } from "react";
 
 export function MyComponent() {
-  const [data, setData] = useState(null);
-  const supabase = createClient();
+  const [data, setData]  useState(null);
+  const supabase  createClient();
 
-  useEffect(() => {
+  useEffect(()  {
     supabase
       .from("table")
       .select("*")
-      .then(({ data }) => setData(data));
+      .then(({ data })  setData(data));
   }, []);
 
 
@@ -55,8 +55,8 @@ import { createClient } from '@/lib/supabase/server'
 import { NextResponse } from 'next/server'
 
 export async function GET() {
-  const supabase = await createClient()
-  const { data } = await supabase.from('table').select('*')
+  const supabase  await createClient()
+  const { data }  await supabase.from('table').select('*')
   return NextResponse.json(data)
 
 ## Deployment
@@ -81,6 +81,6 @@ The warnings about Node.js APIs in Edge Runtime are expected and safe because:
 
 To permanently suppress:
 
-- Add `runtime = "nodejs"` to route files that need full Node.js support
+- Add `runtime  "nodejs"` to route files that need full Node.js support
 - Use `// @ts-expect-error` for unavoidable warnings
 

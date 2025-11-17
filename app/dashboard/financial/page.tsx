@@ -26,7 +26,7 @@ export default function FinancialDashboard() {
     error,
     refresh,
     isInitialized,
-  } = useMCPIntegration();
+  }  useMCPIntegration();
 
   return (
     
@@ -42,53 +42,53 @@ export default function FinancialDashboard() {
                 
                   Auto-refresh {summary.refreshIntervalMinutes} minutes;
               )}
-              {summary.metadata?.queryTimeMs != null &&
-                summary.metadata?.totalTimeMs != null && (
+              {summary.metadata?.queryTimeMs ! null &&
+                summary.metadata?.totalTimeMs ! null && (
                   
                     API {summary.metadata.queryTimeMs.toFixed(1)}ms query ·{" "}
                     {summary.metadata.totalTimeMs.toFixed(1)}ms total;
                 )}
-              <span;
-                className={`rounded-full px-3 py-1 ${isInitialized ? "bg-emerald-500/10 text-emerald-200" : "bg-slate-600/20 text-slate-200"}`}
-               />
+              span;
+                className{`rounded-full px-3 py-1 ${isInitialized ? "bg-emerald-500/10 text-emerald-200" : "bg-slate-600/20 text-slate-200"}`}
+               /
                 {isInitialized ? "Live" : "Starting"}
               
             {error && error}
-            <Button;
-              size="sm"
-              variant="secondary"
-              className="bg-purple-500/20 text-purple-100 hover:bg-purple-500/40"
-              onClick={() = /> void refresh()}
-            >
+            Button;
+              size"sm"
+              variant"secondary"
+              className"bg-purple-500/20 text-purple-100 hover:bg-purple-500/40"
+              onClick{()  / void refresh()}
+            
               Refresh now;
-          <FinancialMetrics;
-            metrics=metrics
-            isLoading={isLoading && metrics.length === 0}
-            updatedAt={summary.updatedAt}
-          />
-          <GrowthChart;
-            series=growthSeries
-            isLoading={isLoading && growthSeries.length === 0}
-          <RiskAnalysis;
-            risk=riskProfile
-            isLoading={isLoading && !riskProfile}
-          <AIInsights;
-            insights=insights
-            providers=providers
-            isLoading={isLoading && insights.length === 0}
-            metadata={summary.metadata}
+          FinancialMetrics;
+            metricsmetrics
+            isLoading{isLoading && metrics.length  0}
+            updatedAt{summary.updatedAt}
+          /
+          GrowthChart;
+            seriesgrowthSeries
+            isLoading{isLoading && growthSeries.length  0}
+          RiskAnalysis;
+            riskriskProfile
+            isLoading{isLoading && !riskProfile}
+          AIInsights;
+            insightsinsights
+            providersproviders
+            isLoading{isLoading && insights.length  0}
+            metadata{summary.metadata}
         
-        <PredictiveSignals;
-          signals=predictiveSignals
-          isLoading={isLoading && predictiveSignals.length === 0}
-        />
+        PredictiveSignals;
+          signalspredictiveSignals
+          isLoading{isLoading && predictiveSignals.length  0}
+        /
 
-          <ProductOpportunities;
-            opportunities=productOpportunities
-            isLoading={isLoading && productOpportunities.length === 0}
-          <AIRunbooks;
-            runbooks=aiRunbooks
-            isLoading={isLoading && aiRunbooks.length === 0}
+          ProductOpportunities;
+            opportunitiesproductOpportunities
+            isLoading{isLoading && productOpportunities.length  0}
+          AIRunbooks;
+            runbooksaiRunbooks
+            isLoading{isLoading && aiRunbooks.length  0}
         
   );
 }

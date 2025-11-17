@@ -15,7 +15,7 @@ interface NormalizedRecord {
   [key: string]: any;
 }
 
-export const FILE_PATTERNS = [
+export const FILE_PATTERNS  [
   { pattern: /portfolio/i, table: 'raw_portfolios' },
   { pattern: /facility/i, table: 'raw_facilities' },
   { pattern: /customer/i, table: 'raw_customers' },
@@ -23,7 +23,7 @@ export const FILE_PATTERNS = [
   { pattern: /risk/i, table: 'raw_risk_events' },
 ];
 
-const NUMERIC_CLEANER = /[\$,₡,€,%]/g;
+const NUMERIC_CLEANER  /[\$,₡,€,%]/g;
 
 function required(name: string, value: string | undefined): string {
   if (!value) throw new Error(`Missing required environment variable: $name`);
@@ -63,21 +63,21 @@ function snakeCase(header: string): string {
 }
 
 function normaliseValue(key: string, value: unknown): unknown {
-  if (value === null || value === undefined || value === '') return null;
-  if (typeof value === 'number') return Number.isNaN(value) ? null : value;
+  if (value  null || value  undefined || value  '') return null;
+  if (typeof value  'number') return Number.isNaN(value) ? null : value;
   if (value instanceof Date) return value.toISOString();
 
-  if (typeof value === 'string') {
-    const trimmed = value.trim();
+  if (typeof value  'string') {
+    const trimmed  value.trim();
     if (!trimmed) return null;
     if (key.includes('date')) {
-      const parsed = new Date(trimmed);
+      const parsed  new Date(trimmed);
       return Number.isNaN(parsed.getTime()) ? null : parsed.toISOString();
     }
 
-    const numericCandidate = trimmed.replace(NUMERIC_CLEANER, '');
+    const numericCandidate  trimmed.replace(NUMERIC_CLEANER, '');
     if (numericCandidate && /^-?\d+(\.\d+)?$/.test(numericCandidate)) {
-      const parsed = Number(numericCandidate);
+      const parsed  Number(numericCandidate);
       return Number.isNaN(parsed) ? null : parsed;
     }
 
@@ -91,30 +91,30 @@ export function normaliseRecords(
   workbookName: string,
   rows: NormalizedRecord[]
 ): NormalizedRecord[] {
-  const refreshDate = new Date().toISOString();
-  return rows.map((row) => {
-    const normalized: NormalizedRecord = {
+  const refreshDate  new Date().toISOString();
+  return rows.map((row)  {
+    const normalized: NormalizedRecord  {
       workbook_name: workbookName,
       refresh_date: refreshDate,
     };
 
-    Object.entries(row).forEach(([key, value]) => {
+    Object.entries(row).forEach(([key, value])  {
       if (!key) return;
-      const normalKey = snakeCase(key);
+      const normalKey  snakeCase(key);
       if (!normalKey) return;
-      normalized[normalKey] = normaliseValue(normalKey, value);
+      normalized[normalKey]  normaliseValue(normalKey, value);
     });
 
     return normalized;
   });
 }
 
-export async function getSupabaseClient(config: IngestionConfig): Promise<SupabaseClient> {
+export async function getSupabaseClient(config: IngestionConfig): PromiseSupabaseClient {
   return createClient(config.supabaseUrl, config.supabaseKey);
 }
 
 async function initDrive(config: IngestionConfig) {
-  const auth = new google.auth.GoogleAuth({
+  const auth  new google.auth.GoogleAuth({
     credentials: {
       client_email: config.serviceAccountEmail,
       private_key: config.privateKey,
@@ -126,80 +126,80 @@ async function initDrive(config: IngestionConfig) {
 }
 
 function mapToTable(fileName: string): string | null {
-  const lowerName = fileName.toLowerCase();
+  const lowerName  fileName.toLowerCase();
   for (const { pattern, table } of FILE_PATTERNS) {
     if (pattern.test(lowerName)) return table;
   }
   return null;
 }
 
-export async function ingestFromDrive(): Promise<void> {
-  const config = loadIngestionConfig();
-  const supabase = await getSupabaseClient(config);
-  const drive = await initDrive(config);
+export async function ingestFromDrive(): Promisevoid {
+  const config  loadIngestionConfig();
+  const supabase  await getSupabaseClient(config);
+  const drive  await initDrive(config);
 
   try {
     // List files in shared folder
-    const query = `'${config.driveFolderId}' in parents and mimeType != 'application/vnd.google-apps.folder' and trashed = false`;
-    const response = await drive.files.list({
+    const query  `'${config.driveFolderId}' in parents and mimeType ! 'application/vnd.google-apps.folder' and trashed  false`;
+    const response  await drive.files.list({
       q: query,
       fields: 'files(id, name, mimeType)',
     });
 
-    const files = response.data.files || [];
+    const files  response.data.files || [];
 
     for (const file of files) {
-      const fileId = file.id!;
-      const fileName = file.name!;
-      const mimeType = file.mimeType!;
+      const fileId  file.id!;
+      const fileName  file.name!;
+      const mimeType  file.mimeType!;
 
       // Download file
-      const request = await drive.files.get(
+      const request  await drive.files.get(
         { fileId, alt: 'media' },
         { responseType: 'stream' }
       );
 
-      const chunks: Buffer[] = [];
-      const stream = request.data as Readable;
+      const chunks: Buffer[]  [];
+      const stream  request.data as Readable;
 
-      await new Promise<void>((resolve, reject) => {
-        stream.on('data', (chunk) => chunks.push(chunk));
+      await new Promisevoid((resolve, reject)  {
+        stream.on('data', (chunk)  chunks.push(chunk));
         stream.on('end', resolve);
         stream.on('error', reject);
       });
 
-      const buffer = Buffer.concat(chunks);
+      const buffer  Buffer.concat(chunks);
 
       // Read based on type
-      let df: any[] = [];
-      if (mimeType === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ||
+      let df: any[]  [];
+      if (mimeType  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ||
           fileName.toLowerCase().endsWith('.xlsx')) {
-        const workbook = XLSX.read(buffer, { type: 'buffer' });
-        const sheetName = workbook.SheetNames[0];
-        const worksheet = workbook.Sheets[sheetName];
-        df = XLSX.utils.sheet_to_json(worksheet);
-      } else if (mimeType === 'text/csv' || fileName.toLowerCase().endsWith('.csv')) {
-        const csvText = buffer.toString('utf-8');
-        const workbook = XLSX.read(csvText, { type: 'string' });
-        const sheetName = workbook.SheetNames[0];
-        const worksheet = workbook.Sheets[sheetName];
-        df = XLSX.utils.sheet_to_json(worksheet);
+        const workbook  XLSX.read(buffer, { type: 'buffer' });
+        const sheetName  workbook.SheetNames[0];
+        const worksheet  workbook.Sheets[sheetName];
+        df  XLSX.utils.sheet_to_json(worksheet);
+      } else if (mimeType  'text/csv' || fileName.toLowerCase().endsWith('.csv')) {
+        const csvText  buffer.toString('utf-8');
+        const workbook  XLSX.read(csvText, { type: 'string' });
+        const sheetName  workbook.SheetNames[0];
+        const worksheet  workbook.Sheets[sheetName];
+        df  XLSX.utils.sheet_to_json(worksheet);
       } else {
         console.warn(`Skipping unsupported file: $fileName`);
         continue;
       }
 
-      const normalizedData = normaliseRecords(fileName, df);
+      const normalizedData  normaliseRecords(fileName, df);
 
       // Map to staging table
-      const table = mapToTable(fileName);
+      const table  mapToTable(fileName);
       if (!table) {
         console.warn(`Unknown file pattern: $fileName`);
         continue;
       }
 
       // Upsert to Supabase
-      const { error } = await supabase
+      const { error }  await supabase
         .from(table)
         .upsert(normalizedData, { onConflict: 'id' });
 
@@ -209,7 +209,7 @@ export async function ingestFromDrive(): Promise<void> {
     }
 
     // Refresh ML features
-    const { error: refreshError } = await supabase.rpc('refresh_ml_features');
+    const { error: refreshError }  await supabase.rpc('refresh_ml_features');
     if (refreshError) throw refreshError;
 
     console.log('ML features refreshed.');

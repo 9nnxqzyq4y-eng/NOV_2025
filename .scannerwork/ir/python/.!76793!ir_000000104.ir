@@ -1,0 +1,14 @@
+
+"portfolio"str
+C:"⚠️ Credit concentration exceeds 35% regulatory limit"str
+"concentration"str
+0.35float
+0.03float
+0.05float
+)! "✅ No critical flags detected"str
+"kpis"str
+"npa"str
+"\n"str
+
+0int
+1("⚠️ NPA elevated above 5% threshold"strself

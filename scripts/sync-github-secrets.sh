@@ -1,16 +1,16 @@
 #!/bin/bash
 
-# ==============================================================================
+# 
 # Sync GitHub Secrets to Local .env.local
-# ==============================================================================
+# 
 # This script retrieves GitHub repository secrets and populates .env.local
 # Requires: GitHub CLI (gh) installed and authenticated
 
 set -e
 
-REPO_OWNER="JenineferDeras"
-REPO_NAME="ABT"
-ENV_FILE=".env.local"
+REPO_OWNER"JenineferDeras"
+REPO_NAME"ABT"
+ENV_FILE".env.local"
 
 echo "╔══════════════════════════════════════════════════════════════════════════╗"
 echo "║                                                                          ║"
@@ -20,7 +20,7 @@ echo "╚═══════════════════════�
 echo ""
 
 # Check if gh CLI is installed
-if ! command -v gh &> /dev/null; then
+if ! command -v gh & /dev/null; then
     echo "❌ ERROR: GitHub CLI (gh) is not installed"
     echo ""
     echo "Install with:"
@@ -31,7 +31,7 @@ if ! command -v gh &> /dev/null; then
 fi
 
 # Check if authenticated
-if ! gh auth status &> /dev/null; then
+if ! gh auth status & /dev/null; then
     echo "❌ ERROR: Not authenticated with GitHub CLI"
     echo ""
     echo "Authenticate with:"
@@ -44,7 +44,7 @@ echo ""
 
 # Backup existing .env.local
 if [ -f "$ENV_FILE" ]; then
-    BACKUP_FILE="${ENV_FILE}.backup-$(date +%Y%m%d-%H%M%S)"
+    BACKUP_FILE"${ENV_FILE}.backup-$(date +%Y%m%d-%H%M%S)"
     cp "$ENV_FILE" "$BACKUP_FILE"
     echo "✅ Backed up existing .env.local to: $BACKUP_FILE"
 else
@@ -63,8 +63,8 @@ echo ""
 
 # Function to update env variable
 update_env() {
-    local SECRET_NAME=$1
-    local ENV_VAR_NAME=$2
+    local SECRET_NAME$1
+    local ENV_VAR_NAME$2
     
     echo -n "Fetching $SECRET_NAME... "
     

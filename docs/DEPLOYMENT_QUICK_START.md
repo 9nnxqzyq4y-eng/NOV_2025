@@ -32,10 +32,10 @@
 
    Add these variables (use your actual values):
 
-   NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGc...
-   SUPABASE_SERVICE_ROLE_KEY=eyJhbGc...
-   GROK_API_KEY=xai-...  (optional)
+   NEXT_PUBLIC_SUPABASE_URLhttps://your-project.supabase.co
+   NEXT_PUBLIC_SUPABASE_ANON_KEYeyJhbGc...
+   SUPABASE_SERVICE_ROLE_KEYeyJhbGc...
+   GROK_API_KEYxai-...  (optional)
 
 1. **Deploy**
    vercel --prod
@@ -48,7 +48,6 @@ If you hit the 100 deployments/day limit:
 - **Upgrade**: Vercel Pro ($20/month) for unlimited deployments
 - **Use Git Integration**: Push to main branch instead of manual deploys (counts as 1 deployment per push)
 
----
 
 ### Option 2: Netlify (Free Alternative)
 
@@ -125,9 +124,9 @@ If you hit the 100 deployments/day limit:
 
 1. **Add Variables**
 
-   railway variables set NEXT_PUBLIC_SUPABASE_URL=your-value
-   railway variables set NEXT_PUBLIC_SUPABASE_ANON_KEY=your-value
-   railway variables set SUPABASE_SERVICE_ROLE_KEY=your-value
+   railway variables set NEXT_PUBLIC_SUPABASE_URLyour-value
+   railway variables set NEXT_PUBLIC_SUPABASE_ANON_KEYyour-value
+   railway variables set SUPABASE_SERVICE_ROLE_KEYyour-value
 
    railway up
 

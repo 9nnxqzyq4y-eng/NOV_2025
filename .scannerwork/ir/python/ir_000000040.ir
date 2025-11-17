@@ -6,5 +6,5 @@
 builtinslen*:Bint*
 (
  ("
-#binop !=#2!=:Bbool
+#binop !#2!:Bbool
  (*	typing.py

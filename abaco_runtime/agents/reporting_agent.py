@@ -1,4 +1,7 @@
-from typing import Dict, Any, List
+"""Reporting Agent for generating human-readable summaries."""
+
+from typing import List
+
 
 class ReportingAgent:
     """
@@ -10,19 +13,18 @@ class ReportingAgent:
     - Translates technical logs into business-friendly summaries.
     """
 
-    def run(self, context: Dict[str, Any], data: List[str]) -> str:
+    def run(self, data: List[str]) -> str:
         """
         Generates a human-readable report from a log of actions.
 
         Args:
-            context: The execution context (not used in this simple version).
             data: A list of log strings from the orchestration process.
 
         Returns:
             A formatted string report.
         """
         report_lines = ["# Data Processing Report", "---"]
-        
+
         initial_assessment = next((line for line in data if "Initial status" in line), None)
         final_assessment = next((line for line in data if "Final status" in line), None)
         cleaning_action = next((line for line in data if "Data cleaning complete" in line), None)
@@ -35,7 +37,7 @@ class ReportingAgent:
 
         if final_assessment:
             report_lines.append(f"\n## 3. Final Quality Verification\n- {final_assessment.strip()}")
-        
+
         report_lines.append("\n---\n**End of Report.**")
 
         return "\n".join(report_lines)

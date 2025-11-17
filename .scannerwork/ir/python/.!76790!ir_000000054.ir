@@ -1,0 +1,18 @@
+
+80int
+
+0int
+60int
+A8"⚠️ No feature data available. Run ingestion first."str
+
+"dpd_mean"str
+)"high_risk"str
+"ml_feature_snapshots"str
+"ltv"str
+90"Fetches and processes risk data from Supabase."str
+%"default_risk_score"str
+ "collection_rate"str
+	"avg_dpd"str
+NoneNoneType
+"*"str
+90int

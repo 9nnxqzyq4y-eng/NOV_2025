@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const LoanFeaturesSchema = z.object({
+export const LoanFeaturesSchema  z.object({
   utilization: z.number().optional(),
   dpd: z.number().optional(),
   apr: z.number().optional(),
@@ -13,7 +13,7 @@ export const LoanFeaturesSchema = z.object({
   tpv: z.number().optional(),
 })
 
-export type LoanFeatures = z.infer export const PredictionInputSchema = z.object({
+export type LoanFeatures  z.infer export const PredictionInputSchema  z.object({
   loanId: z.string(),
   transferId: z.string().optional(),
   features: LoanFeaturesSchema,
@@ -22,7 +22,7 @@ export type LoanFeatures = z.infer export const PredictionInputSchema = z.object
     .object({ high: z.number().optional(), medium: z.number().optional() })
     .optional(),
 
-export type PredictionInput = z.infer export type PredictionRecord = {
+export type PredictionInput  z.infer export type PredictionRecord  {
   id: string;
   loan_id: string;
   score: number;
@@ -35,7 +35,7 @@ export type PredictionInput = z.infer export type PredictionRecord = {
   created_at: string;
 }
 
-export const FeedbackInputSchema = z.object({
+export const FeedbackInputSchema  z.object({
   predictionId: z.string(),
   loanId: z.string().optional(),
   outcomeLabel: z.string().optional(),
@@ -43,4 +43,4 @@ export const FeedbackInputSchema = z.object({
   correct: z.boolean().optional(),
   comments: z.string().optional(),
 
-export type FeedbackInput = z.infer;
+export type FeedbackInput  z.infer;

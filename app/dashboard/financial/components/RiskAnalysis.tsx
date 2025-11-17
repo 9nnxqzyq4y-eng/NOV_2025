@@ -32,11 +32,11 @@ function badgeClass(status: RiskOverview["status"]): string {
 function renderSkeleton() {
   return (
     
-      {Array.from({ length: 3 }).map((_, index) => (
-        <div;
-          key=index
-          className="rounded-lg border border-purple-400/10 bg-slate-900/40 p-4"
-         />
+      {Array.from({ length: 3 }).map((_, index)  (
+        div;
+          keyindex
+          className"rounded-lg border border-purple-400/10 bg-slate-900/40 p-4"
+         /
           
       ))}
     
@@ -46,8 +46,8 @@ export default function RiskAnalysis({ risk, isLoading }: RiskAnalysisProps) {
     
           Risk Analysis Portfolio risk posture, stress scenarios, and concentration alerts.
           
-        <span;
-          className={`rounded-full px-3 py-1 text-xs font-medium ${risk ? badgeClass(risk.status) : "bg-slate-600/30 text-slate-200"}`}
+        span;
+          className{`rounded-full px-3 py-1 text-xs font-medium ${risk ? badgeClass(risk.status) : "bg-slate-600/30 text-slate-200"}`}
           {risk ? `${risk.status.toUpperCase()} RISK` : "Pending"}
         
       {isLoading ? (
@@ -74,34 +74,34 @@ export default function RiskAnalysis({ risk, isLoading }: RiskAnalysisProps) {
                 Lower is better
               
               Sector Exposures;
-              {risk.exposures.map((exposure) => (
-                <div;
-                  key={exposure.sector}
-                  className="rounded-lg border border-purple-400/10 bg-slate-900/30 p-4"
-                 />
+              {risk.exposures.map((exposure)  (
+                div;
+                  key{exposure.sector}
+                  className"rounded-lg border border-purple-400/10 bg-slate-900/30 p-4"
+                 /
                   
                         {exposure.sector}
                       
                         {(exposure.allocation * 100).toFixed(1)}% allocation;
-                    <div;
-                      className={`text-xs font-medium ${exposure.changeBps  />= 0 ? "text-emerald-400" : "text-rose-400"}`}
-                    >
-                      {exposure.changeBps >= 0 ? "+" : ""}
+                    div;
+                      className{`text-xs font-medium ${exposure.changeBps  / 0 ? "text-emerald-400" : "text-rose-400"}`}
+                    
+                      {exposure.changeBps  0 ? "+" : ""}
                       {exposure.changeBps} bps;
-                      className="h-{2} rounded bg-gradient-to-r from-purple-500 via-purple-400 to-purple-300"
-                      style={{
+                      className"h-{2} rounded bg-gradient-to-r from-purple-500 via-purple-400 to-purple-300"
+                      style{{
                         width: `${Math.min(100, exposure.allocation * 100)}%`,
                       }}
-                    />
+                    /
                   
               ))}
             
                 Stress Scenarios;
-                {risk.stressScenarios.map((scenario) => (
-                  <li;
-                    key={scenario.scenario}
-                    className="flex items-start justify-between gap-4"
-                   />
+                {risk.stressScenarios.map((scenario)  (
+                  li;
+                    key{scenario.scenario}
+                    className"flex items-start justify-between gap-4"
+                   /
                     
                         {scenario.scenario}
                       
@@ -111,21 +111,21 @@ export default function RiskAnalysis({ risk, isLoading }: RiskAnalysisProps) {
                 ))}
               
                 Early Warnings;
-                {risk.earlyWarnings.map((warning) => (
-                    key={warning.id}
-                    className="rounded-lg border border-purple-400/10 bg-slate-900/40 p-3"
+                {risk.earlyWarnings.map((warning)  (
+                    key{warning.id}
+                    className"rounded-lg border border-purple-400/10 bg-slate-900/40 p-3"
                     
                         {warning.label}
                       
-                      <span;
-                        className={`text-xs font-semibold ${
-                          warning.severity === "high"
+                      span;
+                        className{`text-xs font-semibold ${
+                          warning.severity  "high"
                             ? "text-rose-300"
-                            : warning.severity === "moderate"
+                            : warning.severity  "moderate"
                               ? "text-amber-300"
                               : "text-emerald-300"
                         }`}
-                       />
+                       /
                         {warning.severity.toUpperCase()}
                       
                       {warning.detail}

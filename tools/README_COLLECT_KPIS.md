@@ -19,7 +19,7 @@ Files covered
 - tools/supabase_backfill_ml.py
 
 Typical local quick-run (preferred)
-1. Copy `.env.example` -> `.env` and set `DRIVE_FILE_IDS` to local CSV paths.
+1. Copy `.env.example` - `.env` and set `DRIVE_FILE_IDS` to local CSV paths.
 2. Install deps:
    ```
    pip install pandas numpy
@@ -44,14 +44,14 @@ SonarQube MCP workflow (operational)
   - `toggle_automatic_analysis --off` (if available)
 - Run ingestion/backfill
 - Analyze changed/generated files:
-  - `analyze_file_list <files>` (if available)
+  - `analyze_file_list files` (if available)
 - Re-enable automatic analysis:
   - `toggle_automatic_analysis --on` (if available)
 
 Security notes
 - Never commit secrets.
 - Prefer local CSVs for development and gated service accounts in production runs.
-- In CI, set CI=1 to disable external downloads.
+- In CI, set CI1 to disable external downloads.
 
 Troubleshooting
 - Collector prints JSON with `status: "metric_unavailable"` on misconfig or missing deps.

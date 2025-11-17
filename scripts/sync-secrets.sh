@@ -1,15 +1,15 @@
 #!/bin/bash
 
-# ==============================================================================
+# 
 # Automated GitHub Secrets → .env.local Sync
-# ==============================================================================
+# 
 # Uses GitHub CLI to fetch secrets and populate .env.local
 # Note: This uses a workaround since secrets can't be retrieved directly
 
 set -e
 
-REPO="JenineferDeras/ABT"
-ENV_FILE=".env.local"
+REPO"JenineferDeras/ABT"
+ENV_FILE".env.local"
 
 echo "╔══════════════════════════════════════════════════════════════════════════╗"
 echo "║                                                                          ║"
@@ -19,7 +19,7 @@ echo "╚═══════════════════════�
 echo ""
 
 # Check gh CLI
-if ! command -v gh &> /dev/null; then
+if ! command -v gh & /dev/null; then
     echo "❌ GitHub CLI not installed. Install with: brew install gh"
     exit 1
 fi
@@ -47,17 +47,17 @@ echo ""
 
 # Function to update .env.local
 update_env() {
-    local KEY=$1
-    local VALUE=$2
+    local KEY$1
+    local VALUE$2
     
-    if [ -n "$VALUE" ] && [ "$VALUE" != "***" ]; then
+    if [ -n "$VALUE" ] && [ "$VALUE" ! "***" ]; then
         # Use sed to replace the placeholder
-        if [[ "$OSTYPE" == "darwin"* ]]; then
+        if [[ "$OSTYPE"  "darwin"* ]]; then
             # macOS
-            sed -i '' "s|^${KEY}=.*|${KEY}=${VALUE}|g" "$ENV_FILE"
+            sed -i '' "s|^${KEY}.*|${KEY}${VALUE}|g" "$ENV_FILE"
         else
             # Linux
-            sed -i "s|^${KEY}=.*|${KEY}=${VALUE}|g" "$ENV_FILE"
+            sed -i "s|^${KEY}.*|${KEY}${VALUE}|g" "$ENV_FILE"
         fi
         echo "✅ Updated: $KEY"
     fi
@@ -88,7 +88,7 @@ echo ""
 read -p "Would you like to enter secrets now? (y/n): " -n 1 -r
 echo ""
 
-if [[ $REPLY =~ ^[Yy]$ ]]; then
+if [[ $REPLY ~ ^[Yy]$ ]]; then
     echo ""
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo "📝 Enter Secret Values (paste from GitHub Secrets page)"
@@ -187,8 +187,8 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 fi
 
 # Count configured vars
-CONFIGURED=$(grep -E "^[A-Z_]+=(?!.*your-|.*sk-proj-\.\.\.|.*AIza\.\.\.|.*xai-\.\.\.).+" "$ENV_FILE" 2>/dev/null | wc -l | tr -d ' ')
-TOTAL=$(grep -E "^[A-Z_]+=.+" "$ENV_FILE" 2>/dev/null | wc -l | tr -d ' ')
+CONFIGURED$(grep -E "^[A-Z_]+(?!.*your-|.*sk-proj-\.\.\.|.*AIza\.\.\.|.*xai-\.\.\.).+" "$ENV_FILE" 2/dev/null | wc -l | tr -d ' ')
+TOTAL$(grep -E "^[A-Z_]+.+" "$ENV_FILE" 2/dev/null | wc -l | tr -d ' ')
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "📊 Configuration Status"
