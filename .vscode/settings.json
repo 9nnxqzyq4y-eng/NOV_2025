@@ -14,5 +14,9 @@
   "java.codeGeneration.hashCodeEquals.useJava7Objects": true,
   "java.codeGeneration.useBlocks": true,
   "java.inlayHints.parameterTypes.enabled": true,
-  "java.inlayHints.variableTypes.enabled": true
+  "java.inlayHints.variableTypes.enabled": true,
+  "sonarlint.connectedMode.project": {
+    "connectionId": "jenineferderas",
+    "projectKey": "my-awesome-project"
+  }
 }
