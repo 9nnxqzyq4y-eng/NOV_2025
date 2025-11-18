@@ -72,3 +72,15 @@ build/
 __pycache__/
 *.tsbuildinfo
 public/tsconfig.tsbuildinfo
+# build & deps
+node_modules/
+.venv/
+.next/
+dist/
+build/
+__pycache__/
+# artefactos TS
+*.tsbuildinfo
+public/tsconfig.tsbuildinfo
+# temporales locales
+*.csv
