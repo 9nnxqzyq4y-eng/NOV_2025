@@ -84,3 +84,4 @@ __pycache__/
 public/tsconfig.tsbuildinfo
 # temporales locales
 *.csv
+public/next-env.d.ts
