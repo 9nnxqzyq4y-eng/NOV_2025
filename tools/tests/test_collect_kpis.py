@@ -10,9 +10,9 @@ def test_collect_kpis_fails_closed_if_no_env(monkeypatch):
 
     proc  subprocess.run(
         ["python3", "tools/collect_kpis_from_drive.py"],
-        stdoutsubprocess.PIPE,
-        stderrsubprocess.PIPE,
-        textTrue,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
     )
     # Collector must exit non-zero and print JSON with status 'metric_unavailable'
     assert proc.returncode ! 0

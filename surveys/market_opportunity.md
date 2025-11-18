@@ -166,7 +166,6 @@ Identificar nuevas oportunidades de mercado y validar tesis de expansión.
 - [ ] Crédito para equipo
 - [ ] Asesoría financiera
 
-
 ## Sección 6: Validación de Tesis
 
 ### 6.1 Meta Q4-2025: 100-160k impresiones → 225-305 leads

@@ -68,7 +68,7 @@ Medir la satisfacción de clientes actuales y profundizar en las tesis de factor
 
 ### 3.1 Flujo de Caja
 
-**¿Cómo ha impactado Abaco en su flujo de caja?**
+#### ¿Cómo ha impactado Abaco en su flujo de caja?
 
 - [ ] Impacto crítico - Resolvió problema urgente
 - [ ] Impacto significativo - Mejoró operaciones considerablemente
@@ -111,7 +111,7 @@ Medir la satisfacción de clientes actuales y profundizar en las tesis de factor
 
 ### 4.1 Alternativas Consideradas
 
-**Antes de Abaco, ¿qué alternativas usaba o consideró?**
+#### Antes de Abaco, ¿qué alternativas usaba o consideró?
 
 - [ ] Banco tradicional (línea de crédito)
 - [ ] Otra empresa de factoraje
@@ -121,7 +121,7 @@ Medir la satisfacción de clientes actuales y profundizar en las tesis de factor
 
 ### 4.2 Ventajas de Abaco
 
-**¿Por qué eligió Abaco sobre las alternativas? (Marque top 3)**
+#### ¿Por qué eligió Abaco sobre las alternativas? (Marque top 3)
 
 - [ ] Velocidad de aprobación
 - [ ] Proceso digital simple
@@ -131,12 +131,11 @@ Medir la satisfacción de clientes actuales y profundizar en las tesis de factor
 - [ ] Flexibilidad en montos
 - [ ] Transparencia
 
-
 ## Sección 5: Profundización en Tesis
 
 ### 5.1 Ticket Promedio (Tesis: Tickets $10k necesitan canal digital)
 
-**¿Cuál es el monto típico de sus facturas con Abaco?**
+#### ¿Cuál es el monto típico de sus facturas con Abaco?
 
 - [ ] Menos de $5,000
 - [ ] $5,000 - $10,000
@@ -144,7 +143,7 @@ Medir la satisfacción de clientes actuales y profundizar en las tesis de factor
 - [ ] $50,001 - $150,000
 - [ ] Más de $150,000
 
-**Si sus facturas son $10k, ¿preferiría:**
+#### Si sus facturas son >$10k, ¿preferiría:
 
 - [ ] Proceso 100% digital (app/web)
 - [ ] Proceso híbrido (digital + ejecutivo ocasional)
@@ -152,14 +151,14 @@ Medir la satisfacción de clientes actuales y profundizar en las tesis de factor
 
 ### 5.2 Rotación de Portafolio (Tesis: 3.6x rotación)
 
-**¿Cuántas veces al mes factorea sus cuentas por cobrar?**
+#### ¿Cuántas veces al mes factorea sus cuentas por cobrar?
 
 - [ ] 1-2 veces
 - [ ] 3-4 veces
 - [ ] 5-6 veces
 - [ ] Más de 6 veces
 
-**¿Le gustaría poder factorear con mayor frecuencia?**
+#### ¿Le gustaría poder factorear con mayor frecuencia?
 
 - [ ] Sí, definitivamente
 - [ ] Tal vez, dependiendo de condiciones
@@ -167,7 +166,7 @@ Medir la satisfacción de clientes actuales y profundizar en las tesis de factor
 
 ### 5.3 DPD (Days Past Due) - Tesis: Mejorar a 12%
 
-**¿Alguna vez ha tenido retrasos en el pago de sus clientes finales?**
+#### ¿Alguna vez ha tenido retrasos en el pago de sus clientes finales?
 
 - [ ] Nunca (0%)
 - [ ] Rara vez (1-5%)
@@ -175,7 +174,7 @@ Medir la satisfacción de clientes actuales y profundizar en las tesis de factor
 - [ ] Frecuentemente (16-30%)
 - [ ] Muy frecuentemente (30%)
 
-**Si ha tenido retrasos, ¿cómo los maneja?**
+#### Si ha tenido retrasos, ¿cómo los maneja?
 
 - [ ] Contacto directo con cliente
 - [ ] Abaco me ayuda con cobranza
@@ -184,7 +183,7 @@ Medir la satisfacción de clientes actuales y profundizar en las tesis de factor
 
 ### 5.4 Eficiencia Operativa (Tesis: 93.6% → ≥96%)
 
-**¿Qué porcentaje de sus solicitudes son aprobadas?**
+#### ¿Qué porcentaje de sus solicitudes son aprobadas?
 
 - [ ] 100%
 - [ ] 90-99%
@@ -192,7 +191,7 @@ Medir la satisfacción de clientes actuales y profundizar en las tesis de factor
 - [ ] 70-79%
 - [ ] Menos de 70%
 
-**Si ha tenido rechazos, ¿cuál fue la razón principal?**
+#### Si ha tenido rechazos, ¿cuál fue la razón principal?
 
 - [ ] Información incompleta
 - [ ] Cliente final no cumple criterios
@@ -205,7 +204,7 @@ Medir la satisfacción de clientes actuales y profundizar en las tesis de factor
 
 ### 6.1 Descubrimiento
 
-**¿Cómo conoció Abaco?**
+#### ¿Cómo conoció Abaco?
 
 - [ ] Búsqueda en Google
 - [ ] Redes sociales (¿Cuál? \***\*\_\_\_\_\*\***)
@@ -217,7 +216,7 @@ Medir la satisfacción de clientes actuales y profundizar en las tesis de factor
 
 ### 6.2 Canal Preferido
 
-**¿Cómo prefiere comunicarse con Abaco?**
+#### ¿Cómo prefiere comunicarse con Abaco?
 
 - [ ] WhatsApp
 - [ ] Email
@@ -229,13 +228,13 @@ Medir la satisfacción de clientes actuales y profundizar en las tesis de factor
 
 ## Sección 7: Net Promoter Score (NPS)
 
-**En una escala del 0 al 10, ¿qué tan probable es que recomiende Abaco a otro empresario?**
+#### En una escala del 0 al 10, ¿qué tan probable es que recomiende Abaco a otro empresario?
 
 - [ ] 0-6 (Detractor)
 - [ ] 7-8 (Pasivo)
 - [ ] 9-10 (Promotor)
 
-**¿Por qué le dio esa calificación?**
+#### ¿Por qué le dio esa calificación?
 
 
 
@@ -244,14 +243,14 @@ Medir la satisfacción de clientes actuales y profundizar en las tesis de factor
 
 ### 8.1 Mejoras Sugeridas
 
-**¿Qué mejoraría de Abaco?**
+#### ¿Qué mejoraría de Abaco?
 
 
 
 
 ### 8.2 Características Deseadas
 
-**¿Qué nuevas características le gustaría ver?**
+#### ¿Qué nuevas características le gustaría ver?
 
 - [ ] App móvil
 - [ ] Reportes automáticos
@@ -260,19 +259,19 @@ Medir la satisfacción de clientes actuales y profundizar en las tesis de factor
 - [ ] Alertas personalizadas
 
 ### 8.3 Comentarios Adicionales
-
+#### ¿Hay algo más que le gustaría compartir?
 
 
 
 
 ## Sección 9: Autorización
 
-**¿Autoriza que Abaco use sus respuestas (anónimas) para mejorar el servicio?**
+#### ¿Autoriza que Abaco use sus respuestas (anónimas) para mejorar el servicio?
 
 - [ ] Sí
 - [ ] No
 
-**¿Le gustaría participar en una entrevista más profunda (30 min)?**
+#### ¿Le gustaría participar en una entrevista más profunda (30 min)?
 
 - [ ] Sí, contacto: **\*\***\_\_\_**\*\***
 

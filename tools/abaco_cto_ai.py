@@ -14,7 +14,7 @@ logging.basicConfig(levellogging.INFO, format'%(asctime)s - %(levelname)s - %(me
 logger  logging.getLogger(__name__)
 
 # Constants
-GATING_THRESHOLD  2.0  # Increased from dangerously low 1.0
+GATING_THRESHOLD = 2.0  # Increased from dangerously low 1.0
 TOOL_VERSION  "3.0.0"
 HIGH_CONFIDENCE  0.9
 MEDIUM_CONFIDENCE  0.7
