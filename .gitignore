@@ -64,3 +64,11 @@ htmlcov/
 # Temporary
 *.bak
 *.tmp
+node_modules/
+.venv/
+dist/
+build/
+.next/
+__pycache__/
+*.tsbuildinfo
+public/tsconfig.tsbuildinfo
